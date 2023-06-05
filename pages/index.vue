@@ -32,7 +32,9 @@
   }
 
   async function resetPassword() {
-    const { user, error } = await supabase.auth.resetPasswordForEmail(emailReset);
+    const { user, error } = await supabase.auth.resetPasswordForEmail(emailReset.value, {
+      redirectTo: 'http://localhost:3000/reset-password',
+    });
 
     reset.value = true;
     emailReset.value = null;
@@ -83,7 +85,7 @@
               Réinitialiser
             </button>
             <div class="text-sm font-medium text-gray-400">
-              <span class="text-custom-white hover:underline hover:cursor-pointer" @click="loginCard=true">Se connecter</span>
+              <span class="text-custom-white hover:underline hover:cursor-pointer" @click="errorLogin=false; loginCard=true">Se connecter</span>
             </div>
           </form>
 
