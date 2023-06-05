@@ -13,6 +13,7 @@ module.exports = {
   theme: {
     colors: {
       'custom-black': '#282B2A',
+      'custom-grey': '#313534',
       'custom-red': '#E53F49',
       'custom-green': '#00BB7E',
       'custom-white': '#FDFDFD',

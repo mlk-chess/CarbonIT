@@ -30,12 +30,12 @@
 </script>
 
 <template>
-  <section class="bg-gray-50">
+  <section class="bg-custom-black">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div
-          class="w-full max-w-sm p-4 bg-custom-black border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+          class="w-full max-w-sm shadow bg-custom-grey rounded-lg p-4 sm:p-6 md:p-8">
         <form class="space-y-6" v-on:submit.prevent="login">
-          <h5 class="text-xl font-medium text-custom-white">Connexion</h5>
+          <h5 class="text-xl font-medium text-custom-white text-center">Connexion</h5>
           <div>
             <label for="email" class="block mb-2 text-sm font-medium text-custom-white">Email</label>
             <input type="email" name="email" id="email"
@@ -50,7 +50,7 @@
           </div>
           <p v-if="errorLogin" class="text-center mt-4 text-custom-red">Identifiants incorrects</p>
           <button type="submit"
-                  class="w-full text-white bg-custom-red font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                  class="w-full text-white bg-custom-red font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-green hover:text-black">
             Se connecter
           </button>
         </form>
