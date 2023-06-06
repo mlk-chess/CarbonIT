@@ -9,13 +9,13 @@
             <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Objectif</label>
             <input v-model="title" type="text" name="title" id="title"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-red focus:border-custom-red block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                   placeholder="Nom" required="">
+                   placeholder="Titre de l'objectif" required="">
           </div>
           <div class="w-full">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
             <textarea v-model="description" type="text" name="description" id="description"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-red focus:border-custom-red block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                   placeholder="description" required=""></textarea>
+                   placeholder="Description de l'objectif" required=""></textarea>
           </div>
 
         </div>
