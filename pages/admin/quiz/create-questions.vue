@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="text-2xl font-bold mb-4">Insérer des questions pour le quizz : </h2>
-        <form @submit.prevent="saveQuiz">
+        <form @submit.prevent="saveQuestion">
             <div v-for="(question, questionIndex) in questions" :key="questionIndex" class="mb-4">
                 <h3 class="text-xl font-bold mb-2">Question {{ questionIndex + 1 }}</h3>
                 <div class="mb-2">
@@ -73,7 +73,7 @@ export default {
         removeQuestion(questionIndex) {
             this.questions.splice(questionIndex, 1);
         },
-        saveQuiz() {
+        saveQuestion() {
             console.log(this.questions);
         }
     }

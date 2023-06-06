@@ -48,15 +48,15 @@
 
 <script>
 export default {
-    name: 'Difficulty',
-
-    data() {
-    },
-    methods: {
-        setDifficulty(difficulty) {
-            this.difficulty = difficulty;
+    props: {
+        difficulty: {
+            type: [Number, String],
+            required: true
         },
+        setDifficulty: {
+            type: Function,
+            required: true
+        }
     }
-
 }
 </script>
