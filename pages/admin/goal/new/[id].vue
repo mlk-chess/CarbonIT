@@ -35,6 +35,9 @@ const description = ref("");
 const status = ref(0);
 const supabase = useSupabaseClient();
 
+const route = useRoute();
+const id = route.params.id;
+
 async function saveGoal() {
   await $fetch('/api/goal/new', {
     method: 'post',
@@ -42,6 +45,7 @@ async function saveGoal() {
       title: title.value,
       description: description.value,
       status: status.value,
+      id: id
     }
   });
 }

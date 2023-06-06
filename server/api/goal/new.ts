@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
             title: body.title,
             description: body.description,
             status: body.status,
+            user_id: body.id,
         }]);
 
     if(newErrorGoal) {
