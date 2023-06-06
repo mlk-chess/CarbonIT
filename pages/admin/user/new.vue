@@ -3,6 +3,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 
+const router = useRouter()
 const firstname = ref("");
 const name = ref("");
 const status = ref("0");
@@ -28,6 +29,8 @@ async function saveUser() {
       zip: zip.value,
     }
   });
+
+  await router.push('/admin/user');
 }
 </script>
 
