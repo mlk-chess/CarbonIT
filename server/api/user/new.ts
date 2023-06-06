@@ -19,9 +19,10 @@ export default defineEventHandler(async (event) => {
 
     const generatedPassword = generatePassword();
 
-    const { data: dataUser, error: errorUser } = await supabase.auth.signUp({
+    const { data: dataUser, error: errorUser } = await supabase.auth.createUser({
         email: body.email,
         password: generatedPassword,
+        email_confirm: true
     })
 
     if(errorUser) {
