@@ -1,8 +1,8 @@
-import { serverSupabaseClient } from '#supabase/server';
+import { serverSupabaseServiceRole } from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
-    const supabase = serverSupabaseClient(event);
+    const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);
 
     function generatePassword() {
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
 
     const generatedPassword = generatePassword();
 
-    const { data: dataUser, error: errorUser } = await supabase.auth.createUser({
+    const { data: dataUser, error: errorUser } = await supabase.auth.admin.createUser({
         email: body.email,
         password: generatedPassword,
         email_confirm: true
@@ -45,6 +45,14 @@ export default defineEventHandler(async (event) => {
         }]);
 
     if(newErrorUser) {
+        return 'Error';
+    }
+
+    const { data, error } = await supabase.auth.resetPasswordForEmail(body.email, {
+        redirectTo: 'http://localhost:3000/reset-password',
+    });
+
+    if(error) {
         return 'Error';
     }
 
