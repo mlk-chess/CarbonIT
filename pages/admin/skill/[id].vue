@@ -7,7 +7,16 @@ const route = useRoute();
 const id = route.params.id;
 const supabase = useSupabaseClient();
 const skills = ref([]);
+const currentSkills = ref([]);
 const search = ref('');
+
+onMounted(async() => {
+  const {data, error} = await supabase
+      .from('user_skill')
+      .select('*')
+      .eq('user_id', id)
+  currentSkills.value = data;
+});
 
 async function getSkill(value) {
   const {data, error} = await supabase
@@ -15,8 +24,6 @@ async function getSkill(value) {
       .select()
       .ilike('title', `%${value.toLowerCase()}%`)
       .range(0, 5);
-
-  console.log(data)
 
   skills.value = data;
 }
@@ -27,7 +34,19 @@ watch(search, async (newSearch) => {
   }else {
     skills.value = []
   }
-})
+});
+
+async function addSkill(skillId) {
+  skills.value = [];
+
+  await $fetch('/api/skill/user/new', {
+    method: 'post',
+    body: {
+      userId: id,
+      skillId: skillId,
+    }
+  });
+}
 </script>
 
 <template>
@@ -53,7 +72,7 @@ watch(search, async (newSearch) => {
             <div v-for="(skill, index) in skills" :key="index">
               <div class="flex justify-between items-center">
                 <p>{{skill.title}}</p>
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <button @click="addSkill(skill.id)" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>

@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
         return 'Error';
     }
 
-    const {data: newDataUser, newErrorUser} = await supabase
+    const {data: newDataUser, error: newErrorUser} = await supabase
         .from('user')
         .insert([{
             lastname: body.name,
