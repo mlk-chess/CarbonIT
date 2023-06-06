@@ -2,7 +2,7 @@
   <section>
     <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
       <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Créer un objectif</h2>
-      <form v-on:submit.prevent="saveUser">
+      <form v-on:submit.prevent="saveGoal">
         <div class="grid gap-4 sm:grid-cols-1 sm:gap-6">
            
           <div class="w-full">
@@ -32,5 +32,17 @@
 
 const title = ref("");
 const description = ref("");
+const status = ref(0);
+const supabase = useSupabaseClient();
 
+async function saveGoal() {
+  await $fetch('/api/goal/new', {
+    method: 'post',
+    body: {
+      title: title.value,
+      description: description.value,
+      status: status.value,
+    }
+  });
+}
 </script>

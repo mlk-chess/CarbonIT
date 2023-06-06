@@ -7,9 +7,9 @@
         <p class="mb-3 font-normal text-gray-700">{{ goal.description }}</p>
       </li>
       <div class="flex justify-end items-center mt-5 pb-5 sm:pr-5 md:w-1/2">
-        <p v-if="goal.statut == 1" class="mb-3 italic text-gray-500">Validé</p>
-        <p v-if="goal.statut == 0" class="mb-3 italic text-gray-500">Non validé</p>
-        <p v-if="goal.statut == 2" class="mb-3 italic text-gray-500">En cours</p>
+        <p v-if="goal.status == 1" class="mb-3 italic text-gray-500">Validé</p>
+        <p v-if="goal.status == 0" class="mb-3 italic text-gray-500">Non validé</p>
+        <p v-if="goal.status == 2" class="mb-3 italic text-gray-500">En cours</p>
       </div>
     </ul> 
   </div>
