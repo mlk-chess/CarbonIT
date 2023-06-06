@@ -1,6 +1,6 @@
 <template>
     <div class="mb-2">
-        <label for="difficulty" class="block mb-1">Difficulté:</label>
+        <label for="difficulty" class="block mb-1">Niveau du quiz</label>
         <div class="flex items-center">
             <svg @click="setDifficulty(1)" aria-hidden="true" class="w-5 h-5 cursor-pointer"
                 :class="{ 'text-yellow-400': difficulty >= 1, 'text-gray-300 dark:text-gray-500': difficulty !== 'easy' }"
