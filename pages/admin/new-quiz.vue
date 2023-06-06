@@ -2,17 +2,26 @@
     <div>
         <h2 class="text-2xl font-bold mb-4">Créer un quiz</h2>
         <form @submit.prevent="saveQuiz">
-            <div class="mb-2">
-                <label for="question" class="block mb-1">Question:</label>
-                <input type="text" v-model="questionText" required class="input">
-            </div>
-            <div v-for="(answer, answerIndex) in answers" :key="answerIndex" class="flex items-center mb-2">
-                <input type="text" v-model="answer.answerText" required class="input mr-2">
-                <label class="flex items-center">
-                    <input type="radio" v-model="correctAnswer" :value="answerIndex" class="checkbox">
-                    <span class="ml-2">Correcte</span>
-                </label>
-            </div>
+                <div v-for="(question, questionIndex) in questions" :key="questionIndex" class="mb-4">
+                    <h3 class="text-xl font-bold mb-2">Question {{ questionIndex + 1 }}</h3>
+                    <div class="mb-2">
+                        <label for="question" class="block mb-1">Question:</label>
+                        <input type="text" v-model="question.questionText" required class="input">
+                    </div>
+                    <div v-for="(answer, answerIndex) in question.answers" :key="answerIndex" class="flex items-center mb-2">
+                        <input type="text" v-model="answer.answerText" required class="input mr-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" v-model="answer.isCorrect" class="checkbox">
+                            <span class="ml-2">Correcte</span>
+                        </label>
+                    </div>
+                    <div class="flex">
+                        <button type="button" @click="addAnswer(questionIndex)" class="btn-primary mr-2">Ajouter une
+                            réponse</button>
+                        <button type="button" @click="removeAnswer(questionIndex, answerIndex)" class="btn-secondary">Supprimer
+                            la réponse</button>
+                    </div>
+                </div>
             <div class="mb-2">
                 <label for="difficulty" class="block mb-1">Difficulté:</label>
                 <div class="flex items-center">
@@ -67,9 +76,17 @@
 export default {
     data() {
         return {
-            questionText: '',
-            answers: [{ answerText: '' }, { answerText: '' }],
-            correctAnswer: '',
+            questions: [
+                {
+                    questionText: '',
+                    answers: [
+                        {
+                            answerText: '',
+                            isCorrect: false
+                        }
+                    ]
+                }
+            ],
             difficulty: 0
         };
     },
@@ -85,8 +102,38 @@ export default {
                 difficulty: this.difficulty
             };
             console.log(quiz);
-        }
+        },
+        addAnswer(questionIndex) {
+            this.questions[questionIndex].answers.push({
+                answerText: '',
+                isCorrect: false
+            });
+        },
+        removeAnswer(questionIndex, answerIndex) {
+            this.questions[questionIndex].answers.splice(answerIndex, 1);
+        },
+        addQuestion() {
+            this.questions.push({
+                questionText: '',
+                answers: [
+                    {
+                        answerText: '',
+                        isCorrect: false
+                    }
+                ]
+            });
+        },
+        removeQuestion(questionIndex) {
+            this.questions.splice(questionIndex, 1);
+        },
+        // saveQuiz() {
+        //     console.log(this.questions);
+        // }
     }
+
 }
 
 </script>
+<style>
+@import 'flowbite/dist/flowbite.css';
+</style>
