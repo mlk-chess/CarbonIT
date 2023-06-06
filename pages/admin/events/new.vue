@@ -1,7 +1,7 @@
 <script setup>
-// definePageMeta({
-//   middleware: ["auth"],
-// });
+definePageMeta({
+  middleware: ["auth"],
+});
 
 const title = ref("");
 const description = ref("");
@@ -9,20 +9,14 @@ const dateEvent = ref(null);
 
 
 async function saveEvent() {
-//   await $fetch('/api/user/new', {
-//     method: 'post',
-//     body: {
-//       name: name.value,
-//       firstname: firstname.value,
-//       status: status.value,
-//       city: city.value,
-//       phone: phone.value,
-//       address: address.value,
-//       email: email.value,
-//       rib: rib.value,
-//       zip: zip.value,
-//     }
-//   });
+  await $fetch('/api/event/new', {
+    method: 'post',
+    body: {
+      title: title.value,
+      description: description.value,
+      dateEvent : dateEvent.value
+    }
+  });
 }
 </script>
 
