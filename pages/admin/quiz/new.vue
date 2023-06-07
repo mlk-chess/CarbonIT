@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import FormQuiz from "~/components/admin/quiz/FormQuiz.vue";
+import FormQuiz from "~/components/admin/quiz/new/FormQuiz.vue";
 export default {
     components: {
         FormQuiz
