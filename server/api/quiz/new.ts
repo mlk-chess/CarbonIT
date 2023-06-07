@@ -12,14 +12,14 @@ export default defineEventHandler(async (event) => {
             theme: body.theme,
             description: body.description,
             difficulty: body.difficulty,
-        }]);
+        }])
+        .select("*");
 
     if (newErrorQuiz) {
         console.log(newErrorQuiz);
-        
         return 'Error';
     }
-    console.log("quiz created");
-        
-    return 'Success';
+    console.log(newDataQuiz);
+
+    return newDataQuiz
 });

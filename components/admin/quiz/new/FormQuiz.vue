@@ -99,15 +99,26 @@ async function saveQuiz() {
         questions: questions.value,
     };
 
-    await $fetch('/api/quiz/new', {
+    const quiz = await $fetch('/api/quiz/new', {
         method: 'post',
         body: {
-            quizName : quizName.value,
+            quizName: quizName.value,
             difficulty: difficulty.value,
             theme: theme.value,
             description: description.value
         }
     });
+
+    const lastQuizId = await quiz[0].id;
+
+    const questionsRes = await $fetch('/api/quiz/questions', {
+        method: 'post',
+        body: {
+            quiz_id: lastQuizId,
+            questions: questions.value
+        }
+    });
+
 }
 
 </script>
