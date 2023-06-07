@@ -8,7 +8,6 @@ onMounted(() => {
 
 <template>
   <div>
-
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
             type="button"
             class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -25,17 +24,17 @@ onMounted(() => {
            aria-label="Sidebar">
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
-          <li>
-            <a href="#"
+             <li>
+            <NuxtLink href="/admin"
                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-              <svg aria-hidden="true"
+             <svg aria-hidden="true"
                    class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                 <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
               </svg>
-              <span class="ml-3">Dashboard</span>
-            </a>
+              <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
+            </NuxtLink>
           </li>
           <li>
             <NuxtLink href="/admin/user"
@@ -47,6 +46,14 @@ onMounted(() => {
                       clip-rule="evenodd"></path>
               </svg>
               <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
+            </NuxtLink>
+          </li>
+
+          <li>
+            <NuxtLink href="/admin/events"
+               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+             
+              <span class="flex-1 ml-3 whitespace-nowrap">Evènements</span>
             </NuxtLink>
           </li>
         </ul>
