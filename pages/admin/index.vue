@@ -1,13 +1,9 @@
 <template>
-    <div class="w-4/12">
+    <div class="w-6/12 shadow p-5 rounded">
         <FullCalendar :options="calendarOptions" />
     </div>
 </template>
 
-
-<style scoped>
-
-</style>
 <script setup>
 
 import FullCalendar from '@fullcalendar/vue3'
@@ -16,10 +12,16 @@ import interactionPlugin from '@fullcalendar/interaction'
 import frLocale from '@fullcalendar/core/locales/fr'
 
 
+definePageMeta({
+  middleware: ["auth-admin"],
+  layout: "admin",
+});
+
 const supabase = useSupabaseClient();
 
 
 const events = ref()
+const eventsByDate = ref()
 
 async function getEvents(){
 
@@ -35,7 +37,8 @@ const calendarOptions = ref({
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     locale: frLocale,
-    events: events
+    events: events,
+    nowIndicator: false,
 })
 
 onMounted( () => {
