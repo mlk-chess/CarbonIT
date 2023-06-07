@@ -3,6 +3,12 @@ definePageMeta({
   middleware: ["auth-admin"],
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
 const router = useRouter()
 const firstname = ref("");
 const name = ref("");
