@@ -32,11 +32,12 @@
                     </a>
                 </div>
             </div>
+
             <div>
-                <iframe class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl"
-                    src="https://www.youtube.com/embed/KaLxCiilHns" title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay muted loop>
+                    <source src="~/assets/videos/video-quiz.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de cette vidéo.
+                </video>
             </div>
         </div>
     </section>
