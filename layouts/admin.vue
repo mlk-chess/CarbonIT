@@ -7,7 +7,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="bg-custom-background">
 
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
             type="button"

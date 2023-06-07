@@ -83,6 +83,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ["auth-admin"],
+  layout: "admin"
+});
   import {initFlowbite} from "flowbite";
   const missions = ref(null)
   const skills = ref(null)
