@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   middleware: ["auth-admin"],
+  layout: "admin",
 });
 
 const supabase = useSupabaseClient();
