@@ -34,7 +34,7 @@
             </div>
 
             <div>
-                <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay loop style="object-fit: fill;">
+                <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay loop muted style="object-fit: fill;">
                     <source src="~/assets/videos/video-quiz.mp4" type="video/mp4">
                     Votre navigateur ne supporte pas la lecture de cette vidéo.
                 </video>
