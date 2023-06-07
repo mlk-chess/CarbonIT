@@ -70,7 +70,11 @@ export default {
             });
         },
         removeQuestion(questionIndex) {
-            this.questions.splice(questionIndex, 1);
+            if (this.questions.length > 1) {
+                this.questions.splice(questionIndex, 1);
+            } else {
+                alert("Impossible de supprimer la question. Il doit y avoir au moins une question dans le tableau.");
+            }
         },
         saveQuiz() {
             console.log(this.questions, this.difficulty);
