@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
             .insert([{
                 user_id: body.userId,
                 skill_id: body.skillId,
+                level: body.level,
             }]);
 
         if(error) {
