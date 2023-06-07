@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
 
     const supabase = serverSupabaseClient(event);
     const body = await readBody(event);
-
+    
     // Loop to add all questions in table questions
     const questions = body.questions.map( async (question: any) => {
         const { data: newData, error: newError } = await supabase
@@ -12,14 +12,35 @@ export default defineEventHandler(async (event) => {
             .insert([{
                 quiz_id: body.quiz_id,
                 question_text: question.questionText
-            }]);
+            }])
+            .select("*");
+
+        // Ajouter les réponses correspondant aux questions
+        for (const answer of question.answers) {
+            const { data: answerData, error: answerError } = await supabase
+                .from('answers')
+                .insert([{
+                    question_id: newData[0].id,
+                    answer_text: answer.answerText,
+                    is_correct: answer.isCorrect
+                }])
+                .select("*");
+
+            if (answerError) {
+                console.log(answerError);
+                return 'Error';
+            }
+        }
 
         if (newError) {
             console.log(newError);
             return 'Error';
         }
-    });
-    console.log("Questions created");
 
-    return 1;
+        return newData;
+    });
+    console.log(questions);
+
+    return questions
+
 });
