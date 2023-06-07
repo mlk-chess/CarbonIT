@@ -5,7 +5,7 @@
                 <h1
                     class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                     Evaluez le niveau de vos collaborateurs avec des quiz</h1>
-                <p class="mb-8 text-lg font-extralight text-gray-500 lg:text-xl dark:text-gray-400">Découvrez une façon
+                <p class="mb-8 text-lg font-extralight text-gray-500 lg:text-base dark:text-gray-400">Découvrez une façon
                     ludique et captivante d'évaluer le niveau de vos collaborateurs grâce à notre solution innovante de quiz
                     ! Laissez-vous emporter par l'excitation des questions stimulantes et des défis intellectuels qui
                     permettront à chacun de révéler ses compétences cachées. En mettant en place des quiz personnalisés,
@@ -34,7 +34,7 @@
             </div>
 
             <div>
-                <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay muted loop>
+                <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay loop style="object-fit: fill;">
                     <source src="~/assets/videos/video-quiz.mp4" type="video/mp4">
                     Votre navigateur ne supporte pas la lecture de cette vidéo.
                 </video>
