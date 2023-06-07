@@ -6,6 +6,7 @@ definePageMeta({
 const title = ref("");
 const description = ref("");
 const dateEvent = ref(null);
+const timeEvent = ref(null);
 const route = useRoute();
 const id = route.params.id;
 
@@ -20,7 +21,8 @@ onMounted( async () => {
     } else {
         title.value = data[0].title;
         description.value = data[0].description;
-        dateEvent.value = data[0].date.slice(0,16);
+        dateEvent.value = data[0].date
+        timeEvent.value = data[0].time
     }   
 })
 
@@ -31,7 +33,8 @@ async function editEvent() {
         id: id,
         title: title.value,
         description: description.value,
-        dateEvent : dateEvent.value
+        dateEvent : dateEvent.value,
+        timeEvent : timeEvent.value,
     }
   });
 }
@@ -58,7 +61,14 @@ async function editEvent() {
 
           <div class="w-full">
             <label for="dateEvent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
-            <input v-model="dateEvent" type="datetime-local" name="dateEvent" id="dateEvent"
+            <input v-model="dateEvent" type="date" name="dateEvent" id="dateEvent"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    required="">
+          </div>
+
+           <div class="w-full">
+            <label for="dateEvent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+            <input v-model="timeEvent" type="time" name="" id=""
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     required="">
           </div>

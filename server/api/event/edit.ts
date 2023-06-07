@@ -11,7 +11,8 @@ export default defineEventHandler(async (event) => {
         .update({
             title: body.title,
             description: body.description,
-            date: body.dateEvent
+            date: body.dateEvent,
+            time: body.timeEvent
         }).eq('id',body.id);
     
 
