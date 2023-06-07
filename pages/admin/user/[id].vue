@@ -3,6 +3,12 @@ definePageMeta({
   middleware: ["auth-admin"],
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
