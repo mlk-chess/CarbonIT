@@ -9,23 +9,37 @@
 
 </style>
 <script setup>
+
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import frLocale from '@fullcalendar/core/locales/fr'
 
+
+const supabase = useSupabaseClient();
+
+
+const events = ref()
+
+async function getEvents(){
+
+     const { data, error } = await supabase.from('event').select();
+    if (error) {
+    console.error(error);
+    } else {
+    events.value = data;
+    }
+}
+
 const calendarOptions = ref({
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     locale: frLocale,
-    events: [
-        { title: 'Événement 1', start: '2023-06-01' },
-        { title: 'Événement 1', start: '2023-06-01' },
-        { title: 'Événement 1', start: '2023-06-01' },
-        { title: 'Événement 2', start: '2023-06-05' },
-        { title: 'Événement 3', start: '2023-06-10' }
-    ],
+    events: events
 })
 
+onMounted( () => {
+    getEvents();
+})
 
 </script>
