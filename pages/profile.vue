@@ -34,9 +34,6 @@
         </ol>
 
         <div class="container mx-auto flex">
-            <div class="mx-auto md:w-1/2 mb-5 mt-5">
-                <img class="mx-auto" src="@/assets/icons/creature-step1.svg">
-            </div>
 
             <div class="mx-auto md:w-1/2 mb-4 mt-10">
                 <ul class="flex w-full justify-between items-center border bg-custom-black text-custom-white rounded-lg shadow md:flex-row mb-5">
