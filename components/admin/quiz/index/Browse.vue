@@ -45,6 +45,10 @@
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
+                <li
+                    class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-gray-200">
+                    <span class="page-link" aria-label="Current page">{{ currentPage }}</span>
+                </li>
             </ul>
         </nav>
     </div>
