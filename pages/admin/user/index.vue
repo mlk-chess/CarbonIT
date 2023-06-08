@@ -1,85 +1,4 @@
-<template>
-  <div class="flex gap-2">
-
-    <div class="bg-custom-white w-1/2 shadow p-5 rounded mb-5 mt-5">
-      <div class="">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jeu du jour</h5>
-
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-          acquisitions of 2021 so far, in reverse chronological order.</p>
-        <a href="#"
-           class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          Read more
-          <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-               xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="bg-custom-white w-1/2 shadow p-5 rounded mb-5">
-
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">CarbonAPPs</h5>
-
-
-    </div>
-  </div>
-
-  <div class="flex gap-2">
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
-      <FullCalendar :options="calendarOptions">
-        <template v-slot:eventContent='arg'>
-          <p class="overflow-hidden hover:cursor-pointer" @click="showModal = true; dateModal = arg.event">{{ arg.event.title }}</p>
-        </template>
-      </FullCalendar>
-    </div>
-
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actualités</h5>
-    </div>
-
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">La blagounette</h5>
-    </div>
-
-    <div tabindex="-1" aria-hidden="true" v-show="showModal"
-         class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div class="fixed top-0 left-0 right-0 z-40 h-full max-h-full bg-gray-400 opacity-50"></div>
-      <div class="relative w-full max-h-full z-50">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 mx-auto max-w-6xl mt-32">
-          <button @click="showModal=false" type="button"
-                  class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-          >
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            <span class="sr-only">Close modal</span>
-          </button>
-          <div v-if="dateModal" class="px-6 py-6 lg:px-8">
-            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">{{new Date(dateModal.start).toLocaleDateString()}}</h3>
-            <h4 class="mb-4 text-lg font-base text-gray-900 dark:text-white">{{dateModal.title}}</h4>
-            <p class="mb-4 text-md font-base text-gray-900 dark:text-white">{{dateModal.extendedProps.description}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
-
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import frLocale from '@fullcalendar/core/locales/fr'
-
-
 definePageMeta({
   middleware: ["auth-admin"],
   layout: "admin",
@@ -95,37 +14,90 @@ definePageMeta({
   middleware: ["auth"],
   layout: "admin"
 });
+
 const supabase = useSupabaseClient();
-const showModal = ref(false);
-const dateModal = ref(null);
+const users = ref([]);
 
-const events = ref(null)
+onMounted(async () => {
+  const {data, error} = await supabase
+      .from('user')
+      .select();
 
-async function getEvents() {
-
-  const {data, error} = await supabase.from('event').select();
-  if (error) {
-    console.error(error);
-  } else {
-    events.value = data;
-  }
-}
-
-const calendarOptions = ref({
-  headerToolbar: {
-    right: 'prev,next',
-    left: 'title',
-    center: ''
-  },
-  plugins: [dayGridPlugin, interactionPlugin],
-  initialView: 'dayGridMonth',
-  locale: frLocale,
-  events: events,
-  height: "400px",
-})
-
-onMounted(() => {
-  getEvents();
-})
-
+  users.value = data;
+});
 </script>
+
+<template>
+  <section>
+    <div class="container mx-auto">
+      <NuxtLink href="/admin/user/new" type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        Ajouter un utilisateur
+      </NuxtLink>
+
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Prénom
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Nom
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Email
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Statut
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Actions
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(user, index) in users" :key="index" :class="{'mt-5': true, 'bg-gray-50': index % 2 !== 0}">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ user.firstname }}
+            </th>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ user.lastname }}
+            </th>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ user.email }}
+            </th>
+            <th v-if="user.status === 0" scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <span
+                  class="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Collaborateur</span>
+            </th>
+            <th v-else scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <span
+                  class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Administrateur</span>
+            </th>
+            <th scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex">
+              <NuxtLink :href="`/admin/user/${user.id}`" class="hover:cursor-pointer hover:text-blue-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </NuxtLink>
+              <NuxtLink :href="`/admin/skill/${user.id}`" class="ml-5 hover:cursor-pointer hover:text-yellow-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+                </svg>
+              </NuxtLink>
+            </th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</template>
