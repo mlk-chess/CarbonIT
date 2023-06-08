@@ -1,5 +1,8 @@
 <script setup>
 import {initFlowbite} from 'flowbite';
+import {Line, Radar} from 'vue-chartjs';
+import {Chart} from 'chart.js/auto';
+
 
 useHead({
   bodyAttrs: {
@@ -12,7 +15,66 @@ definePageMeta({
   layout: "admin"
 });
 
+
 const mode = ref('training');
+const chartData = ref({
+  labels: ['1', '5', '10'],
+  datasets: [{
+    label: 'Salaire',
+    data: [38, 46, 52]
+  }]
+});
+
+const chartOptions = ref({
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Salaire en fonction du nombre de formations'
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'En milliers'
+      }
+    },
+    x: {
+      title: {
+        display: true,
+        text: 'Nombre de formations'
+      }
+    }
+  }
+});
+
+const chartDataRadar = ref({
+  labels: ['PHP', 'Java', 'React', 'Vue', 'Laravel', 'Symfony'],
+  datasets: [
+    {
+      label: 'Ancien niveau',
+      data: [1, 2, 3, 4, 5, 6]
+    },
+    {
+      label: 'Nouveau niveau',
+      data: [2, 3, 4, 5, 6, 7]
+    },]
+});
+
+const chartOptionsRadar = ref({
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Evolution des compétences'
+    },
+  }
+});
 
 onMounted(() => {
   initFlowbite();
@@ -281,6 +343,25 @@ onMounted(() => {
                 </div>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <div v-show="mode === 'graph'" class="mt-16">
+        <div class="grid grid-cols-2 gap-48">
+          <div>
+            <Line
+                id="chart-line"
+                :options="chartOptions"
+                :data="chartData"
+            />
+          </div>
+          <div class="max-h-96">
+            <Radar
+                id="chart-radar"
+                :options="chartOptionsRadar"
+                :data="chartDataRadar"
+            />
           </div>
         </div>
       </div>
