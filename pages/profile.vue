@@ -1,42 +1,37 @@
 <template>
-  <section>
-    <ol class="flex items-center w-full mb-4 sm:mb-5 bg-custom-white p-4 rounded shadow">
-      <li class="flex w-full items-center relative after:content-[''] after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block dark:after:border-blue-800 group">
-                <span
-                    class="flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
+    <section>
+        <ol class="flex items-center w-full mb-4 sm:mb-5 bg-custom-white p-4 rounded shadow">
+           <li :class="{'flex w-full items-center relative after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block group' : points >=0}">
+                <span :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0': points >= 0}">
                     <img class="mx-auto" src="@/assets/icons/creature-step1.svg">
                 </span>
-      </li>
-      <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
-        <div
-            class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-          <img class="mx-auto" src="@/assets/icons/creature-step2.svg">
-        </div>
-      </li>
-      <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
-        <div
-            class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-          <img class="mx-auto" src="@/assets/icons/creature-step3.svg">
-        </div>
-      </li>
+            </li>
+            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700': points >= 500, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 500}">
+                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 shrink-0' : points >= 500, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0' : points < 500}">
+                      <img class="mx-auto" src="@/assets/icons/creature-step2.svg">
+                </div>
+            </li>
+            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block': points >= 1000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 1000}">
+                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0':points >= 1000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<1000}">
+                     <img class="mx-auto" src="@/assets/icons/creature-step3.svg">
+                </div>
+            </li>
 
-      <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
-        <div
-            class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-          <img class="mx-auto" src="@/assets/icons/creature-step4.svg">
-        </div>
-      </li>
-      <li class="flex items-center w-full">
-        <div
-            class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-          <img class="mx-auto" src="@/assets/icons/creature-step5.svg">
-        </div>
-      </li>
+             <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block':points >= 5000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 5000}">
+                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0': points >= 5000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<5000}">
+                     <img class="mx-auto" src="@/assets/icons/creature-step4.svg">
+                </div>
+            </li>
+            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block':points >= 10000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 10000}">
+                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0': points >= 10000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<10000}">
+                    <img class="mx-auto" src="@/assets/icons/creature-step5.svg">
+                </div>
+            </li>
 
-      <li class="w-full">
-        <i class="font-bold">Mes points : {{ points }}</i>
-      </li>
-    </ol>
+            <li class="mx-2 w-full">
+                <i class="font-bold">Mes points : {{points}}</i>
+            </li>
+        </ol>
 
     <div class="container mx-auto flex flex-col mt-10">
 
@@ -60,6 +55,10 @@
     </div>
   </section>
 </template>
+
+<style scoped>
+
+</style>
 
 <script setup>
 
