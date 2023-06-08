@@ -9,11 +9,6 @@ useHead({
   }
 });
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
-});
-
 const route = useRoute();
 const id = route.params.id;
 const supabase = useSupabaseClient();

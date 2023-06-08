@@ -1,4 +1,4 @@
-import { serverSupabaseServiceRole } from '#supabase/server';
+import {serverSupabaseServiceRole} from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
@@ -19,13 +19,13 @@ export default defineEventHandler(async (event) => {
 
     const generatedPassword = generatePassword();
 
-    const { data: dataUser, error: errorUser } = await supabase.auth.admin.createUser({
+    const {data: dataUser, error: errorUser} = await supabase.auth.admin.createUser({
         email: body.email,
         password: generatedPassword,
         email_confirm: true
     })
 
-    if(errorUser) {
+    if (errorUser) {
         return 'Error';
     }
 
@@ -44,15 +44,33 @@ export default defineEventHandler(async (event) => {
             auth_id: dataUser.user.id
         }]);
 
-    if(newErrorUser) {
+    if (newErrorUser) {
         return 'Error';
     }
 
-    const { data, error } = await supabase.auth.resetPasswordForEmail(body.email, {
+    const {data: tasksData, tasksError} = await supabase.from('task').select();
+
+    if (tasksError) {
+        return 'Error';
+    }
+
+    for (let i = 0; i < tasksData.length; i++) {
+        const {data: newTaskData, error: newTaskError} = await supabase.from('user_task').insert([{
+            userId: dataUser.user.id,
+            taskId: tasksData[i].id,
+            status: false
+        }]);
+
+        if (newTaskError) {
+            return 'Error';
+        }
+    }
+
+    const {data, error} = await supabase.auth.resetPasswordForEmail(body.email, {
         redirectTo: 'http://localhost:3000/reset-password',
     });
 
-    if(error) {
+    if (error) {
         return 'Error';
     }
 
