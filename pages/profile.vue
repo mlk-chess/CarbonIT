@@ -69,8 +69,9 @@ useHead({
 onMounted( async () => {
     initFlowbite();
     const { data, error } = await supabase.from('user').select().eq('auth_id',user.value.id);
-    points.value = data[0].points
+    points.value = data[0].points;
 
+  const { data: tasksData, error: tasksError } = await supabase.from('user_task').select().eq('auth_id',user.value.id);
 
 
 })
