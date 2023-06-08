@@ -1,18 +1,30 @@
 <script setup>
+import {initFlowbite} from 'flowbite';
+
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
 definePageMeta({
   middleware: ["auth"],
-  layout: "user"
+  layout: "admin"
 });
 
 const mode = ref(true);
+
+onMounted(() => {
+  initFlowbite();
+});
 </script>
 
 <template>
   <section>
     <div class="container mx-auto">
-      <div class="w-full px-4 py-8 text-center lg:py-16 lg:px-6">
+      <div class="w-full px-4 py-8 text-center lg:py-5 lg:px-6">
         <dl class="grid gap-8 mx-auto text-gray-900 sm:grid-cols-4 dark:text-white">
-          <div class="flex flec-row justify-center items-center align-middle bg-gray-100 py-10 rounded">
+          <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
             <div class="w-10 p-7 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-primary-900 -translate-x-1/2">
               <svg class="w-9 -translate-y-1/2 -translate-x-1/2 text-blue-600 dark:text-primary-300" fill="currentColor"
                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -22,11 +34,11 @@ const mode = ref(true);
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">10</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">En cours</dd>
             </div>
           </div>
-          <div class="flex flec-row justify-center items-center align-middle bg-gray-100 py-10 rounded">
+          <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
             <div class="w-10 p-7 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-primary-900 -translate-x-1/2">
               <svg class="w-9 -translate-y-1/2 -translate-x-1/2 text-blue-600 dark:text-primary-300" fill="currentColor"
                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -35,11 +47,11 @@ const mode = ref(true);
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">20</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">Terminées</dd>
             </div>
           </div>
-          <div class="flex flec-row justify-center items-center align-middle bg-gray-100 py-10 rounded">
+          <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
             <div class="w-10 p-7 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-primary-900 -translate-x-1/2">
               <svg class="w-10 -translate-y-1/2 -translate-x-1/2 text-blue-600 dark:text-primary-300"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -49,11 +61,11 @@ const mode = ref(true);
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">66</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">Heures passées</dd>
             </div>
           </div>
-          <div class="flex flec-row justify-center items-center align-middle bg-gray-100 py-10 rounded">
+          <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
             <div class="w-10 p-7 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-primary-900 -translate-x-1/2">
               <svg class="w-10 -translate-y-1/2 -translate-x-1/2 text-blue-600 dark:text-primary-300"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -63,22 +75,22 @@ const mode = ref(true);
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">40</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">Badges récoltés</dd>
             </div>
           </div>
         </dl>
       </div>
 
 
-      <div class="border-b border-gray-200 dark:border-gray-700 mx-auto w-fit">
+      <div class="border-b border-gray-200 dark:border-gray-700 mx-auto w-fit mt-14">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li class="mr-2">
             <span @click="mode = true"
                   class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg dark:hover:text-gray-300 group"
                   :class="{'': true, 'border-blue-600 text-blue-600': mode}">
               <svg aria-hidden="true" :class="{'': true, 'text-blue-600': mode}"
-                   class="w-5 h-5 mr-2 text-gray-400 dark:text-gray-500 dark:group-hover:text-gray-300"
+                   class="w-5 h-5 mr-2 dark:text-gray-500 dark:group-hover:text-gray-300"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd"
                                                                                                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
                                                                                                     clip-rule="evenodd"></path></svg>Mes formations
@@ -97,7 +109,7 @@ const mode = ref(true);
         </ul>
       </div>
 
-      <div class="mt-16">
+      <div v-show="mode" class="mt-16">
         <div class="grid grid-cols-4 gap-x-12">
           <div class="dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
@@ -158,7 +170,7 @@ const mode = ref(true);
             </a>
             <div class="py-5">
               <span
-                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Terminer</span>
+                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Terminée</span>
               <a href="#">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
                   acquisitions 2021</h5>
@@ -185,7 +197,7 @@ const mode = ref(true);
             </a>
             <div class="py-5">
               <span
-                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Terminer</span>
+                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Terminée</span>
               <a href="#">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
                   acquisitions 2021</h5>
@@ -203,6 +215,41 @@ const mode = ref(true);
                 </svg>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-show="!mode" class="mt-16">
+        <div class="w-6/12 mx-auto relative">
+          <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input type="search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Formation React, UX/UI, Symfony..." required>
+          </div>
+
+          <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" class="absolute top-0 -right-5 translate-x-full inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg mt-1 bg-custom-white hover:bg-gray-200 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+            </svg>
+          </button>
+
+          <div id="dropdownDots" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+            <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBgHoverButton">
+              <li>
+                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                  <input id="checkbox-item-4" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <label for="checkbox-item-4" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Soft Skills</label>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                  <input checked id="checkbox-item-5" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <label for="checkbox-item-5" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hard Skills</label>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

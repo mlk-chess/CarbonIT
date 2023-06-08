@@ -1,44 +1,59 @@
 <script setup>
-  definePageMeta({
-    middleware: ["auth"],
+definePageMeta({
+  middleware: ["auth"],
+});
+
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+const email = ref(null);
+const emailReset = ref(null);
+const password = ref(null);
+const errorLogin = ref(false);
+const loginCard = ref(true);
+const reset = ref(false);
+
+onMounted(async () => {
+  watchEffect(async () => {
+    if (user.value) {
+      await navigateTo('/private');
+    }
+  });
+});
+
+async function login() {
+  const {user, error} = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value,
   });
 
-  const supabase = useSupabaseClient();
-  const user = useSupabaseUser();
-  const email = ref(null);
-  const emailReset = ref(null);
-  const password = ref(null);
-  const errorLogin = ref(false);
-  const loginCard = ref(true);
-  const reset = ref(false);
+  if (error) {
+    errorLogin.value = true;
+  } else {
+    const {data: tasksData, error: errorData} = await supabase.from('user_task').select('status').eq('taskId', 1);
 
-  onMounted(async () => {
-    watchEffect(async () => {
-      if (user.value) {
-        await navigateTo('/private');
-      }
-    });
-  });
-
-  async function login() {
-    const { user, error } = await supabase.auth.signInWithPassword({
-      email: email.value,
-      password: password.value,
-    });
-
-    if (error) {
-      errorLogin.value = true;
+    if (tasksData[0].status === false) {
+      const {
+        data: updateData,
+        error: updateError
+      } = await supabase.from('user_task').update({status: true}).eq('taskId', 1);
     }
   }
+}
 
-  async function resetPassword() {
-    const { user, error } = await supabase.auth.resetPasswordForEmail(emailReset.value, {
-      redirectTo: 'http://localhost:3000/reset-password',
-    });
+async function resetPassword() {
+  const {user, error} = await supabase.auth.resetPasswordForEmail(emailReset.value, {
+    redirectTo: 'http://localhost:3000/reset-password',
+  });
 
-    reset.value = true;
-    emailReset.value = null;
-  }
+  reset.value = true;
+  emailReset.value = null;
+}
 </script>
 
 <template>
@@ -47,7 +62,7 @@
       <div
           class="w-full max-w-sm shadow bg-custom-grey rounded-lg p-4 sm:p-6 md:p-8">
         <form v-if="loginCard" class="space-y-6" v-on:submit.prevent="login">
-          <h5 class="text-xl font-medium text-custom-white text-center">Connexion</h5>
+          <img src="@/assets/logo.svg" alt="">
           <div>
             <label for="email" class="block mb-2 text-sm font-medium text-custom-white">Email</label>
             <input type="email" name="email" id="email"
@@ -66,7 +81,8 @@
             Se connecter
           </button>
           <div class="text-sm font-medium text-gray-400">
-            Mot de passe oublié ? <span class="text-custom-white hover:underline hover:cursor-pointer" @click="loginCard=false; reset=false">Réinitialiser</span>
+            Mot de passe oublié ? <span class="text-custom-white hover:underline hover:cursor-pointer"
+                                        @click="loginCard=false; reset=false">Réinitialiser</span>
           </div>
         </form>
 
@@ -85,7 +101,8 @@
               Réinitialiser
             </button>
             <div class="text-sm font-medium text-gray-400">
-              <span class="text-custom-white hover:underline hover:cursor-pointer" @click="errorLogin=false; loginCard=true">Se connecter</span>
+              <span class="text-custom-white hover:underline hover:cursor-pointer"
+                    @click="errorLogin=false; loginCard=true">Se connecter</span>
             </div>
           </form>
 
