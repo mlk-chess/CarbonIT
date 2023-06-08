@@ -38,6 +38,17 @@
 </template>
 
 <script>
+
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+definePageMeta({
+  middleware: ["auth"],
+  layout: "admin"
+});
 export default {
     data() {
         return {

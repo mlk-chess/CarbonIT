@@ -3,6 +3,12 @@
     middleware: ["auth"],
   });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
   const email = ref(null);
@@ -47,7 +53,7 @@
       <div
           class="w-full max-w-sm shadow bg-custom-grey rounded-lg p-4 sm:p-6 md:p-8">
         <form v-if="loginCard" class="space-y-6" v-on:submit.prevent="login">
-          <h5 class="text-xl font-medium text-custom-white text-center">Connexion</h5>
+          <img src="@/assets/logo.svg" alt="">
           <div>
             <label for="email" class="block mb-2 text-sm font-medium text-custom-white">Email</label>
             <input type="email" name="email" id="email"

@@ -1,6 +1,13 @@
 <script setup>
 definePageMeta({
   middleware: ["auth-admin"],
+  layout: "admin"
+});
+
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
 });
 
 const router = useRouter()
