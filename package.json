@@ -21,6 +21,7 @@
     "@fullcalendar/list": "^6.1.8",
     "@fullcalendar/timegrid": "^6.1.8",
     "@fullcalendar/vue3": "^6.1.8",
+    "blagues-api": "^2.1.1",
     "flowbite": "^1.6.5"
   }
 }

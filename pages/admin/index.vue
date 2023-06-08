@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-2">
 
-    <div class="bg-custom-white w-1/2 shadow p-5 rounded mb-5 mt-5">
+    <div class="w-1/2 shadow p-5 rounded mb-5 mt-5">
       <div class="">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jeu du jour</h5>
 
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="bg-custom-white w-1/2 shadow p-5 rounded mb-5">
+    <div class="w-1/2 shadow p-5 rounded mb-5">
 
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">CarbonAPPs</h5>
 
@@ -29,20 +29,34 @@
   </div>
 
   <div class="flex gap-2">
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
+    <div class="w-4/12 shadow p-5 rounded">
       <FullCalendar :options="calendarOptions">
         <template v-slot:eventContent='arg'>
-          <p class="overflow-hidden hover:cursor-pointer" @click="showModal = true; dateModal = arg.event">{{ arg.event.title }}</p>
+          <p class="overflow-hidden hover:cursor-pointer" @click="showModal = true; dateModal = arg.event">
+            {{ arg.event.title }}</p>
         </template>
       </FullCalendar>
     </div>
 
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
+    <div class="w-4/12 shadow p-5 rounded">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actualités</h5>
     </div>
 
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
+    <div class="w-4/12 shadow p-5 rounded">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">La blagounette</h5>
+
+      <h4 class="font-normal text-base">{{ blague.joke }}</h4>
+
+      <button data-tooltip-target="tooltip-default" type="button"
+              class="mt-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Réponse
+      </button>
+      <div id="tooltip-default" role="tooltip"
+           class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        {{ blague.answer }}
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+
     </div>
 
     <div tabindex="-1" aria-hidden="true" v-show="showModal"
@@ -62,9 +76,11 @@
             <span class="sr-only">Close modal</span>
           </button>
           <div v-if="dateModal" class="px-6 py-6 lg:px-8">
-            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">{{new Date(dateModal.start).toLocaleDateString()}}</h3>
-            <h4 class="mb-4 text-lg font-base text-gray-900 dark:text-white">{{dateModal.title}}</h4>
-            <p class="mb-4 text-md font-base text-gray-900 dark:text-white">{{dateModal.extendedProps.description}}</p>
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+              {{ new Date(dateModal.start).toLocaleDateString() }}</h3>
+            <h4 class="mb-4 text-lg font-base text-gray-900 dark:text-white">{{ dateModal.title }}</h4>
+            <p class="mb-4 text-md font-base text-gray-900 dark:text-white">
+              {{ dateModal.extendedProps.description }}</p>
           </div>
         </div>
       </div>
@@ -78,28 +94,25 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import frLocale from '@fullcalendar/core/locales/fr'
-
+import BlaguesAPI from 'blagues-api';
 
 definePageMeta({
   middleware: ["auth-admin"],
   layout: "admin",
 });
 
-useHead({
-  bodyAttrs: {
-    class: 'bg-[#F1F8FF]'
-  }
-});
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
-});
 const supabase = useSupabaseClient();
+const runtimeConfig = useRuntimeConfig()
 const showModal = ref(false);
 const dateModal = ref(null);
-
 const events = ref(null)
+const blague = ref({
+  joke: '',
+  answer: '',
+})
+
+const blagues = new BlaguesAPI(runtimeConfig.public.blagueToken);
 
 async function getEvents() {
 
@@ -124,8 +137,16 @@ const calendarOptions = ref({
   height: "400px",
 })
 
-onMounted(() => {
+onMounted(async () => {
   getEvents();
+  blague.value = await blagues.random({
+    disallow: [
+      blagues.categories.DARK,
+      blagues.categories.LIMIT,
+      blagues.categories.BLONDES,
+      blagues.categories.BEAUF,
+    ]
+  });
 })
 
 </script>
