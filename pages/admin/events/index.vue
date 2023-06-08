@@ -111,9 +111,16 @@ import interactionPlugin from '@fullcalendar/interaction'
 import frLocale from '@fullcalendar/core/locales/fr'
 import {initFlowbite} from "flowbite"
 
+
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
 definePageMeta({
-    middleware: ["auth"],
-    layout: "admin"
+  middleware: ["auth"],
+  layout: "admin"
 });
 
 

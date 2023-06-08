@@ -3,6 +3,16 @@
     middleware: ["auth"],
   });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+definePageMeta({
+  middleware: ["auth"],
+  layout: "admin"
+});
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
   const email = ref(null);
