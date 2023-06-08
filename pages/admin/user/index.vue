@@ -10,11 +10,6 @@ useHead({
   }
 });
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
-});
-
 const supabase = useSupabaseClient();
 const users = ref([]);
 
