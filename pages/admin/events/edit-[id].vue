@@ -3,6 +3,17 @@ definePageMeta({
   middleware: ["auth"],
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+definePageMeta({
+  middleware: ["auth"],
+  layout: "admin"
+});
+
 const title = ref("");
 const description = ref("");
 const dateEvent = ref(null);

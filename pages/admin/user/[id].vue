@@ -9,6 +9,11 @@ useHead({
   }
 });
 
+definePageMeta({
+  middleware: ["auth"],
+  layout: "admin"
+});
+
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;

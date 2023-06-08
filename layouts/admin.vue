@@ -16,7 +16,7 @@ async function logout() {
 </script>
 
 <template>
-  <div class="bg-custom-blue h-screen fixed top-0 left-0 z-40">
+  <div class=" h-screen fixed top-0 left-0 z-40">
 	<!-- Component Start -->
 	<div class="flex flex-col items-center w-16 h-full overflow-hidden text-gray-400 bg-custom-black rounded">
 		<a class="flex items-center mt-5 justify-center mt-3" href="/admin">
@@ -25,7 +25,7 @@ async function logout() {
       </svg>
 		</a>
 		<div class="flex flex-col items-center mt-3 border-t border-gray-700">
-      <a class="flex items-center justify-center w-12 h-12 mt-2 hover:bg-gray-700 hover:text-gray-300 rounded" href="#">
+      <a class="flex items-center justify-center w-12 h-12 mt-2 hover:bg-gray-700 hover:text-gray-300 rounded" href="/admin/user">
 				<svg color="#FDFDFD" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path>
         </svg>
@@ -58,14 +58,14 @@ async function logout() {
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"></path>
         </svg>
 			</a>
-    </div>
-    <div class="flex flex-col items-center mt-2 border-t border-gray-700">
       <a class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300" href="#">
 				<svg color="#FDFDFD" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
         </svg>
 			</a>
+    </div>
+    <div class="flex flex-col items-center mt-2 border-t border-gray-700">
       <a class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300" href="/admin/events">
 				<svg color="#FDFDFD" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"></path>
@@ -83,7 +83,7 @@ async function logout() {
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
       </svg>
 		</a>
-		<a class="flex items-center justify-center w-16 h-16 bg-gray-800 hover:bg-gray-700 hover:text-gray-300" href="/admin/user">
+		<a @click="logout" class="flex items-center justify-center w-16 h-16 bg-gray-800 hover:bg-gray-700 hover:text-gray-300" href="#">
 			<svg color="#FDFDFD" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.78007 3.6001H5.07419C4.51256 3.6001 3.97392 3.82135 3.57679 4.21517C3.17965 4.609 2.95654 5.14314 2.95654 5.7001V18.3001C2.95654 18.8571 3.17965 19.3912 3.57679 19.785C3.97392 20.1788 4.51256 20.4001 5.07419 20.4001H8.78007M9.04326 12.0001H21.0433M21.0433 12.0001L16.4581 7.2001M21.0433 12.0001L16.4581 16.8001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
