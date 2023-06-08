@@ -15,6 +15,15 @@
     "nuxt": "^3.5.2"
   },
   "dependencies": {
-    "flowbite": "^1.6.5"
+    "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/list": "^6.1.8",
+    "@fullcalendar/timegrid": "^6.1.8",
+    "@fullcalendar/vue3": "^6.1.8",
+    "blagues-api": "^2.1.1",
+    "chart.js": "^4.3.0",
+    "flowbite": "^1.6.5",
+    "vue-chartjs": "^5.2.0"
   }
 }

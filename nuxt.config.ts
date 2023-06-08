@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    runtimeConfig: {
+        public: {
+            blagueToken: process.env.BLAGUE_TOKEN,
+        }
+    },
+
     app: {
         head: {
             title: 'Carbon',
