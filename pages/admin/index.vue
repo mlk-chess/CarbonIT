@@ -66,6 +66,11 @@ async function getEvents(){
 }
 
 const calendarOptions = ref({
+      headerToolbar: {
+          right: 'prev,next',
+          left: 'title',
+          center: ''
+        },
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     locale: frLocale,
