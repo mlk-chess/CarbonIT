@@ -88,8 +88,8 @@ onMounted(() => {
           <li class="mr-2">
             <span @click="mode = true"
                   class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg dark:hover:text-gray-300 group"
-                  :class="{'': true, 'border-blue-600 text-blue-600': mode}">
-              <svg aria-hidden="true" :class="{'': true, 'text-blue-600': mode}"
+                  :class="{'': true, 'border-custom-blue text-custom-black': mode}">
+              <svg aria-hidden="true" :class="{'': true, 'text-custom-black': mode}"
                    class="w-5 h-5 mr-2 dark:text-gray-500 dark:group-hover:text-gray-300"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd"
                                                                                                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
@@ -99,8 +99,8 @@ onMounted(() => {
           <li class="mr-2">
             <span @click="mode = false"
                   class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                  :class="{'': true, 'border-blue-600 text-blue-600': !mode}">
-              <svg aria-hidden="true" :class="{'': true, 'text-blue-600': !mode}"
+                  :class="{'': true, 'border-custom-blue text-custom-black': !mode}">
+              <svg aria-hidden="true" :class="{'': true, 'text-custom-black': !mode}"
                    class="w-5 h-5 mr-2 dark:text-blue-500" fill="currentColor" viewBox="0 0 20 20"
                    xmlns="http://www.w3.org/2000/svg"><path
                   d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>Rechercher une formation
@@ -125,7 +125,7 @@ onMounted(() => {
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
                 acquisitions of 2021 so far, in reverse chronological order.</p>
               <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Voir plus
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">
@@ -151,7 +151,7 @@ onMounted(() => {
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
                 acquisitions of 2021 so far, in reverse chronological order.</p>
               <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Voir plus
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">
@@ -178,7 +178,7 @@ onMounted(() => {
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
                 acquisitions of 2021 so far, in reverse chronological order.</p>
               <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Voir plus
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">
@@ -205,7 +205,7 @@ onMounted(() => {
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
                 acquisitions of 2021 so far, in reverse chronological order.</p>
               <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Voir plus
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">
