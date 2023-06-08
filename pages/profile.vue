@@ -1,8 +1,8 @@
 <template>
-    <section class="">
+    <section>
         <ol class="flex items-center w-full mb-4 sm:mb-5 bg-custom-white p-4 rounded shadow">
-           <li class="flex w-full items-center relative after:content-[''] after:w-full after:h-1 after:border-b after:border-custom-black after:border-4 after:inline-block dark:after:border-blue-800 group">
-                <span class="flex items-center justify-center w-10 h-10 bg-custom-black rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
+           <li class="flex w-full items-center relative after:content-[''] after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block dark:after:border-blue-800 group">
+                <span class="flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
                     <img class="mx-auto" src="@/assets/icons/creature-step1.svg">
                 </span>
             </li>
