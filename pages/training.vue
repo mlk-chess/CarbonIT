@@ -1,5 +1,8 @@
 <script setup>
 import {initFlowbite} from 'flowbite';
+import {Line, Radar} from 'vue-chartjs';
+import {Chart} from 'chart.js/auto';
+
 
 useHead({
   bodyAttrs: {
@@ -9,10 +12,69 @@ useHead({
 
 definePageMeta({
   middleware: ["auth"],
-  layout: "admin"
+  layout: "user"
 });
 
-const mode = ref(true);
+
+const mode = ref('training');
+const chartData = ref({
+  labels: ['1', '5', '10'],
+  datasets: [{
+    label: 'Salaire',
+    data: [38, 46, 52]
+  }]
+});
+
+const chartOptions = ref({
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Salaire en fonction du nombre de formations'
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'En milliers'
+      }
+    },
+    x: {
+      title: {
+        display: true,
+        text: 'Nombre de formations'
+      }
+    }
+  }
+});
+
+const chartDataRadar = ref({
+  labels: ['PHP', 'Java', 'React', 'Vue', 'Laravel', 'Symfony'],
+  datasets: [
+    {
+      label: 'Ancien niveau',
+      data: [1, 2, 3, 4, 5, 6]
+    },
+    {
+      label: 'Nouveau niveau',
+      data: [2, 3, 4, 5, 6, 7]
+    },]
+});
+
+const chartOptionsRadar = ref({
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Evolution des compétences'
+    },
+  }
+});
 
 onMounted(() => {
   initFlowbite();
@@ -86,10 +148,10 @@ onMounted(() => {
       <div class="border-b border-gray-200 dark:border-gray-700 mx-auto w-fit mt-14">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li class="mr-2">
-            <span @click="mode = true"
+            <span @click="mode = 'training'"
                   class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg dark:hover:text-gray-300 group"
-                  :class="{'': true, 'border-custom-blue text-custom-black': mode}">
-              <svg aria-hidden="true" :class="{'': true, 'text-custom-black': mode}"
+                  :class="{'': true, 'border-custom-blue text-custom-black': mode === 'training'}">
+              <svg aria-hidden="true" :class="{'': true, 'text-custom-black': mode === 'training'}"
                    class="w-5 h-5 mr-2 dark:text-gray-500 dark:group-hover:text-gray-300"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd"
                                                                                                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
@@ -97,19 +159,31 @@ onMounted(() => {
             </span>
           </li>
           <li class="mr-2">
-            <span @click="mode = false"
+            <span @click="mode = 'search'"
                   class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                  :class="{'': true, 'border-custom-blue text-custom-black': !mode}">
-              <svg aria-hidden="true" :class="{'': true, 'text-custom-black': !mode}"
+                  :class="{'': true, 'border-custom-blue text-custom-black': mode === 'search'}">
+              <svg aria-hidden="true" :class="{'': true, 'text-custom-black': mode === 'search'}"
                    class="w-5 h-5 mr-2 dark:text-blue-500" fill="currentColor" viewBox="0 0 20 20"
                    xmlns="http://www.w3.org/2000/svg"><path
                   d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>Rechercher une formation
             </span>
           </li>
+          <li class="mr-2">
+            <span @click="mode = 'graph'"
+                  class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                  :class="{'': true, 'border-custom-blue text-custom-black': mode === 'graph'}">
+           <svg class="w-5 h-5 mr-2 dark:text-blue-500" :class="{'': true, 'text-custom-black': mode === 'graph'}"
+                fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
+          </svg>Graphiques
+            </span>
+          </li>
         </ul>
       </div>
 
-      <div v-show="mode" class="mt-16">
+      <div v-show="mode === 'training'" class="mt-16">
         <div class="grid grid-cols-4 gap-x-12">
           <div class="dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
@@ -117,7 +191,8 @@ onMounted(() => {
                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-1.png" alt=""/>
             </a>
             <div class="py-5">
-              <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En cours</span>
+              <span
+                  class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En cours</span>
               <a href="#">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
                   acquisitions 2021</h5>
@@ -143,7 +218,8 @@ onMounted(() => {
                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-2.png" alt=""/>
             </a>
             <div class="py-5">
-              <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En cours</span>
+              <span
+                  class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En cours</span>
               <a href="#">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
                   acquisitions 2021</h5>
@@ -219,37 +295,73 @@ onMounted(() => {
         </div>
       </div>
 
-      <div v-show="!mode" class="mt-16">
+      <div v-show="mode === 'search'" class="mt-16">
         <div class="w-6/12 mx-auto relative">
           <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div class="relative">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                   viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
             </div>
-            <input type="search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Formation React, UX/UI, Symfony..." required>
+            <input type="search"
+                   class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   placeholder="Formation React, UX/UI, Symfony..." required>
           </div>
 
-          <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" class="absolute top-0 -right-5 translate-x-full inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg mt-1 bg-custom-white hover:bg-gray-200 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
+                  class="absolute top-0 -right-5 translate-x-full inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg mt-1 bg-custom-white hover:bg-gray-200 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                  type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor" class="w-7 h-7">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"/>
             </svg>
           </button>
 
-          <div id="dropdownDots" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+          <div id="dropdownDots"
+               class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBgHoverButton">
               <li>
                 <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input id="checkbox-item-4" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                  <label for="checkbox-item-4" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Soft Skills</label>
+                  <input id="checkbox-item-4" type="checkbox" value=""
+                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <label for="checkbox-item-4"
+                         class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Soft
+                    Skills</label>
                 </div>
               </li>
               <li>
                 <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input checked id="checkbox-item-5" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                  <label for="checkbox-item-5" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hard Skills</label>
+                  <input checked id="checkbox-item-5" type="checkbox" value=""
+                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <label for="checkbox-item-5"
+                         class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hard
+                    Skills</label>
                 </div>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <div v-show="mode === 'graph'" class="mt-16">
+        <div class="grid grid-cols-2 gap-48">
+          <div>
+            <Line
+                id="chart-line"
+                :options="chartOptions"
+                :data="chartData"
+            />
+          </div>
+          <div class="max-h-96">
+            <Radar
+                id="chart-radar"
+                :options="chartOptionsRadar"
+                :data="chartDataRadar"
+            />
           </div>
         </div>
       </div>
