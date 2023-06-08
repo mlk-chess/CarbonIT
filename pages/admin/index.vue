@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-2">
 
-    <div class="w-1/2 shadow p-5 rounded mb-5 mt-5">
+    <div class="bg-custom-white w-1/2 shadow p-5 rounded mb-5 mt-5">
       <div class="">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jeu du jour</h5>
 
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="w-1/2 shadow p-5 rounded mb-5">
+    <div class="bg-custom-white w-1/2 shadow p-5 rounded mb-5">
 
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">CarbonAPPs</h5>
 
@@ -29,7 +29,7 @@
   </div>
 
   <div class="flex gap-2">
-    <div class="w-4/12 shadow p-5 rounded">
+    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
       <FullCalendar :options="calendarOptions">
         <template v-slot:eventContent='arg'>
           <p class="overflow-hidden hover:cursor-pointer" @click="showModal = true; dateModal = arg.event">{{ arg.event.title }}</p>
@@ -37,11 +37,11 @@
       </FullCalendar>
     </div>
 
-    <div class="w-4/12 shadow p-5 rounded">
+    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actualités</h5>
     </div>
 
-    <div class="w-4/12 shadow p-5 rounded">
+    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">La blagounette</h5>
     </div>
 
@@ -85,6 +85,16 @@ definePageMeta({
   layout: "admin",
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+definePageMeta({
+  middleware: ["auth"],
+  layout: "admin"
+});
 const supabase = useSupabaseClient();
 const showModal = ref(false);
 const dateModal = ref(null);
