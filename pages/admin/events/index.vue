@@ -1,10 +1,10 @@
 <template>
 <div class="p-3 sm:p-5 md:w-full lg:w-8/12">
         <div class="inline-flex rounded-md shadow-sm mb-5 " role="group">
-            <button @click='handleChangeMode("calendar")' type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+            <button @click='handleChangeMode("calendar")' type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-custom-green focus:z-10 focus:ring-2 focus:ring-custom-green focus:text-custom-green dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-custom-green dark:focus:text-white">
             Calendrier
             </button>
-            <button @click='handleChangeMode("list")' type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+            <button @click='handleChangeMode("list")' type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-custom-green focus:z-10 focus:ring-2 focus:ring-custom-green focus:text-custom-green dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-custom-green dark:focus:text-white">
             Liste
             </button>
         </div>
@@ -18,7 +18,7 @@
                 
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <NuxtLink href="/admin/events/new" class="flex items-center justify-center text-white bg-custom-red  focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    <NuxtLink href="/admin/events/new" class="flex items-center justify-center text-white bg-custom-red hover:bg-red-900 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         Créer un évènement
                     </NuxtLink>
                   
@@ -118,7 +118,7 @@ useHead({
 });
 
 definePageMeta({
-  middleware: ["auth"],
+  middleware: ["auth-admin"],
   layout: "admin"
 });
 

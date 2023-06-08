@@ -46,17 +46,10 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        difficulty: {
-            type: [Number, String],
-            required: true
-        },
-        setDifficulty: {
-            type: Function,
-            required: true
-        }
-    }
-}
+<script setup>
+const { difficulty, setDifficulty } = defineProps({
+  difficulty: Number,
+  setDifficulty: Function,
+})
+
 </script>
