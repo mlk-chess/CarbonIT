@@ -111,11 +111,16 @@ import interactionPlugin from '@fullcalendar/interaction'
 import frLocale from '@fullcalendar/core/locales/fr'
 import {initFlowbite} from "flowbite"
 
-definePageMeta({
-    middleware: ["auth"],
-    layout: "admin"
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
 });
 
+definePageMeta({
+  middleware: ["auth"],
+  layout: "admin"
+});
 
 const events = ref()
 const eventsByDate = ref([])
