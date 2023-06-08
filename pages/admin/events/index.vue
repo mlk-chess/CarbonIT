@@ -119,7 +119,7 @@ useHead({
 
 definePageMeta({
   middleware: ["auth-admin"],
-  layout: "admin"
+  layout: "user"
 });
 
 const events = ref()

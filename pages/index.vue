@@ -30,7 +30,14 @@ onMounted(async () => {
         error: updateError
       } = await supabase.from('user_task').update({status: true}).eq('taskId', 1).eq('userId', user.value.id);
     }
-    await navigateTo('/dashboard');
+
+     const {data: userData, error: errorUser} = await supabase.from('user').select('status').eq('auth_id', user.value.id);
+
+    if (userData[0].status === 0){
+        await navigateTo('/dashboard');
+    }else{
+        await navigateTo('/admin/user');
+    }
     }
   });
 });
