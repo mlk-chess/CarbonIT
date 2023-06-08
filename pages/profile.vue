@@ -1,93 +1,137 @@
-<template>
-    <section>
-        <ol class="flex items-center w-full mb-4 sm:mb-5 bg-custom-white p-4 rounded shadow">
-           <li :class="{'flex w-full items-center relative after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block group' : points >=0}">
-                <span :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0': points >= 0}">
-                    <img class="mx-auto" src="@/assets/icons/creature-step1.svg">
-                </span>
-            </li>
-            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700': points >= 500, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 500}">
-                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 shrink-0' : points >= 500, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0' : points < 500}">
-                      <img class="mx-auto" src="@/assets/icons/creature-step2.svg">
-                </div>
-            </li>
-            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block': points >= 1000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 1000}">
-                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0':points >= 1000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<1000}">
-                     <img class="mx-auto" src="@/assets/icons/creature-step3.svg">
-                </div>
-            </li>
-
-             <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block':points >= 5000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 5000}">
-                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0': points >= 5000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<5000}">
-                     <img class="mx-auto" src="@/assets/icons/creature-step4.svg">
-                </div>
-            </li>
-            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block':points >= 10000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 10000}">
-                <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0': points >= 10000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<10000}">
-                    <img class="mx-auto" src="@/assets/icons/creature-step5.svg">
-                </div>
-            </li>
-
-            <li class="mx-2 w-full">
-                <i class="font-bold">Mes points : {{points}}</i>
-            </li>
-        </ol>
-
-    <div class="container mx-auto flex flex-col mt-10">
-
-      <div class="mx-auto md:w-1/2 mt-5" v-for="(task, index) in tasks" :key="index">
-        <ul class="flex w-full justify-between items-center border bg-custom-black text-custom-white rounded-lg shadow md:flex-row mb-5">
-          <li class="flex flex-col justify-between p-4 md:p-8">
-            <i class="">{{task.task.name}}</i>
-          </li>
-          <div class=" items-center mt-5 pb-5 sm:pr-5">
-            <div class="w-10 p-7 h-10 rounded-full bg-custom-white lg:h-12 lg:w-12 dark:bg-primary-900 -translate-x-1/2">
-              <svg v-if="task.status" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 -translate-y-1/2 -translate-x-1/2 text-custom-green dark:text-primary-300">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-              </svg>
-
-            </div>
-          </div>
-        </ul>
-
-
-      </div>
-    </div>
-  </section>
-</template>
-
-<style scoped>
-
-</style>
-
 <script setup>
+definePageMeta({
+  middleware: ["auth"],
+  layout: "user"
+});
 
-import {initFlowbite} from 'flowbite';
-
-const supabase = useSupabaseClient();
-const user = useSupabaseUser();
-const tasks = ref([]);
-
-const points = ref(0);
 useHead({
   bodyAttrs: {
     class: 'bg-[#F1F8FF]'
   }
 });
 
-onMounted(async () => {
-  initFlowbite();
-  const {data, error} = await supabase.from('user').select().eq('auth_id', user.value.id);
-  points.value = data[0].points;
+const route = useRoute();
+const router = useRouter();
+const supabase = useSupabaseClient();
 
-  const {data: tasksData, error: tasksError} = await supabase.from('user_task').select('*, task:taskId(*)').eq('userId', user.value.id);
-  tasks.value = tasksData;
+const user = useSupabaseUser();
 
-  console.log(tasksData);
+const firstname = ref("");
+const name = ref("");
+const phone = ref("");
+const email = ref("");
+const address = ref("");
+const city = ref("");
+const zip = ref("");
+const rib = ref("");
+
+
+onMounted(async() => {
+ getUser();
 });
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "user"
-});
+async function getUser() {
+  const {data, error} = await supabase
+      .from('user')
+      .select()
+      .eq('auth_id', user.value.id);
+
+  name.value = data[0].lastname;
+  firstname.value = data[0].firstname;
+  city.value = data[0].city;
+  phone.value = data[0].phone;
+  address.value = data[0].address;
+  email.value = data[0].email;
+  rib.value = data[0].rib;
+  zip.value = data[0].zipcode;
+}
+
+
+async function updateUser() {
+  await $fetch('/api/user/update-me', {
+    method: 'post',
+    body: {
+      name: name.value,
+      firstname: firstname.value,
+      city: city.value,
+      phone: phone.value,
+      address: address.value,
+      email: email.value,
+      rib: rib.value,
+      zip: zip.value
+    }
+  });
+}
+
+
 </script>
+
+<template>
+  <section>
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+      <form v-on:submit.prevent="updateUser">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="w-full">
+            <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
+            <input v-model="firstname" type="text" name="firstname" id="firstname"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="Prénom de l'utilisateur" required="" >
+          </div>
+          <div class="w-full">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+            <input v-model="name" type="text" name="name" id="name"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="Nom de l'utilisateur" required="">
+          </div>
+          
+          <div>
+            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+            <input v-model="phone" type="tel" name="phone" id="phone"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="12" required="" >
+          </div>
+          <div class="sm:col-span-2">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+            <input v-model="email" type="email" name="name" id="name"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="Email du collaborateur" required="" >
+          </div>
+          <div class="sm:col-span-2">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
+            <input v-model="address" type="text" name="name" id="name"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="Adresse du collaborateur" required="" >
+          </div>
+          <div class="w-full">
+            <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ville</label>
+            <input v-model="city" type="text" name="firstname" id="firstname"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="Ville de l'utilisateur" required="" >
+          </div>
+          <div class="w-full">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Code Postal</label>
+            <input v-model="zip" type="text" name="name" id="name"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="Code postal de l'utilisateur" required="" >
+          </div>
+          <div class="sm:col-span-2">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RIB</label>
+            <input v-model="rib" type="text" name="name" id="name"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                   placeholder="RIB de l'utilisateur" required="" >
+          </div>
+        </div>
+      
+
+        <div>
+         
+
+          <button type="submit"
+                  class="mt-7 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Sauvegarder
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</template>
