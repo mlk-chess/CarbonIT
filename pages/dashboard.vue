@@ -102,6 +102,11 @@ definePageMeta({
   layout: "user",
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
 
 const supabase = useSupabaseClient();
 const runtimeConfig = useRuntimeConfig()
