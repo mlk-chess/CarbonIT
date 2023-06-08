@@ -74,6 +74,16 @@
 </template>
 
 <script setup>
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+definePageMeta({
+  middleware: ["auth"],
+  layout: "user"
+});
   import {initFlowbite} from "flowbite";
   const missions = ref(null)
   const skills = ref(null)
