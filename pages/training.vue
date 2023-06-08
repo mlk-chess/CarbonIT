@@ -171,8 +171,8 @@ onMounted(() => {
           <li class="mr-2">
             <span @click="mode = 'graph'"
                   class="hover:cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                  :class="{'': true, 'border-blue-600 text-blue-600': mode === 'graph'}">
-           <svg class="w-5 h-5 mr-2 dark:text-blue-500" :class="{'': true, 'text-blue-600': mode === 'graph'}"
+                  :class="{'': true, 'border-custom-blue text-custom-black': mode === 'graph'}">
+           <svg class="w-5 h-5 mr-2 dark:text-blue-500" :class="{'': true, 'text-custom-black': mode === 'graph'}"
                 fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
