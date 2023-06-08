@@ -36,11 +36,9 @@ async function logout() {
             <li>
             <NuxtLink href="/admin"
                class="flex justify-center items-center p-2 text-custom-white rounded-lg hover:bg-[#515456] dark:text-white dark:hover:bg-gray-700">
-              <svg aria-hidden="true"
-                   class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                   fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                      clip-rule="evenodd"></path>
+              <svg   class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
               </svg>
             </NuxtLink>
           </li>
@@ -59,11 +57,8 @@ async function logout() {
           <li>
             <NuxtLink href="/admin/events"
                class="flex justify-center items-center p-2 text-custom-white rounded-lg hover:bg-[#515456] dark:text-white dark:hover:bg-gray-700">
-              <svg aria-hidden="true"
-                   class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                   fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                      clip-rule="evenodd"></path>
+              <svg class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path>
               </svg>
             </NuxtLink>
           </li>
