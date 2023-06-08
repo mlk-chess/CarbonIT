@@ -4,6 +4,12 @@ definePageMeta({
   layout: "admin",
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
 const supabase = useSupabaseClient();
 const users = ref([]);
 

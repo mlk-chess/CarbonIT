@@ -1,9 +1,18 @@
 <script setup>
-import {initFlowbite} from 'flowbite'
+import {initFlowbite} from 'flowbite';
+
+const supabase = useSupabaseClient();
+const router = useRouter();
 
 onMounted(() => {
   initFlowbite();
 });
+
+async function logout() {
+  const { error } = await supabase.auth.signOut()
+
+  await router.push('/');
+}
 </script>
 
 <template>
@@ -73,41 +82,60 @@ onMounted(() => {
     </button>
 
     <aside id="default-sidebar"
-           class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+           class="fixed top-0 left-0 z-40 w-24 h-screen transition-transform -translate-x-full sm:translate-x-0"
            aria-label="Sidebar">
-      <div class="bg-custom-black h-full px-3 py-4 overflow-y-auto text-custom-white">
-        <ul class="space-y-2 font-medium text-custom-white">
-          <li>
-            <a href="#"
-               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-              <svg aria-hidden="true"
-                   class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                   fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+      <div class="h-full px-3 py-4 overflow-y-auto bg-custom-black dark:bg-gray-800">
+        <ul class="space-y-2 font-medium">
+            <li>
+            <NuxtLink href="/admin"
+               class="flex justify-center items-center p-2 text-custom-white rounded-lg hover:bg-[#515456] dark:text-white dark:hover:bg-gray-700">
+              <svg   class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
               </svg>
-              <span class="ml-3 text-custom-white">Dashboard</span>
-            </a>
+            </NuxtLink>
           </li>
           <li>
             <NuxtLink href="/admin/user"
-               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+               class="flex justify-center items-center p-2 text-custom-white rounded-lg hover:bg-[#515456] dark:text-white dark:hover:bg-gray-700">
               <svg aria-hidden="true"
-                   class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                   class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                       clip-rule="evenodd"></path>
               </svg>
-              <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
             </NuxtLink>
+          </li>
+
+          <li>
+            <NuxtLink href="/admin/events"
+               class="flex justify-center items-center p-2 text-custom-white rounded-lg hover:bg-[#515456] dark:text-white dark:hover:bg-gray-700">
+              <svg class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path>
+              </svg>
+            </NuxtLink>
+          </li>
+        </ul>
+
+        <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+          <li>
+            <button @click="logout"
+                    class="w-full flex items-center justify-center p-2 text-custom-white rounded-lg dark:text-white hover:bg-[#515456] dark:hover:bg-gray-700">
+              <svg aria-hidden="true"
+                   class="flex-shrink-0 w-6 h-6 text-custom-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                   fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                      clip-rule="evenodd"></path>
+              </svg>
+            </button>
           </li>
         </ul>
       </div>
     </aside>
  -->
 
-  </div>
-    <div class="p-4 ml-12 ">
+    <div class="p-4 sm:ml-24">
       <div class="p-4">
         <slot/>
       </div>
