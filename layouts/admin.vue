@@ -18,7 +18,7 @@ async function logout() {
 <template>
   <div class=" h-screen fixed top-0 left-0 z-40">
     <div class="flex flex-col items-center w-16 h-full overflow-hidden text-gray-400 bg-custom-black rounded">
-      <NuxtLink class="flex items-center mt-5 justify-center mt-3" href="/admin">
+      <NuxtLink class="flex items-center mt-5 justify-center mt-3" href="/admin/dashboard">
         <svg width="24" height="24" fill="#282B2A" viewBox="0 0 24 24" color="#FDFDFD"
              xmlns="http://www.w3.org/2000/svg">
           <path
