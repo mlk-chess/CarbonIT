@@ -9,7 +9,7 @@ useHead({
 
 definePageMeta({
   middleware: ["auth"],
-  layout: "user"
+  layout: "admin"
 });
 
 const mode = ref(true);
