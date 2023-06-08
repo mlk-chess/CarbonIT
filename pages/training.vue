@@ -34,8 +34,8 @@ onMounted(() => {
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">10</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">En cours</dd>
             </div>
           </div>
           <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
@@ -47,8 +47,8 @@ onMounted(() => {
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">20</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">Terminées</dd>
             </div>
           </div>
           <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
@@ -61,8 +61,8 @@ onMounted(() => {
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">66</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">Heures passées</dd>
             </div>
           </div>
           <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
@@ -75,8 +75,8 @@ onMounted(() => {
               </svg>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">40</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">Badges récoltés</dd>
             </div>
           </div>
         </dl>
@@ -240,19 +240,13 @@ onMounted(() => {
               <li>
                 <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                   <input id="checkbox-item-4" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                  <label for="checkbox-item-4" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Date</label>
+                  <label for="checkbox-item-4" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Soft Skills</label>
                 </div>
               </li>
               <li>
                 <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                   <input checked id="checkbox-item-5" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                  <label for="checkbox-item-5" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Checked state</label>
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input id="checkbox-item-6" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                  <label for="checkbox-item-6" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Default checkbox</label>
+                  <label for="checkbox-item-5" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hard Skills</label>
                 </div>
               </li>
             </ul>

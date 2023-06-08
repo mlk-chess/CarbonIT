@@ -19,6 +19,7 @@ module.exports = {
       'custom-green': '#00BB7E',
       'custom-white': '#FDFDFD',
       'custom-blue': '#5B98D2',
+      'custom-background': '#F1F8FF',
     }
   }
 }
