@@ -131,8 +131,8 @@ async function deleteSkill(skillId) {
     </div>
 
     <div tabindex="-1" aria-hidden="true" v-show="showModal"
-         class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div class="fixed top-0 left-0 right-0 z-40 h-[calc(100%-1rem)] max-h-full bg-gray-100 opacity-50"></div>
+         class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+      <div class="fixed top-0 left-0 right-0 z-40 h-full max-h-full bg-gray-100 opacity-50"></div>
       <div class="relative w-full max-h-full z-50">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 mx-auto max-w-md mt-32">
           <button @click="showModal=false" type="button"
