@@ -105,7 +105,7 @@
 <script setup>
 definePageMeta({
   middleware: ["auth-admin"],
-  layout: "admin"
+  layout: "user"
 });
   import {initFlowbite} from "flowbite";
   const missions = ref(null)

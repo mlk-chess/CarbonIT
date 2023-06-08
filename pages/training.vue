@@ -12,7 +12,7 @@ useHead({
 
 definePageMeta({
   middleware: ["auth"],
-  layout: "admin"
+  layout: "user"
 });
 
 
