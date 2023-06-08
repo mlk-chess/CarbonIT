@@ -21,7 +21,16 @@ const reset = ref(false);
 onMounted(async () => {
   watchEffect(async () => {
     if (user.value) {
-      await navigateTo('/private');
+
+    const {data: tasksData, error: errorData} = await supabase.from('user_task').select('status').eq('taskId', 1).eq('userId', user.value.id);
+
+    if (tasksData[0].status === false) {
+      const {
+        data: updateData,
+        error: updateError
+      } = await supabase.from('user_task').update({status: true}).eq('taskId', 1).eq('userId', user.value.id);
+    }
+    await navigateTo('/private');
     }
   });
 });
@@ -34,16 +43,7 @@ async function login() {
 
   if (error) {
     errorLogin.value = true;
-  } else {
-    const {data: tasksData, error: errorData} = await supabase.from('user_task').select('status').eq('taskId', 1);
-
-    if (tasksData[0].status === false) {
-      const {
-        data: updateData,
-        error: updateError
-      } = await supabase.from('user_task').update({status: true}).eq('taskId', 1);
-    }
-  }
+  } 
 }
 
 async function resetPassword() {
