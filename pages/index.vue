@@ -9,10 +9,6 @@ useHead({
   }
 });
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
-});
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
   const email = ref(null);
