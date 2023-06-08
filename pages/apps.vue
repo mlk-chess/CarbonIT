@@ -14,7 +14,7 @@ definePageMeta({
 <template>
   <section>
     <div class="container mx-auto">
-      <h2 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">Carbon Apps</h2>
+      <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">Carbon Apps</h2>
 
       <div class="mt-24">
         <h4 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Work Space</h4>
