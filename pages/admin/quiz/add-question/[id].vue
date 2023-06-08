@@ -1,4 +1,5 @@
 <template>
+    <h1>Ajouter des questions pour le quiz {{quizName}}</h1>
     <form @submit.prevent="saveQuiz">
         <div class="flex flex-wrap m-8">
             <Questions :questions="questions" :addQuestion="addQuestion" :removeQuestion="removeQuestion"
@@ -12,11 +13,10 @@
 
 import Questions from '~/components/admin/quiz/new/Questions.vue';
 
-
 const route = useRoute()
 
 if (!route.params.id) {
-  console.log('Warning! Make sure user is authenticated!')
+  console.log('Attention! Assurez-vous que l\'utilisateur est authentifié!')
 }
 
 const questions = ref([
@@ -30,7 +30,6 @@ const questions = ref([
         ]
     }
 ])
-
 
 async function addAnswer(questionIndex) {
     questions.value[questionIndex].answers.push({
@@ -84,6 +83,5 @@ async function saveQuiz() {
         alert('Une erreur s\'est produite lors de l\'ajout des questions.');
     }
 }
-
 
 </script>
