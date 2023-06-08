@@ -13,6 +13,17 @@
 
 import Questions from '~/components/admin/quiz/new/Questions.vue';
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
+
+definePageMeta({
+  middleware: ["auth-admin"],
+  layout: "admin"
+});
+
 const route = useRoute()
 
 if (!route.params.id) {
