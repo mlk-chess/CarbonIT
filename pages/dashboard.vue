@@ -98,8 +98,8 @@ import frLocale from '@fullcalendar/core/locales/fr'
 import BlaguesAPI from 'blagues-api';
 
 definePageMeta({
-  middleware: ["auth-admin"],
-  layout: "admin",
+  middleware: ["auth"],
+  layout: "user",
 });
 
 

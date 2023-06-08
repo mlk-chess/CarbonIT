@@ -30,7 +30,7 @@ onMounted(async () => {
         error: updateError
       } = await supabase.from('user_task').update({status: true}).eq('taskId', 1).eq('userId', user.value.id);
     }
-    await navigateTo('/private');
+    await navigateTo('/dashboard');
     }
   });
 });
