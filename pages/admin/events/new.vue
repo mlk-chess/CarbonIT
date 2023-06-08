@@ -1,17 +1,12 @@
 <script setup>
 definePageMeta({
-  middleware: ["auth"],
+  middleware: ["auth-admin"],
 });
 
 useHead({
   bodyAttrs: {
     class: 'bg-[#F1F8FF]'
   }
-});
-
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
 });
 
 const title = ref("");

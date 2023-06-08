@@ -1,6 +1,6 @@
 <script setup>
 definePageMeta({
-  middleware: ["auth"],
+  middleware: ["auth-admin"],
 });
 
 useHead({
@@ -9,10 +9,6 @@ useHead({
   }
 });
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
-});
 
 const title = ref("");
 const description = ref("");
