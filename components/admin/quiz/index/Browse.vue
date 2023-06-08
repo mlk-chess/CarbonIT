@@ -37,63 +37,45 @@
     </div>
 </template>
 
-<script>
+<script setup>
 
-useHead({
-  bodyAttrs: {
-    class: 'bg-[#F1F8FF]'
-  }
-});
+let quizzes = []
+let currentPage = 1
+let itemsPerPage = 6
 
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
-});
-export default {
-    data() {
-        return {
-            quizzes: [],
-            currentPage: 1,
-            itemsPerPage: 6
-        };
-    },
-    computed: {
-        paginatedQuizzes() {
-            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-            const endIndex = startIndex + this.itemsPerPage;
-            return this.quizzes.slice(startIndex, endIndex);
-        },
-        totalPages() {
-            return Math.ceil(this.quizzes.length / this.itemsPerPage);
-        },
-        pages() {
-            const pagesArray = [];
-            for (let i = 1; i <= this.totalPages; i++) {
-                pagesArray.push(i);
-            }
-            return pagesArray;
-        }
-    },
-    async mounted() {
-        const supabase = useSupabaseClient();
+const paginatedQuizzes = computed(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return quizzes.slice(startIndex, endIndex);
+})
 
-        const { data, error } = await supabase
-            .from('quizzes')
-            .select()
+const totalPages = computed(() => {
+    return Math.ceil(quizzes.length / itemsPerPage);
+})
 
-        if (error) {
-            console.log(error);
-        } else {
-            this.quizzes = data;
-        }
-
-    },
-    methods: {
-        changePage(page) {
-            this.currentPage = page;
-        }
+const pages = computed(() => {
+    const pagesArray = [];
+    for (let i = 1; i <= totalPages.value; i++) {
+        pagesArray.push(i);
     }
-};
+    return pagesArray;
+})
+
+const { data, error } = await useSupabaseClient()
+    .from('quizzes')
+    .select()
+
+if (error) {
+    console.log(error);
+} else {
+    quizzes = data;
+}
+
+const changePage = (page) => {
+    currentPage = page;
+}
+
 </script>
+
 
 
