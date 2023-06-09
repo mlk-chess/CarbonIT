@@ -10,7 +10,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     if (user.value) {
-        const userData = await $fetch('/api/user/get?id=' + user.value.id, {
+        const userData = await $fetch('/api/middleware/get?id=' + user.value.id, {
             method: 'get',
         });
 

@@ -14,11 +14,14 @@ const supabase = useSupabaseClient();
 const users = ref([]);
 
 onMounted(async () => {
-  const {data, error} = await supabase
-      .from('user')
-      .select();
+  const data = await $fetch('/api/user/get', {
+    method: 'get',
+  });
 
-  users.value = data;
+  if (data !== 'Error') {
+    users.value = data;
+  }
+
 });
 </script>
 
