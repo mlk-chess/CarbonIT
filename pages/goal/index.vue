@@ -16,7 +16,16 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ["auth-admin"],
+  layout: "user",
+});
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
   const goals = ref(null)
   const supabase = useSupabaseClient();
 
