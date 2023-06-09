@@ -1,20 +1,19 @@
 <template>
-    <div>
-        <h2 class="text-xl font-bold mb-4">Nouveau quiz</h2>
+    <div class="mx-auto">
         <FormQuiz />
     </div>
 </template>
 
 <script>
+definePageMeta({
+  middleware: ["auth-admin"],
+  layout: "user"
+});
+
 useHead({
   bodyAttrs: {
     class: 'bg-[#F1F8FF]'
   }
-});
-
-definePageMeta({
-  middleware: ["auth"],
-  layout: "admin"
 });
 import FormQuiz from "~/components/admin/quiz/new/FormQuiz.vue";
 export default {
@@ -23,7 +22,3 @@ export default {
     },
 }
 </script>
-
-<style>
-@import 'flowbite/dist/flowbite.css';
-</style>
