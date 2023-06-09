@@ -106,7 +106,8 @@ definePageMeta({
 const route = useRoute()
 
 if (!route.params.id) {
-    console.log('Attention! Assurez-vous que l\'utilisateur est authentifié!')
+    loading.value = false;
+    isQuizExist.value = false;
 }
 
 const questions = ref([
