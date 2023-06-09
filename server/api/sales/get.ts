@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
         const supabase = serverSupabaseServiceRole(event);
 
         const {data, error} = await supabase
-            .from('user')
+            .from('customer')
             .select();
 
         if (error) {
