@@ -168,12 +168,13 @@ async function handleDateClick(arg){
 
 async function getEvents(){
 
-    const { data, error } = await supabase.from('event').select();
-    if (error) {
-    console.error(error);
-    } else {
-    events.value = data;
-    }
+    const data = await $fetch('/api/event/getAll', {
+        method: 'get',
+    });
+
+  if (data !== 'Error') {
+      events.value = data; 
+  }
 }
 
 

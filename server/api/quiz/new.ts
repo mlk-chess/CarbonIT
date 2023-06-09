@@ -1,8 +1,9 @@
-import { serverSupabaseClient } from '#supabase/server';
+import { serverSupabaseServiceRole } from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
-    const supabase = serverSupabaseClient(event);
+    if(event.context.auth.userStatus === 1) {
+    const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);
 
     const { data: newDataQuiz, error: newErrorQuiz } = await supabase
@@ -22,4 +23,7 @@ export default defineEventHandler(async (event) => {
     console.log(newDataQuiz);
 
     return newDataQuiz
+
+}
+return 'Error';
 });

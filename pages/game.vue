@@ -83,7 +83,7 @@ onMounted(async () => {
   const {data: tasksData, error: tasksError} = await supabase.from('user_task').select('*, task:taskId(*)').eq('userId', user.value.id);
   tasks.value = tasksData;
 
-  console.log(tasksData);
+
 });
 
 definePageMeta({
