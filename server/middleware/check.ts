@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
         });
 
         if (userData) {
-            event.context.auth = { userStatus: userData[0].status }
+            event.context.auth = { user: userData[0] }
         }
     }
 })

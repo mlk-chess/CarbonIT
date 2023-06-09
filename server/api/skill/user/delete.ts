@@ -2,7 +2,7 @@ import { serverSupabaseServiceRole } from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
-    if(event.context.auth.userStatus === 1) {
+    if(event.context.auth.user.status === 1) {
 
     const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);

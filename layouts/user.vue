@@ -10,9 +10,12 @@ const display = ref(true);
 onMounted(async () => {
   initFlowbite();
 
-  const {data, error} = await supabase.from('user').select('status').eq('auth_id', user.value.id);
+   const userData = await $fetch('/api/middleware/get?id=' + user.value.id, {
+            method: 'get',
+    });
 
-  if (data[0].status === 1) {
+
+  if (userData[0].status === 1) {
     type.value = true;
   }
 });
