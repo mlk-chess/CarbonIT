@@ -28,8 +28,6 @@ async function getCustomer() {
     method: 'get',
   });
 
-  console.log(data);
-
   if (data !== 'Error') {
     name.value = data[0].name;
     contact.value = data[0].contact;
