@@ -30,8 +30,9 @@
         <nav class="block">
             <ul class="flex pl-0 rounded list-none flex-wrap">
                 <li v-if="currentPage > 1"
-                    class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-gray-200">
-                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(currentPage - 1)">
+                    class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-custom-green border-r-0 ml-0 rounded-l hover:bg-gray-200">
+                    <a class="page-link" href="#" aria-label="Previous"
+                        @click.prevent="changePage(currentPage - 1)">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
