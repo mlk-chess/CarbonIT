@@ -12,28 +12,30 @@ useHead({
 
 const route = useRoute();
 const router = useRouter();
-const id = route.params.id;const name = ref("");
+const id = route.params.id;
+const name = ref("");
 const supabase = useSupabaseClient();
 const contact = ref("");
 const consultant = ref("");
 const sales = ref("");
 
-onMounted(async() => {
+onMounted(async () => {
   getCustomer();
 });
 
 async function getCustomer() {
-  const {data, error} = await supabase
-      .from('customer')
-      .select()
-      .eq('id', id);
+  const data = await $fetch('/api/sales/getOne?id=' + id, {
+    method: 'get',
+  });
 
   console.log(data);
 
-  name.value = data[0].name;
-  contact.value = data[0].contact;
-  consultant.value = data[0].consultant;
-  sales.value = data[0].sales;
+  if (data !== 'Error') {
+    name.value = data[0].name;
+    contact.value = data[0].contact;
+    consultant.value = data[0].consultant;
+    sales.value = data[0].sales;
+  }
 }
 
 async function updateCustomer() {
@@ -71,13 +73,15 @@ async function updateCustomer() {
                    placeholder="Contact du client" required="">
           </div>
           <div class="w-full">
-            <label for="consultant" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Consultant</label>
+            <label for="consultant"
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Consultant</label>
             <input v-model="consultant" type="text" name="consultant" id="consultant"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-blue focus:border-custom-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                    placeholder="Nombre de consultant" required="">
           </div>
           <div class="w-full">
-            <label for="sales" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chiffre d'affaires</label>
+            <label for="sales" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chiffre
+              d'affaires</label>
             <input v-model="sales" type="text" name="sales" id="sales"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-blue focus:border-custom-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                    placeholder="Chiffre d'affaires en euro" required="">

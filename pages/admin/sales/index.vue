@@ -15,11 +15,13 @@ const supabase = useSupabaseClient();
 const details = ref(false);
 
 onMounted(async () => {
-  const {data, error} = await supabase
-      .from('customer')
-      .select();
+  const data = await $fetch('/api/sales/get', {
+    method: 'get',
+  });
 
-  customers.value = data;
+  if (data !== 'Error') {
+    customers.value = data;
+  }
 });
 </script>
 
@@ -242,7 +244,7 @@ onMounted(async () => {
             </table>
           </div>
         </div>
-        <div class="col-span-12 xl:col-span-3 mt-16">
+        <div class="col-span-12 xl:col-span-3 mt-16 mx-auto">
           <h2 class="text-3xl font-bold text-gray-900 dark:text-white">To do list :</h2>
           <p class="font-light text-gray-500 dark:text-gray-400">Ces objectifs sont mis a jours quotidienement </p>
 

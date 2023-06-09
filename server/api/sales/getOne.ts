@@ -4,22 +4,17 @@ export default defineEventHandler(async (event) => {
     if (event.context.auth.userStatus === 1) {
 
         const supabase = serverSupabaseServiceRole(event);
-        const body = await readBody(event);
+        const query = await getQuery(event);
 
         const {data, error} = await supabase
             .from('customer')
-            .update({
-                name: body.name,
-                contact: body.contact,
-                consultant: body.consultant,
-                sales: body.sales,
-            })
-            .eq('id', body.id);
+            .select()
+            .eq('id', query.id);
 
         if (error) {
             return 'Error';
         }
-        return 'Success';
+        return data;
     }
     return 'Error';
 });
