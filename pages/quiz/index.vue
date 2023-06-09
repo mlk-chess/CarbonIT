@@ -81,8 +81,17 @@ function previousPage() {
                 <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                     src="~/assets/img/quiz.png" alt="">
                 <div class="flex flex-col justify-between p-4 leading-normal">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Testez vos compétences</h5>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Découvrez une expérience ludique et enrichissante qui mettra vos compétences à l'épreuve avec nos petits quiz captivants ! Plongez dans un univers de connaissances où vous pourrez tester votre savoir, votre logique et votre réflexion. Que vous soyez un amateur curieux ou un expert avide de nouveaux défis, nos quiz vous offriront une escapade divertissante et éducative. Mettez-vous au défi, mesurez-vous à vos amis et prouvez votre maîtrise dans une série de questions passionnantes. Préparez-vous à stimuler votre cerveau et à relever ces petits défis qui vous donneront un sentiment de satisfaction à chaque bonne réponse. Alors, prêt à tester vos compétences ? Plongez dans notre monde de quiz et laissez votre esprit brillant briller !</p>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Testez vos compétences
+                    </h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Découvrez une expérience ludique et
+                        enrichissante qui mettra vos compétences à l'épreuve avec nos petits quiz captivants ! Plongez dans
+                        un univers de connaissances où vous pourrez tester votre savoir, votre logique et votre réflexion.
+                        Que vous soyez un amateur curieux ou un expert avide de nouveaux défis, nos quiz vous offriront une
+                        escapade divertissante et éducative. Mettez-vous au défi, mesurez-vous à vos amis et prouvez votre
+                        maîtrise dans une série de questions passionnantes. Préparez-vous à stimuler votre cerveau et à
+                        relever ces petits défis qui vous donneront un sentiment de satisfaction à chaque bonne réponse.
+                        Alors, prêt à tester vos compétences ? Plongez dans notre monde de quiz et laissez votre esprit
+                        brillant briller !</p>
                 </div>
             </div>
 
@@ -93,8 +102,8 @@ function previousPage() {
                         <h2 class="text-xl font-bold text-gray-800">{{ quiz.quiz_name }}</h2>
                         <p class="text-gray-600">{{ quiz.description }}</p>
                         <div class="flex justify-end mt-4">
-                            <nuxt-link :to="`/quiz/quiz-${quiz.id}`"
-                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">S'évaluer</nuxt-link>
+                            <nuxt-link :to="`/quiz/${quiz.id}`"
+                                class="bg-custom-red text-white px-4 py-2 rounded-md">S'évaluer</nuxt-link>
                         </div>
                     </div>
                 </div>
@@ -102,35 +111,35 @@ function previousPage() {
         </div>
 
 
-        <div class="w-full flex justify-center mt-4">
+        <div class="w-full flex justify-center mt-10">
             <nav class="pagination">
-                <ul class="flex">
-                    <li v-if="currentPage > 1" @click="previousPage" class="mr-2">
-                        <a href="#"
-                            class="block bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                <ul class="inline-flex -space-x-px">
+                    <li v-if="currentPage > 1" @click="previousPage">
+                        <button
+                            class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             Précédent
-                        </a>
+                        </button>
                     </li>
                     <template v-for="page in totalPages" :key="page">
-                        <li :class="{ 'mx-2': page !== 1 && page !== totalPages, 'mr-2': page === 1, 'ml-2': page === totalPages }"
-                            @click="currentPage = page">
-                            <a href="#"
-                                class="block bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                                :class="{ 'bg-blue-500 text-white': currentPage === page, 'hover:bg-blue-500 hover:text-white': currentPage !== page }">
+                        <li @click="currentPage = page">
+                            <button
+                                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                 {{ page }}
-                            </a>
+                            </button>
                         </li>
                     </template>
-                    <li v-if="currentPage < totalPages" @click="nextPage" class="ml-2">
-                        <a href="#"
-                            class="block bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    <li v-if="currentPage < totalPages" @click="nextPage">
+                        <button
+                            class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             Suivant
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </nav>
         </div>
 
-
+        <div class="text-center text-gray-500 text-sm mt-4">
+            Page {{ currentPage }} sur {{ totalPages }}
+        </div>
     </section>
 </template>
