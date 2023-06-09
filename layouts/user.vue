@@ -54,7 +54,7 @@ async function logout() {
           <div class="flex flex-col items-center mt-3 border-t border-gray-700">
             <NuxtLink
                 class="flex items-center justify-center w-12 h-12 mt-2 hover:bg-gray-700 hover:text-gray-300 rounded"
-                href="/profile">
+                href="/cv">
               <svg color="#FDFDFD" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round"

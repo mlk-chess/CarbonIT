@@ -1,10 +1,12 @@
-import { serverSupabaseClient } from '#supabase/server';
+import { serverSupabaseServiceRole } from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
-    const supabase = serverSupabaseClient(event);
+    if(event.context.auth.userStatus === 1) {
+    const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);
 
+    
     const {data: selectData, error: selectError} = await supabase
         .from('user_skill')
         .select()
@@ -26,4 +28,6 @@ export default defineEventHandler(async (event) => {
     }
 
     return 'Success';
+}
+return 'Error';
 });
