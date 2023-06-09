@@ -1,55 +1,49 @@
 <template>
-    <section class="px-14">
-       <i v-if="userInfos" class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{userInfos[0].firstname }} {{userInfos[0].lastname }}</i>
+    <section class="">
+        
+       <i v-if="userInfos" class="mb-2 text-2xl font-bold text-gray-900">{{userInfos[0].firstname }} {{userInfos[0].lastname }}</i>
 
         <form v-on:submit.prevent="" class="mt-4">
-            <div class="w-1/2">
+            <div class="md:w-1/2">
                 <input v-model="bio" type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Biographie..." required=""/>
-                <button type="submit" class="mt-2 text-white bg-custom-green hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sauvegarder</button>
             </div>
         </form>
 
-        <div class="w-1/2">
-            <div class="flex flex-row mt-5 ">
-                <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium ">Expert :</div>
+        
+        <div class="">
+            <div class="flex mt-5 ">
+                <div class="inline-flex items-center px-2 py-1 mr-2 text-md font-medium ">Expert :</div>
                 <div v-for="(skill, index) in skills" :key="index">
-                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
+                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
                 </div> 
             </div>
         </div>
 
-        <div class="w-1/2">
-            <div class="flex flex-row mt-5 ">
-                <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium ">Intermédiaire :</div>
+        <div class="">
+            <div class="flex flex-row ">
+                <span class=" px-2 py-1 mr-2 text-md font-medium ">Intermédiaire :</span>
                 <div v-for="(skill, index) in skills" :key="index">
-                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
+                        <div class=" px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
                 </div> 
             </div>
         </div>
+        
 
-         <div class="w-1/2">
-            <div class="flex flex-row mt-5 ">
-                <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium ">Expert :</div>
-                <div v-for="(skill, index) in skills" :key="index">
-                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
-                </div> 
-            </div>
-        </div>
 
-          <div class="w-1/2">
-            <div class="flex flex-row mt-5 ">
-                <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium ">Débutant :</div>
+          <div class="">
+            <div class="flex flex-row ">
+                <div class="inline-flex items-center px-2 py-1 mr-2 text-md font-medium ">Débutant :</div>
                 <div v-for="(skill, index) in skills" :key="index">
-                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
+                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
                 </div> 
             </div>
         </div>
          
-        <div class="md:flex mt-12">
+        <div class="md:flex md:gap-10 mt-12">
             <div class="md:w-1/2">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Ca carbonne, ça charbonne !</h5>
                 
-                <div class="grid grid-cols-2">
+                <div class="grid md:grid-cols-2">
                     <div v-for="(goal, index) in goals" :key="index" class="p-2 bg-custom-white shadow rounded mx-1 mt-2">
                         <h5 class="mb-2 text-xl font-medium">{{goal.title}}</h5>
                         <div class="">
@@ -62,13 +56,13 @@
             </div>
 
             <div class="md:w-1/2 ">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Soft Skill !</h5>
+                <h5 class="mb-2 text-2xl font-bold text-gray-900">Aptitudes</h5>
 
-                <div class="flex flex-row mt-12 ">
+                <div class="flex flex-row ">
                     <div v-for="(skill, index) in skills" :key="index">
-                        <div
-                            class="inline-flex items-center px-2 py-1 mr-2 text-xl font-medium bg-indigo-100 text-indigo-800 rounded">
-                            {{ skill.skill.title }} <span class="text-base inline-text ml-2">({{skill.level}})</span>
+                        <div v-if="skill.skill.status == 0"
+                            class="mt-2 inline-flex items-center px-1 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">
+                            {{ skill.skill.title }}
                             
                         </div>
                     </div>
@@ -108,7 +102,7 @@ const getGoals = async() => {
 async function getUserSkills() {
   const {data, error} = await supabase
       .from('user_skill')
-      .select('skill_id, level, skill:skill_id(title)')
+      .select('skill_id, level, skill:skill_id(title, status)')
       .eq('user_id', userInfos.value[0].id)
     
 
