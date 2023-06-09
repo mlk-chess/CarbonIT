@@ -9,6 +9,17 @@ useHead({
     class: 'bg-[#F1F8FF]'
   }
 });
+
+const customers = ref([]);
+const supabase = useSupabaseClient();
+
+onMounted(async () => {
+  const {data, error} = await supabase
+      .from('customer')
+      .select();
+
+  customers.value = data;
+});
 </script>
 
 <template>
@@ -66,14 +77,14 @@ useHead({
       <div class="flex justify-between mt-20 items-center">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Liste des clients</h2>
 
-        <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+        <NuxtLink href="/admin/sales/new"
                 class="text-white bg-custom-green hover:text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 type="button">
           <svg class="w-6 mr-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
           </svg>
           Ajouter un client
-        </button>
+        </NuxtLink>
       </div>
 
 
@@ -114,21 +125,21 @@ useHead({
           </tr>
           </thead>
           <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <tr v-for="(customer, index) in customers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td class="px-6 py-4">
-              Nom du client
+              {{customer.name}}
             </td>
             <td class="px-6 py-4">
-              John Deo
+              {{customer.contact}}
             </td>
             <td class="px-6 py-4">
               10
             </td>
             <td class="px-6 py-4">
-              3
+              {{customer.consultant}}
             </td>
             <td class="px-6 py-4">
-              390 000 €
+              {{customer.sales}} €
             </td>
           </tr>
           </tbody>
