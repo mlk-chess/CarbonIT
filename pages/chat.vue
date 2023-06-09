@@ -4,7 +4,7 @@
       <div class="flex flex-col py-8 pl-6 pr-6 w-64 bg-white flex-shrink-0">
         <div class="flex flex-row items-center justify-center h-12 w-full">
           <div
-            class="flex items-center justify-center rounded-2xl text-indigo-700 bg-custom-button h-10 w-10"
+            class="flex items-center justify-center rounded-2xl text-indigo-700 bg-custom-green h-10 w-10"
           >
             <svg color="#FDFDFD" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -306,7 +306,7 @@
             </div>
             <div class="ml-4">
               <button
-                class="flex items-center justify-center bg-custom-button hover:bg-blue-800 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                class="flex items-center justify-center bg-custom-green hover:bg-green-900 rounded-xl text-white px-4 py-1 flex-shrink-0"
               >
                 <span>Send</span>
                 <span class="ml-2">
