@@ -49,7 +49,7 @@ async function getUser() {
 
 async function updateUser() {
   await $fetch('/api/user/update', {
-    method: 'post',
+    method: 'put',
     body: {
       name: name.value,
       firstname: firstname.value,
