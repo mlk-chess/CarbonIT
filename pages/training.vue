@@ -85,7 +85,7 @@ onMounted(() => {
   <section>
     <div class="container mx-auto">
       <div class="w-full px-4 py-8 text-center lg:py-5 lg:px-6">
-        <dl class="grid gap-8 mx-auto text-gray-900 sm:grid-cols-4 dark:text-white">
+        <dl class="grid gap-8 mx-auto text-gray-900 md:grid-cols-2 xl:grid-cols-4 dark:text-white">
           <div class="flex flec-row justify-center items-center align-middle bg-custom-white py-10 rounded">
             <div class="w-10 p-7 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-primary-900 -translate-x-1/2">
               <svg class="w-9 -translate-y-1/2 -translate-x-1/2 text-blue-600 dark:text-primary-300" fill="currentColor"
@@ -184,7 +184,7 @@ onMounted(() => {
       </div>
 
       <div v-show="mode === 'training'" class="mt-16">
-        <div class="grid grid-cols-4 gap-x-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12">
           <div class="dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
               <img class="w-full rounded-t-lg"
