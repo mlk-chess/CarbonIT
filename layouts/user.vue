@@ -26,15 +26,15 @@ async function logout() {
 
 <template>
   <div>
-    <div @click="display = true" class="hover:cursor-pointer bg-custom-white rounded py-2 px-2 fixed top-5 left-5 sm:hidden">
+    <div v-show="!display" @click="display = true" class="hover:cursor-pointer bg-custom-white rounded w-fit ml-5 mt-5 py-2 px-2 sm:hidden">
       <svg color="#282B2A" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5"
            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round"
               d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
       </svg>
     </div>
-    <div v-show="display" class=" h-screen fixed top-0 left-0 z-40">
-      <div class="flex flex-col items-center w-16 h-full overflow-hidden text-gray-400 bg-custom-black">
+    <div :class="{'hidden': !display}" class=" h-screen fixed top-0 left-0 z-40 sm:block">
+      <div class="flex flex-col items-center w-16 h-full overflow-x-hidden text-gray-400 bg-custom-black">
         <div @click="display = false" class="hover:cursor-pointer flex items-center mt-5 justify-center mt-3 sm:hidden">
           <svg color="#FDFDFD" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
