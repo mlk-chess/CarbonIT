@@ -335,7 +335,7 @@
 </template>
 <script setup>
 definePageMeta({
-  middleware: ["auth-admin"],
+  middleware: ["auth"],
   layout: "user",
 });
 
