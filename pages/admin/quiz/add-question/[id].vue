@@ -1,5 +1,5 @@
 <template>
-    <div role="status" v-if="loading">
+    <div role="status" class="flex justify-center items-center flex-col h-screen" v-if="loading">
         <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -10,6 +10,17 @@
                 fill="currentFill" />
         </svg>
         <span class="sr-only">Loading...</span>
+    </div>
+    <div v-else-if="!isQuizExist" class="flex justify-center items-center flex-col">
+        <h1
+            class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">
+            Ce quiz est <span
+                class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">introuvable
+                !</span>
+        </h1>
+        <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center">Ce quiz n'existe pas. S'il
+            est censé exister, contactez l'administrateur.</p>
+        <img class="h-auto max-w-lg rounded-lg" src="~/assets/img/not_found.png" alt="image description" />
     </div>
     <div v-else>
 
@@ -66,6 +77,7 @@
 import Questions from '~/components/admin/quiz/new/Questions.vue';
 
 const loading = ref(true);
+const isQuizExist = ref(true);
 const dataquiz = ref([]);
 const questionsData = ref([
     {
@@ -170,45 +182,55 @@ onMounted(async () => {
         .select()
         .eq('id', route.params.id)
 
-    // Requête pour récupérer les questions
-    const { data: dataQuestions, error: errorQuestions } = await supabase
-        .from('questions')
-        .select()
-        .eq('quiz_id', route.params.id)
-
-    // On met les questions et les réponses qui vont avec la question dans la variable questionsData
-    if (dataQuestions) {
-        // Requête pour récupérer les réponses en fonction des questions
-        const { data: dataAnswers, error: errorAnswers } = await supabase
-            .from('answers')
-            .select()
-            .in('question_id', dataQuestions.map(question => question.id))
-
-        dataQuestions.forEach(question => {
-            const answers = dataAnswers.filter(answer => answer.question_id === question.id);
-
-            questionsData.value.push({
-                questionText: question.question_text,
-                answers: answers.map(answer => {
-                    return {
-                        answerText: answer.answer_text,
-                        isCorrect: answer.is_correct
-                    }
-                })
-            })
-        });
-    } else {
-        console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
-    }
-
-
-    if (error) {
-        console.log(error);
-    } else {
+        console.log(data[0]);
+    //Check si data est bien rempli
+    if (data[0] === undefined) {
+        console.log('Erreur: Impossible de récupérer les données du quiz');
         loading.value = false;
-        dataquiz.value = data;
-        console.log(questionsData.value);
+        isQuizExist.value = false;
+    } else {
+        // Requête pour récupérer les questions
+        const { data: dataQuestions, error: errorQuestions } = await supabase
+            .from('questions')
+            .select()
+            .eq('quiz_id', route.params.id)
+
+        // On met les questions et les réponses qui vont avec la question dans la variable questionsData
+        if (dataQuestions) {
+            // Requête pour récupérer les réponses en fonction des questions
+            const { data: dataAnswers, error: errorAnswers } = await supabase
+                .from('answers')
+                .select()
+                .in('question_id', dataQuestions.map(question => question.id))
+
+            questionsData.value.pop();
+            dataQuestions.forEach(question => {
+                const answers = dataAnswers.filter(answer => answer.question_id === question.id);
+
+                questionsData.value.push({
+                    questionText: question.question_text,
+                    answers: answers.map(answer => {
+                        return {
+                            answerText: answer.answer_text,
+                            isCorrect: answer.is_correct
+                        }
+                    })
+                })
+            });
+        } else {
+            console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
+        }
+
+
+        if (error) {
+            console.log(error);
+        } else {
+            loading.value = false;
+            dataquiz.value = data;
+            console.log(questionsData.value);
+        }
     }
+
 });
 
 </script>
