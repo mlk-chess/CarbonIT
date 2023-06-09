@@ -5,7 +5,7 @@ definePageMeta({
 
 useHead({
   bodyAttrs: {
-    class: 'bg-[#F1F8FF]'
+    class: 'bg-custom-black'
   }
 });
 
@@ -64,7 +64,7 @@ async function resetPassword() {
 </script>
 
 <template>
-  <section class="bg-custom-black">
+  <section>
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div
           class="w-full max-w-sm shadow bg-custom-grey rounded-lg p-4 sm:p-6 md:p-8">
