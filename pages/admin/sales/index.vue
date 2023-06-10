@@ -15,13 +15,14 @@ const supabase = useSupabaseClient();
 const details = ref(false);
 const showModal = ref(false);
 const idCustomer = ref(null);
+const search = ref('');
 
 onMounted(async () => {
   getData();
 });
 
 async function getData() {
-  const data = await $fetch('/api/sales/get', {
+  const data = await $fetch('/api/sales/get?search=' + search.value, {
     method: 'get',
   });
 
@@ -29,6 +30,10 @@ async function getData() {
     customers.value = data;
   }
 }
+
+watch(search, async () => {
+  getData();
+});
 
 async function deleteCustomer() {
   const data = await $fetch('/api/sales/delete', {
@@ -123,6 +128,25 @@ async function deleteCustomer() {
           Ajouter un client
         </NuxtLink>
       </div>
+
+
+      <div class="mt-7">
+        <label for="default-search"
+               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input v-model="search" type="search" id="default-search"
+                 class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 placeholder="Rechercher un client" required>
+        </div>
+      </div>
+
 
       <div class="grid grid-cols-12 gap-12">
         <div class="mt-10 col-span-12 xl:col-span-9">
@@ -255,7 +279,8 @@ async function deleteCustomer() {
                               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
                     </NuxtLink>
-                    <button @click="showModal = true; idCustomer = customer.id" class="ml-5 hover:cursor-pointer hover:text-red-400">
+                    <button @click="showModal = true; idCustomer = customer.id"
+                            class="ml-5 hover:cursor-pointer hover:text-red-400">
                       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -268,6 +293,7 @@ async function deleteCustomer() {
               </table>
             </div>
           </div>
+          <p v-if="customers.length === 0" class="text-center mt-10">Pas de résultats</p>
         </div>
         <div class="col-span-12 xl:col-span-3 mt-10 mx-auto w-full">
           <h2 class="text-xl font-bold text-gray-900 dark:text-white">To do list :</h2>
@@ -360,12 +386,21 @@ async function deleteCustomer() {
               <span class="sr-only">Close modal</span>
             </button>
             <div class="p-6 text-center">
-              <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez-vous vraiment supprimer ce client ?</h3>
-              <button @click="deleteCustomer(); showModal = false" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+              <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none"
+                   stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez-vous vraiment supprimer ce
+                client ?</h3>
+              <button @click="deleteCustomer(); showModal = false" type="button"
+                      class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                 Oui, je suis sûr
               </button>
-              <button @click="showModal = false" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Non, annuler</button>
+              <button @click="showModal = false" type="button"
+                      class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                Non, annuler
+              </button>
             </div>
           </div>
         </div>
