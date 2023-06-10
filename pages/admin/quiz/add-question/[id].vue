@@ -176,61 +176,28 @@ async function saveQuiz() {
 }
 
 onMounted(async () => {
-    const supabase = useSupabaseClient();
 
-    const { data, error } = await supabase
-        .from('quizzes')
-        .select()
-        .eq('id', route.params.id)
+    const id = route.params.id;
 
-        console.log(data[0]);
-    //Check si data est bien rempli
-    if (data[0] === undefined) {
-        console.log('Erreur: Impossible de récupérer les données du quiz');
-        loading.value = false;
-        isQuizExist.value = false;
-    } else {
-        // Requête pour récupérer les questions
-        const { data: dataQuestions, error: errorQuestions } = await supabase
-            .from('questions')
-            .select()
-            .eq('quiz_id', route.params.id)
+    // Get quiz data from getQuiz with post sending route.params.id as quiz_id
+    const response = await fetch(`/api/quiz/getQuiz?id=` + id, {
+        method: 'GET',
+    });
 
-        // On met les questions et les réponses qui vont avec la question dans la variable questionsData
-        if (dataQuestions) {
-            // Requête pour récupérer les réponses en fonction des questions
-            const { data: dataAnswers, error: errorAnswers } = await supabase
-                .from('answers')
-                .select()
-                .in('question_id', dataQuestions.map(question => question.id))
+    questionsData.value.pop();
+    dataQuestions.forEach(question => {
+        const answers = dataAnswers.filter(answer => answer.question_id === question.id);
 
-            questionsData.value.pop();
-            dataQuestions.forEach(question => {
-                const answers = dataAnswers.filter(answer => answer.question_id === question.id);
-
-                questionsData.value.push({
-                    questionText: question.question_text,
-                    answers: answers.map(answer => {
-                        return {
-                            answerText: answer.answer_text,
-                            isCorrect: answer.is_correct
-                        }
-                    })
-                })
-            });
-        } else {
-            console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
-        }
-
-
-        if (error) {
-            console.log(error);
-        } else {
-            loading.value = false;
-            dataquiz.value = data;
-            console.log(questionsData.value);
-        }
-    }
+        questionsData.value.push({
+            questionText: question.question_text,
+            answers: answers.map(answer => {
+                return {
+                    answerText: answer.answer_text,
+                    isCorrect: answer.is_correct
+                }
+            })
+        })
+    });
 
 });
 
