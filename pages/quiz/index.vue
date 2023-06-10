@@ -1,4 +1,7 @@
 <script setup>
+
+import {initFlowbite} from "flowbite";
+
 const quizzes = ref();
 const isLoading = ref(true);
 
@@ -14,19 +17,22 @@ definePageMeta({
 });
 
 onMounted(async () => {
-    const supabase = useSupabaseClient();
+    initFlowbite();
+    await getQuizzes();
+})
 
-    const { data, error } = await supabase
-        .from('quizzes')
-        .select()
 
-    if (error) {
-        console.log(error);
-    } else {
-        quizzes.value = data
+async function getQuizzes() {
+
+    const data = await $fetch('/api/quiz/getAll', {
+        method: 'get',
+    });
+
+    if (data !== 'Error') {
+        quizzes.value = data;
         isLoading.value = false;
     }
-})
+}
 
 function paginate(array, page_size, page_number) {
     return array.slice((page_number - 1) * page_size, page_number * page_size);
