@@ -64,11 +64,13 @@
                 
                 <div class="grid md:grid-cols-2">
                     <div v-for="(goal, index) in goals" :key="index" class="p-2 bg-custom-white shadow border border-custom-green rounded mx-1 mt-2">
+                      <div v-if="goal.status == 1">
                         <h5 class="mb-2 text-xl font-medium">{{goal.title}}</h5>
                         <div class="">
                             <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">En cours</span>
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{goal.description}}</p>
                         </div>
+                      </div>
                     </div>
                 </div>
 
