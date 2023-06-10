@@ -104,7 +104,7 @@ async function deleteUser(id) {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </NuxtLink>
-              <NuxtLink :href="`/admin/skill/${user.id}`" class="ml-5 hover:cursor-pointer hover:text-yellow-400">
+              <NuxtLink :href="`/admin/cv/${user.id}`" class="ml-5 hover:cursor-pointer hover:text-yellow-400">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"
