@@ -12,9 +12,11 @@
                 </div>
             </div>
             <i  class="mb-2 ml-5 text-2xl  text-gray-900">{{firstname }} {{name}}</i>
+            
         </div>
-       <hr>
+    
 
+         <hr>
         
         <div class="">
             <div class="flex mt-5 ">
@@ -46,11 +48,12 @@
             </div>
 
         <div class="flex justify-end">
-            <button 
-                  class="text-white bg-custom-green font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
-            Ajouter
-          </button>
-        </div>
+                   
+                    <button @click="showModal = true"
+                        class="text-white bg-custom-green font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
+                   Ajouter
+                    </button>
+                </div>
 
         </div>
             
@@ -69,13 +72,7 @@
                     </div>
                 </div>
 
-                 <div class="flex mt-2 justify-end">
-                   
-                    <button @click="showModal = true"
-                        class="text-white bg-custom-green font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
-                   Ajouter
-                    </button>
-                </div>
+                
                 
             </div>
 
@@ -123,7 +120,15 @@
                 <div v-for="(skill, index) in skills" :key="index">
                 <div class="flex justify-between items-center">
                     <p>{{ skill.title }}</p>
-                    <button type="button" @click="skillId = skill.id; showModalLevel = true; showModal=false"
+                    <button v-if="skill.status == 1" type="button" @click="skillId = skill.id; showModalLevel = true; showModal=false"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 mr-2 mb-2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                    </svg>
+                    </button>
+
+                     <button v-if="skill.status == 0" type="button" @click="skillId = skill.id;level = null; showModal=false;addSkill(); "
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 mr-2 mb-2 ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4">
