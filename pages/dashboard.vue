@@ -3,7 +3,7 @@
     <div class="bg-custom-white w-4/12 shadow p-5 rounded">
       <FullCalendar :options="calendarOptions">
         <template v-slot:eventContent='arg'>
-          <p class="overflow-hidden hover:cursor-pointer" @click="showModal = true; dateModal = arg.event">
+          <p class="overflow-hidden hover:cursor-pointer" :class="{'bg-custom-green border-custom-green': arg.event.extendedProps.user_event.length > 0}" @click="showModal = true; dateModal = arg.event">
             {{ arg.event.title }}</p>
         </template>
       </FullCalendar>
@@ -52,6 +52,14 @@
             <h4 class="mb-4 text-lg font-base text-gray-900 dark:text-white">{{ dateModal.title }}</h4>
             <p class="mb-4 text-md font-base text-gray-900 dark:text-white">
               {{ dateModal.extendedProps.description }}</p>
+
+            <button v-if="dateModal.extendedProps.user_event.length === 0" @click="join(dateModal.id)" type="button"
+                    class="mt-10 text-white bg-custom-green hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              S'inscrire
+            </button>
+            <p v-else class="text-sm text-gray-600 italic">
+              Vous êtes inscrit à cet évènement
+            </p>
           </div>
         </div>
       </div>
@@ -109,6 +117,7 @@ useHead({
 });
 
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 const runtimeConfig = useRuntimeConfig()
 const showModal = ref(false);
 const dateModal = ref(null);
@@ -122,9 +131,11 @@ const blagues = new BlaguesAPI(runtimeConfig.public.blagueToken);
 
 async function getEvents(){
 
-    const data = await $fetch('/api/event/getAll', {
+    const data = await $fetch('/api/event/getAllUser', {
         method: 'get',
     });
+
+    console.log(data);
 
   if (data !== 'Error') {
       events.value = data; 
@@ -154,6 +165,18 @@ onMounted(async () => {
       blagues.categories.BEAUF,
     ]
   });
-})
+});
+
+async function join(id) {
+  await $fetch('/api/event/join', {
+    method: 'post',
+    body: {
+      eventId: id,
+      userId: user.value.id,
+    }
+  });
+
+  showModal.value = false;
+}
 
 </script>
