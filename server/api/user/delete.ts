@@ -6,14 +6,15 @@ export default defineEventHandler(async (event) => {
         const supabase = serverSupabaseServiceRole(event);
         const body = await readBody(event);
 
-        const {data: data, error: error} = await supabase
-            .from('customer')
-            .insert([{
-                name: body.name,
-                contact: body.contact,
-                consultant: body.consultant,
-                sales: body.sales,
-            }]);
+        if (body.id === event.context.auth.user.id) {
+            return 'Error';
+        }
+
+
+        const { data, error } = await supabase.auth.admin.deleteUser(
+            body.id
+        )
+
 
         if (error) {
             return 'Error';

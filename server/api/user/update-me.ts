@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
     const { data: { user } } = await supabase.auth.getUser(event.context._token)
     
-
+  
 
     const {data: newDataUser, error: newErrorUser} = await supabase
         .from('user')
@@ -24,6 +24,8 @@ export default defineEventHandler(async (event) => {
             rib: body.rib
         })
         .eq('auth_id', user.id);
+
+        
 
     if(newErrorUser) {
         return 'Error';

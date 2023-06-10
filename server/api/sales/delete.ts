@@ -8,12 +8,8 @@ export default defineEventHandler(async (event) => {
 
         const {data: data, error: error} = await supabase
             .from('customer')
-            .insert([{
-                name: body.name,
-                contact: body.contact,
-                consultant: body.consultant,
-                sales: body.sales,
-            }]);
+            .delete()
+            .eq('id', body.id);
 
         if (error) {
             return 'Error';

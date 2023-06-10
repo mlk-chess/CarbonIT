@@ -158,22 +158,23 @@ async function handleChangeMode(mode){
 
 async function handleDateClick(arg){
 
-    const { data, error } = await supabase.from('event').select().eq('date', arg.dateStr);
-    if (error) {
-        console.error(error);
-    } else {
+     const data = await $fetch('/api/event/getByDate?date=' + arg.dateStr, {
+        method: 'get',
+    });
+    if (data !== 'Error') {
         eventsByDate.value = data;
     }
 }
 
 async function getEvents(){
 
-    const { data, error } = await supabase.from('event').select();
-    if (error) {
-    console.error(error);
-    } else {
-    events.value = data;
-    }
+    const data = await $fetch('/api/event/getAll', {
+        method: 'get',
+    });
+
+  if (data !== 'Error') {
+      events.value = data; 
+  }
 }
 
 

@@ -25,26 +25,27 @@ const zip = ref("");
 const rib = ref("");
 const edit = ref(false);
 
-onMounted(async() => {
+onMounted(async () => {
   getUser();
   getUserSkills();
 });
 
 async function getUser() {
-  const {data, error} = await supabase
-      .from('user')
-      .select()
-      .eq('id', id);
+  const data = await $fetch('/api/user/getOne?id=' + id, {
+    method: 'get',
+  });
 
-  name.value = data[0].lastname;
-  firstname.value = data[0].firstname;
-  status.value = data[0].status;
-  city.value = data[0].city;
-  phone.value = data[0].phone;
-  address.value = data[0].address;
-  email.value = data[0].email;
-  rib.value = data[0].rib;
-  zip.value = data[0].zipcode;
+  if (data !== 'Error') {
+    name.value = data[0].lastname;
+    firstname.value = data[0].firstname;
+    status.value = data[0].status;
+    city.value = data[0].city;
+    phone.value = data[0].phone;
+    address.value = data[0].address;
+    email.value = data[0].email;
+    rib.value = data[0].rib;
+    zip.value = data[0].zipcode;
+  }
 }
 
 async function updateUser() {

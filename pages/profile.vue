@@ -31,11 +31,13 @@ onMounted(async() => {
 });
 
 async function getUser() {
-  const {data, error} = await supabase
-      .from('user')
-      .select()
-      .eq('auth_id', user.value.id);
+   const data = await $fetch('/api/middleware/get?id=' + user.value.id, {
+            method: 'get',
+    });
 
+  if (data !== 'Error') {
+      
+  
   name.value = data[0].lastname;
   firstname.value = data[0].firstname;
   city.value = data[0].city;
@@ -44,6 +46,7 @@ async function getUser() {
   email.value = data[0].email;
   rib.value = data[0].rib;
   zip.value = data[0].zipcode;
+  }
 }
 
 
