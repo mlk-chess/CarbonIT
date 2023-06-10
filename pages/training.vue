@@ -1,8 +1,29 @@
 <script setup>
-import {initFlowbite} from 'flowbite';
 import {Line, Radar} from 'vue-chartjs';
 import {Chart} from 'chart.js/auto';
+import {initFlowbite} from "flowbite";
 
+  const trainings = ref(null)
+  const supabase = useSupabaseClient();
+    async function getTrainings(){
+
+    const data = await $fetch('/api/training/getAll', {
+        method: 'get',
+    });
+
+  if (data !== 'Error') {
+      trainings.value = data; 
+  }
+}
+
+  onMounted( async () => {
+
+     initFlowbite();
+      await getTrainings();
+
+     
+      
+  })
 
 useHead({
   bodyAttrs: {
@@ -76,9 +97,6 @@ const chartOptionsRadar = ref({
   }
 });
 
-onMounted(() => {
-  initFlowbite();
-});
 </script>
 
 <template>
@@ -184,105 +202,23 @@ onMounted(() => {
       </div>
 
       <div v-show="mode === 'training'" class="mt-16">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12">
-          <div class="dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img class="w-full rounded-t-lg"
-                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-1.png" alt=""/>
-            </a>
-            <div class="py-5">
-              <span
-                  class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En cours</span>
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
-              </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
-              <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Voir plus
-                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img class="w-full rounded-t-lg"
-                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-2.png" alt=""/>
-            </a>
-            <div class="py-5">
-              <span
-                  class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En cours</span>
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
-              </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
-              <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Voir plus
-                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img class="w-full rounded-t-lg"
-                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-3.png" alt=""/>
-            </a>
-            <div class="py-5">
-              <span
-                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Terminée</span>
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
-              </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
-              <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Voir plus
-                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="dark:bg-gray-800 dark:border-gray-700">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12" v-for="(training, index) in trainings" :key="index">
+          <div v-if="new Date(training.date_start) > new Date() || training.status != -1" class="dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
               <img class="w-full rounded-t-lg"
                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-4.png" alt=""/>
             </a>
             <div class="py-5">
               <span
-                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Terminée</span>
+                  class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">À venir</span>
               <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ training.title }}</h5>
               </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
+              <p class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">{{ training.date_start }} | {{training.time_start}}</p>
+              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ training.description }}</p>
               <a href="#"
-                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-button rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Voir plus
+                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-green rounded-lg hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                S'inscrire
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd"

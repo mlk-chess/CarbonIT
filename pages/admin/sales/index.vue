@@ -1,4 +1,7 @@
 <script setup>
+import {Chart} from 'chart.js/auto';
+import {Bar} from "vue-chartjs";
+
 definePageMeta({
   middleware: ["auth-admin"],
   layout: "user",
@@ -10,18 +13,65 @@ useHead({
   }
 });
 
+const chartData = ref({
+  labels: ['Jan', 'Fév', 'Avr', 'Mars'],
+  datasets: [{
+    data: [2, 4, 6, 7],
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#FF69B4',
+    backgroundColor: '#FF69B4',
+  }]
+});
+
+const chartOptions = ref({
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    title: {
+      display: false,
+    },
+  },
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      border: {
+        display: false,
+      },
+    },
+
+    y: {
+      grid: {
+        display: false,
+      },
+      border: {
+        display: false,
+      },
+      ticks: {
+        display: false,
+      }
+    }
+  }
+});
+
+
 const customers = ref([]);
 const supabase = useSupabaseClient();
-const details = ref(false);
+const showDrawer = ref(false);
 const showModal = ref(false);
 const idCustomer = ref(null);
+const search = ref('');
 
 onMounted(async () => {
   getData();
 });
 
 async function getData() {
-  const data = await $fetch('/api/sales/get', {
+  const data = await $fetch('/api/sales/get?search=' + search.value, {
     method: 'get',
   });
 
@@ -29,6 +79,10 @@ async function getData() {
     customers.value = data;
   }
 }
+
+watch(search, async () => {
+  getData();
+});
 
 async function deleteCustomer() {
   const data = await $fetch('/api/sales/delete', {
@@ -114,7 +168,7 @@ async function deleteCustomer() {
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Liste des clients</h2>
 
         <NuxtLink href="/admin/sales/new"
-                  class="text-white bg-custom-green hover:text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  class="text-white bg-custom-green hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                   type="button">
           <svg class="w-6 mr-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -123,6 +177,25 @@ async function deleteCustomer() {
           Ajouter un client
         </NuxtLink>
       </div>
+
+
+      <div class="mt-7">
+        <label for="default-search"
+               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input v-model="search" type="search" id="default-search"
+                 class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 placeholder="Rechercher un client" required>
+        </div>
+      </div>
+
 
       <div class="grid grid-cols-12 gap-12">
         <div class="mt-10 col-span-12 xl:col-span-9">
@@ -246,7 +319,15 @@ async function deleteCustomer() {
                     <span class="flex w-3 h-3 bg-green-500 rounded-full"></span>
                   </td>
                   <td class="px-6 py-4 flex">
-                    <NuxtLink :href="`/admin/sales/${customer.id}`" class="hover:cursor-pointer hover:text-blue-400">
+                    <button @click="showDrawer = true" class="hover:cursor-pointer hover:text-pink-400">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                           xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path>
+                      </svg>
+                    </button>
+
+                    <NuxtLink :href="`/admin/sales/${customer.id}`" class="ml-5 hover:cursor-pointer hover:text-blue-400">
                       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -255,7 +336,8 @@ async function deleteCustomer() {
                               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
                     </NuxtLink>
-                    <button @click="showModal = true; idCustomer = customer.id" class="ml-5 hover:cursor-pointer hover:text-red-400">
+                    <button @click="showModal = true; idCustomer = customer.id"
+                            class="ml-5 hover:cursor-pointer hover:text-red-400">
                       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -268,6 +350,7 @@ async function deleteCustomer() {
               </table>
             </div>
           </div>
+          <p v-if="customers.length === 0" class="text-center mt-10">Pas de résultats</p>
         </div>
         <div class="col-span-12 xl:col-span-3 mt-10 mx-auto w-full">
           <h2 class="text-xl font-bold text-gray-900 dark:text-white">To do list :</h2>
@@ -360,14 +443,92 @@ async function deleteCustomer() {
               <span class="sr-only">Close modal</span>
             </button>
             <div class="p-6 text-center">
-              <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez-vous vraiment supprimer ce client ?</h3>
-              <button @click="deleteCustomer(); showModal = false" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+              <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none"
+                   stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez-vous vraiment supprimer ce
+                client ?</h3>
+              <button @click="deleteCustomer(); showModal = false" type="button"
+                      class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                 Oui, je suis sûr
               </button>
-              <button @click="showModal = false" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Non, annuler</button>
+              <button @click="showModal = false" type="button"
+                      class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                Non, annuler
+              </button>
             </div>
           </div>
+        </div>
+      </div>
+      <div v-show="showDrawer"
+           class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-gray-800" tabindex="-1">
+        <h5 class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">
+          <svg class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+               xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"></path>
+          </svg>
+          Info
+        </h5>
+        <button @click="showDrawer = false" type="button"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+               xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Close menu</span>
+        </button>
+        <div class="flex justify-center flex-col items-center">
+          <img class="w-20 h-20 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+               alt="Rounded avatar">
+
+          <p class="text-lg mt-4 font-medium">John Doe</p>
+          <p class="text-sm text-gray-600">DRH @Allianz</p>
+        </div>
+
+        <hr class="w-60 h-0.5 mx-auto my-4 bg-gray-200 border-0 rounded md:my-10 dark:bg-gray-700">
+
+        <p class="font-medium">Contact</p>
+
+        <div class="mt-6 flex">
+          <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path>
+          </svg>
+          <p class="text-gray-600 ml-7">john.doe@mail.com</p>
+        </div>
+        <div class="mt-6 flex">
+          <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"></path>
+          </svg>
+          <p class="text-gray-600 ml-7">06-01-02-03-04</p>
+        </div>
+        <div class="mt-6 flex">
+          <svg class="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+          </svg>
+          <p class="text-gray-600 ml-7">876 Avenue de l'église, 75015, Paris</p>
+        </div>
+
+        <div class="border border-gray-200 mt-7 rounded-lg">
+          <p class="pt-2 pl-2">Performance</p>
+
+          <Bar
+              id="chart-bar"
+              :options="chartOptions"
+              :data="chartData"
+          />
         </div>
       </div>
     </div>
