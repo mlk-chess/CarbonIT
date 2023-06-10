@@ -177,6 +177,8 @@ async function join(id) {
   });
 
   showModal.value = false;
+
+  getEvents();
 }
 
 </script>
