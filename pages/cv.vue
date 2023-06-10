@@ -85,8 +85,13 @@ const skills = ref()
 
 
 const getUser = async() => {
-      const {data, error} = await supabase.from('user').select().eq('auth_id', user.value.id);
+    const data = await $fetch('/api/middleware/get?id=' + user.value.id, {
+            method: 'get',
+    });
+
+  if (data !== 'Error') {
       userInfos.value = data;
+  }
 
 
 }
@@ -108,7 +113,6 @@ async function getUserSkills() {
 
     skills.value = data;
 
-    console.log(data)
 
 
 
