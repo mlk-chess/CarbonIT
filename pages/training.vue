@@ -202,8 +202,9 @@ const chartOptionsRadar = ref({
       </div>
 
       <div v-show="mode === 'training'" class="mt-16">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12" v-for="(training, index) in trainings" :key="index">
-          <div v-if="new Date(training.date_start) > new Date() || training.status != -1" class="dark:bg-gray-800 dark:border-gray-700">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12" >
+        <div v-for="(training, index) in trainings" :key="index">
+          <div v-if="new Date(training.date_start) > new Date() || training.status != -1">
             <a href="#">
               <img class="w-full rounded-t-lg"
                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-4.png" alt=""/>
@@ -229,6 +230,7 @@ const chartOptionsRadar = ref({
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <div v-show="mode === 'search'" class="mt-16">
