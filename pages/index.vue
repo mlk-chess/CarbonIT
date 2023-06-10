@@ -100,7 +100,7 @@ async function resetPassword() {
 
         <div v-else>
           <form v-if="!reset" class="space-y-6" v-on:submit.prevent="resetPassword">
-            <h5 class="text-xl font-medium text-custom-white text-center">Mot de passe oublié</h5>
+            <img src="@/assets/logo.svg" alt="">
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-custom-white">Email</label>
               <input type="email" name="email" id="email"
@@ -119,6 +119,7 @@ async function resetPassword() {
           </form>
 
           <div v-else>
+            <img src="@/assets/logo.svg" alt="">
             <h5 class="text-xl font-medium text-custom-white text-center">Un email vous a été envoyé</h5>
             <button @click="loginCard=true"
                     class="mt-10 w-full text-white bg-custom-red font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-green hover:text-black">
