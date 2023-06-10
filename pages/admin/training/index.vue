@@ -33,28 +33,22 @@
                                 <span
                                     class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">En cours</span>
                             </td>
-                            <td v-if="training.status === 2" scope="row" class="px-4 py-3">
+                            <td v-if="training.status === -1" scope="row" class="px-4 py-3">
                                 <span
-                                    class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Terminé</span>
+                                    class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Annulé</span>
                             </td>
                             <th scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex">
-              <NuxtLink :href="`/${user.id}`" class="hover:cursor-pointer hover:text-blue-400">
+              <!-- <NuxtLink :href="`/`" class="hover:cursor-pointer hover:text-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"
                         d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-              </NuxtLink>
-              <NuxtLink :href="`/`" class="ml-5 hover:cursor-pointer hover:text-yellow-400">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                     stroke="currentColor" class="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
-                </svg>
-              </NuxtLink>
-              <button v-if="user.auth_id !== currentUser.id" @click="showModal = true;" class="ml-5 hover:cursor-pointer hover:text-red-400">
+              </NuxtLink> -->
+             
+              <button v-if="training.status !== -1" @click="showModal = true; TrainingId=training.id" class="ml-5 hover:cursor-pointer hover:text-red-400">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -84,7 +78,7 @@
             </button>
             <div class="p-6 text-center">
               <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez-vous vraiment supprimer cet utilisateur ?</h3>
+              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez-vous vraiment annuler cette formation ?</h3>
               <button @click="deleteTraining(); showModal = false" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                 Oui, je suis sûr
               </button>
@@ -112,6 +106,10 @@ useHead({
   const trainings = ref(null)
   const supabase = useSupabaseClient();
 
+  const showModal = ref(false);
+  const TrainingId = ref(null);
+  
+
   onMounted( async () => {
 
      initFlowbite();
@@ -128,17 +126,19 @@ useHead({
   if (data !== 'Error') {
       trainings.value = data; 
   }
+}
 
-  async function deleteTraining(eventId) {
+  async function deleteTraining() {
+  
   await $fetch(`/api/training/delete`, {
-    method: 'delete',
+    method: 'put',
     body: {
-        id: TrainingId,
+        id: TrainingId.value,
     }
-  });
+  });   
 
   getTrainings();
 }
-}
+
 
 </script>
