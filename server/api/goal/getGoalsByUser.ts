@@ -7,7 +7,16 @@ export default defineEventHandler(async (event) => {
         const supabase = serverSupabaseServiceRole(event);
         const query = await getQuery(event);
 
-        const {data, error} = await supabase.from('goal').select().eq('user_id', event.context.auth.user.id).limit(4);
+        let id = null;
+
+        if(query.id){
+            id = query.id
+        }else{
+           id = event.context.auth.user.id
+        }
+    
+
+        const {data, error} = await supabase.from('goal').select().eq('user_id',id).limit(4);
 
         if (error) {
             return 'Error';

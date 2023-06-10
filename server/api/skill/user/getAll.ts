@@ -6,11 +6,20 @@ export default defineEventHandler(async (event) => {
 
     const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);
+    const query = await getQuery(event);
+    let id = null;
+
+    if(query.id){
+        id = query.id
+    }else{
+       id = event.context.auth.user.id
+    }
+
 
     const {data, error} = await supabase
     .from('user_skill')
     .select('skill_id, level, skill:skill_id(title, status)')
-    .eq('user_id', event.context.auth.user.id)
+    .eq('user_id', id)
 
    
 
