@@ -32,10 +32,10 @@
                 <i class="font-bold">Mes points : {{points}}</i>
             </li>
         </ol>
+    <div class="flex">
+    <div class="mt-10 md:w-1/2 px-4 ">
 
-    <div class="container mx-auto flex flex-col mt-10">
-
-      <div class="mx-auto md:w-1/2 mt-5" v-for="(task, index) in tasks" :key="index">
+      <div class="" v-for="(task, index) in tasks" :key="index">
         <ul class="flex w-full justify-between items-center border bg-custom-black text-custom-white rounded-lg shadow md:flex-row mb-5">
           <li class="flex flex-col justify-between p-4 md:p-8">
             <i class="">{{task.task.name}}</i>
@@ -52,6 +52,11 @@
 
 
       </div>
+    </div>
+
+    <div class="mt-10 md:w-1/2 p-4 bg-white"> 
+    
+    </div>
     </div>
   </section>
 </template>
@@ -77,13 +82,19 @@ useHead({
 
 onMounted(async () => {
   initFlowbite();
-  const {data, error} = await supabase.from('user').select().eq('auth_id', user.value.id);
+  const data = await $fetch('/api/middleware/get?id=' + user.value.id, {
+      method: 'get',
+  });
+
+  
   points.value = data[0].points;
 
-  const {data: tasksData, error: tasksError} = await supabase.from('user_task').select('*, task:taskId(*)').eq('userId', user.value.id);
+  const tasksData = await $fetch('/api/task/getTaskByUser', {
+            method: 'get',
+    });
   tasks.value = tasksData;
 
-  console.log(tasksData);
+
 });
 
 definePageMeta({
