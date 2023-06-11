@@ -60,7 +60,7 @@ async function login() {
 
 async function resetPassword() {
   const {user, error} = await supabase.auth.resetPasswordForEmail(emailReset.value, {
-    redirectTo: 'http://localhost:3000/reset-password',
+    redirectTo: 'https://hackathon-carbon.netlify.app/reset-password',
   });
 
   reset.value = true;
