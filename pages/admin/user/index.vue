@@ -49,7 +49,7 @@ async function deleteUser(id) {
     <div class="container mx-auto">
       <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Liste des utilisateurs</h2>
       <NuxtLink href="/admin/user/new" type="button"
-                class="text-white bg-custom-red hover:bg-red-900 focus:ring-4 focus:ring-blue-300 mt-8 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-6 focus:outline-none">
+                class="text-white bg-custom-green hover:bg-green-900 focus:ring-4 focus:ring-blue-300 mt-8 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-6 focus:outline-none">
         Ajouter un utilisateur
       </NuxtLink>
 
@@ -104,7 +104,7 @@ async function deleteUser(id) {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </NuxtLink>
-              <NuxtLink :href="`/admin/skill/${user.id}`" class="ml-5 hover:cursor-pointer hover:text-yellow-400">
+              <NuxtLink :href="`/admin/cv/${user.id}`" class="ml-5 hover:cursor-pointer hover:text-yellow-400">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"

@@ -6,9 +6,10 @@ export default defineEventHandler(async (event) => {
         const query = await getQuery(event);
 
         const {data, error} = await supabase
-            .from('customer')
-            .select()
-            .ilike('name', '%'+query.search+'%');
+        .from('skill')
+        .select()
+        .ilike('title', `%${query.search.toLowerCase()}%`)
+        .range(0, 5);
 
         if (error) {
             return 'Error';
