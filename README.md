@@ -4,15 +4,15 @@
 Carbon et vous est une superbe application magique qui permet de centraliser toutes les fonctionnalités support.
 # Fonctionnalités
 
-- Gestion des utilisateurs 
-- Gestion des événements 
-- Gestion des formations 
-- Editeur de quizzs 
-- Gestion des clients 
-- Gestion des missions 
-- Gestion du CV
-- Gamification
-- Gestions des objectifs
+- Gestion des utilisateurs | Théo
+- Gestion des événements | Waseem
+- Gestion des formations | Jehane 
+- Editeur de quizzs | Mohamed 
+- Gestion des clients | Théo 
+- Gestion des missions | Jehane
+- Gestion du CV | Waseem
+- Gamification | Tous
+- Gestions des objectifs | Jehane
 ## 🚀 L'équipe
 
 - Waseem Nassurally - TheoSigaud
