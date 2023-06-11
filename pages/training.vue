@@ -204,7 +204,7 @@ const chartOptionsRadar = ref({
       <div v-show="mode === 'training'" class="mt-16">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12" >
         <div v-for="(training, index) in trainings" :key="index">
-          <div v-if="new Date(training.date_start) > new Date() || training.status != -1">
+          <div v-if="new Date(training.date_start) > new Date() && training.status != -1">
             <a href="#">
               <img class="w-full rounded-t-lg"
                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-4.png" alt=""/>
