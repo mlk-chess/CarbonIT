@@ -57,12 +57,12 @@ const startQuiz = () => {
 const checkAnswer = async () => {
     // Check if answers selected by the clients are corrects
     const correctAnswers = dataquiz.value[currentQuestionIndex.value].answers.filter((answer) => answer.isCorrect).map((answer) => answer.answer);
-    console.log(selectedAnswer.value);
+    
     const selectedAnswers = selectedAnswer.value.filter((answer) => answer !== false);
-    console.log(correctAnswers, selectedAnswers);
+    
     if (correctAnswers.length === selectedAnswers.length && correctAnswers.every((answer) => selectedAnswers.includes(answer))) {
         correctAnswersClient.value++;
-        console.log(correctAnswersClient.value);
+        
     }
     currentQuestionIndex.value++;
     selectedAnswer.value = [];
