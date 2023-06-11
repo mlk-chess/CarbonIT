@@ -3,10 +3,10 @@
 <div class="container mx-auto py-8 bf">
   <ul class="flex mb-5">
     <li class="mr-6">
-        <a class="text-bold text-2xl hover:text-custom-green" href="#">Mes missions</a>
+        <a class="text-bold text-2xl hover:text-custom-green" href="/mission">Mes missions</a>
     </li>
     <li class="mr-6">
-        <a class="text-bold text-2xl hover:text-custom-green" href="#">Découvrir les missions</a>
+        <a class="text-bold text-2xl hover:text-custom-green" href="/mission/discover">Découvrir les missions</a>
     </li>
   </ul> <hr/>
   <div class="flex flex-row w-full mt-8">
