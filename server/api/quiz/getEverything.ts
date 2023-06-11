@@ -11,8 +11,6 @@ export default defineEventHandler(async (event) => {
             .select()
             .eq('id', query.id)
 
-        console.log(data);
-
         //Check si data est bien rempli
         if (data[0] === undefined) {
             console.log('Erreur: Impossible de récupérer les données du quiz');
@@ -25,9 +23,6 @@ export default defineEventHandler(async (event) => {
                 .select()
                 .eq('quiz_id', query.id)
 
-
-            console.log(query.id, dataQuestions);
-
             // On met les questions et les réponses qui vont avec la question dans la variable questionsData
             if (dataQuestions) {
                 // Requête pour récupérer les réponses en fonction des questions
@@ -35,8 +30,6 @@ export default defineEventHandler(async (event) => {
                     .from('answers')
                     .select()
                     .in('question_id', dataQuestions.map((question: { id: number; }) => question.id))
-
-                console.log(dataAnswers);
 
                 dataQuestions.forEach((question: { id: number; question_text: string; }) => {
                     const answers = dataAnswers.filter((answer: { question_id: number; }) => answer.question_id === question.id);

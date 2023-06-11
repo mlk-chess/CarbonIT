@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
             .select()
             .eq('id', query.id)
         
-            console.log(query.id);
+            console.log("HELLLOOOOOOO", query.id);
             
 
         //Check si data est bien rempli
@@ -23,10 +23,7 @@ export default defineEventHandler(async (event) => {
             const { data: dataQuestions, error: errorQuestions } = await supabase
                 .from('questions')
                 .select()
-                .eq('quiz_id', query.id)
-
-                console.log(dataQuestions);
-                
+                .eq('quiz_id', query.id)                
 
             // On met les questions et les réponses qui vont avec la question dans la variable questionsData
             if (dataQuestions) {
@@ -38,8 +35,8 @@ export default defineEventHandler(async (event) => {
 
             } else {
                 console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
+                return "Error";
             }
-
 
             if (error) {
                 console.log(error);

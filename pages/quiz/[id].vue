@@ -4,11 +4,12 @@ import { initFlowbite } from 'flowbite';
 const quizStarted = ref(false)
 const quizFinished = ref(false)
 const currentQuestionIndex = ref(0)
-const correctAnswers = ref(0)
 const correctAnswersClient = ref(0)
 const isLoading = ref(true);
 const dataquiz = ref([]);
 const selectedAnswer = ref([]);
+const isQuizExist = ref(true);
+const datafordisplayquiz = ref([]);
 
 useHead({
     bodyAttrs: {
@@ -22,11 +23,20 @@ onMounted(async () => {
 })
 
 async function getQuizzes() {
-    const isQuizExist = ref(true);
     const route = useRoute();
+    const dataforquiz = await $fetch('/api/quiz/getQuiz?id=' + route.params.id);
     const data = await $fetch('/api/quiz/getEverything?id=' + route.params.id, {
         method: 'get',
     });
+
+
+    if (dataforquiz !== 'Error') {
+        datafordisplayquiz.value = dataforquiz;
+        isLoading.value = false;
+    } else {
+        isQuizExist.value = false;
+        isLoading.value = false;
+    }
 
     if (data !== 'Error') {
         dataquiz.value = data.value;
@@ -77,33 +87,67 @@ const checkAnswer = async () => {
         <span class="sr-only">Loading...</span>
     </div>
     <div v-else>
-        <h2>Quiz</h2>
-        <div v-if="quizStarted">
-            <div v-if="dataquiz[currentQuestionIndex] && !quizFinished">
-                <div>
-                    <!-- Display questions and answers with mulitple choices -->
+        <div v-if="isQuizExist">
+            <div v-if="quizStarted">
+                <div v-if="dataquiz[currentQuestionIndex] && !quizFinished">
                     <div>
-                        <h3>{{ dataquiz[currentQuestionIndex].question }}</h3>
-                        <ul v-for="(answer, index) in dataquiz[currentQuestionIndex].answers">
-                            <label> {{ ++index }} - </label>
-                            <li :key="index">
-                                <input type="checkbox" :value="answer.answer" v-model="selectedAnswer" />
-                                {{ answer.answer }}
-
-                            </li>
-                        </ul>
-                        <button @click="checkAnswer">Submit</button>
+                        <!-- Display questions and answers with mulitple choices -->
+                        <div>
+                            <h3>{{ dataquiz[currentQuestionIndex].question }}</h3>
+                            <ul v-for="(answer, index) in dataquiz[currentQuestionIndex].answers">
+                                <li :key="index">
+                                    <input type="checkbox" :value="answer.answer" v-model="selectedAnswer" />
+                                    {{ answer.answer }}
+                                </li>
+                            </ul>
+                            <button @click="checkAnswer">Submit</button>
+                        </div>
                     </div>
+                </div>
+                <div v-else>
+                    <h3>Quiz terminé !</h3>
+                    <p>Vous avez obtenu {{ correctAnswersClient }} sur {{ dataquiz.length }} correctes.</p>
                 </div>
             </div>
             <div v-else>
-                <h3>Quiz terminé !</h3>
-                <p>Vous avez obtenu {{ correctAnswersClient }} sur {{ dataquiz.length }} correctes.</p>
+                <section class="bg-white dark:bg-gray-900">
+                    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+                        <h1
+                            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                            {{ datafordisplayquiz[0].quiz_name }}</h1>
+                        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">{{
+                            datafordisplayquiz[0].description }}</p>
+                        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+                            <button @click="startQuiz" href="#"
+                                class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                                Commencer le quiz
+                                <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <div>
+                    <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay loop muted
+                        style="object-fit: fill;">
+                        <source src="~/assets/videos/quiz-checklist.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de cette vidéo.
+                    </video>
+                </div>
             </div>
         </div>
         <div v-else>
-            <p>Le quiz n'a pas encore commencé.</p>
-            <button @click="startQuiz">Commencer le quiz</button>
+            Quiz introuvable
+            <div>
+                <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay loop muted
+                    style="object-fit: fill;">
+                    <source src="~/assets/videos/not-found-quiz.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de cette vidéo.
+                </video>
+            </div>
         </div>
-    </div>
-</template>
+</div></template>
