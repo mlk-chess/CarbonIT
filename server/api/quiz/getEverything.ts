@@ -13,9 +13,7 @@ export default defineEventHandler(async (event) => {
 
         //Check si data est bien rempli
         if (data[0] === undefined) {
-            console.log('Erreur: Impossible de récupérer les données du quiz');
-            console.log("ok2");
-
+            return 'Error';
         } else {
             // Requête pour récupérer les questions
             const { data: dataQuestions, error: errorQuestions } = await supabase
@@ -33,7 +31,6 @@ export default defineEventHandler(async (event) => {
 
                 dataQuestions.forEach((question: { id: number; question_text: string; }) => {
                     const answers = dataAnswers.filter((answer: { question_id: number; }) => answer.question_id === question.id);
-                    console.log(answers);
                     questionsData.value.push({
                         question: question.question_text,
                         answers: answers.map((answer: { answer_text: string; is_correct: boolean; }) => ({
@@ -45,12 +42,11 @@ export default defineEventHandler(async (event) => {
                 })
 
             } else {
-                console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
                 return 'Error';
             }
 
             if (error) {
-                console.log(error);
+                return 'Error'
             } else {
                 return questionsData;
             }
