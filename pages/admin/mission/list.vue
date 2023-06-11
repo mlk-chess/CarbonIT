@@ -122,10 +122,13 @@ definePageMeta({
 
   async function getMissions(){
 
-    const data = await $fetch('/api/mission/getAll', {
+    let data = await $fetch('/api/mission/getAll', {
         method: 'get',
     });
 
+
+    data = data.filter( (e) => e.status == 1);
+    data = data.filter( (e) => new Date(e.date_start) > new Date());
 
   if (data !== 'Error') {
       missions.value = data; 
