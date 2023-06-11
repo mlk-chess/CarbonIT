@@ -204,7 +204,7 @@ const chartOptionsRadar = ref({
       <div v-show="mode === 'training'" class="mt-16">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-12" >
         <div v-for="(training, index) in trainings" :key="index">
-          <div v-if="new Date(training.date_start) > new Date() || training.status != -1">
+          <div v-if="new Date(training.date_start) > new Date() && training.status != -1">
             <a href="#">
               <img class="w-full rounded-t-lg"
                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-4.png" alt=""/>
@@ -267,8 +267,7 @@ const chartOptionsRadar = ref({
                   <input id="checkbox-item-4" type="checkbox" value=""
                          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                   <label for="checkbox-item-4"
-                         class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Soft
-                    Skills</label>
+                         class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Aptitudes</label>
                 </div>
               </li>
               <li>
@@ -276,8 +275,7 @@ const chartOptionsRadar = ref({
                   <input checked id="checkbox-item-5" type="checkbox" value=""
                          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                   <label for="checkbox-item-5"
-                         class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hard
-                    Skills</label>
+                         class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Compétences</label>
                 </div>
               </li>
             </ul>

@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
         const {data, error} = await supabase
             .from('mission')
-            .select()
+            .select('*, customer:customer_id(*)')
 
         if (error) {
             return 'Error';

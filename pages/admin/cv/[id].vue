@@ -96,6 +96,34 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="md:w-1/2 bg-custom-white shadow rounded p-5">
+                <h5 class="mb-2 text-2xl font-medium text-gray-900">Suis-je en mission ?</h5>
+
+                <div class="">
+
+                  <div v-if="currentMission.length > 0">
+
+                    <div
+                        class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                      <h5 class="mb-2 text-lg tracking-tight text-gray-900 dark:text-white">{{currentMission[0].mission.title}} | {{currentMission[0].mission.customer.name}}</h5>
+                      <h5 class="mb-2 text-lg  text-xs tracking-tight text-gray-900 dark:text-white">{{currentMission[0].mission.date_start}} - {{currentMission[0].mission.date_end}}</h5>
+                      <p class="font-normal text-sm text-gray-700 dark:text-gray-400">{{currentMission[0].mission.description}}</p>
+                    </div>
+
+                  </div>
+
+                  <div v-else>
+                      <button @click="showModalMission = true"
+                        class="text-white bg-custom-green font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
+                          Attribuer une mission
+                    </button>
+
+                  </div>
+                    
+                </div>
+            </div>
         </div>
 
 
@@ -201,6 +229,37 @@
         </div>
       </div>
     </div>
+
+     <div tabindex="-1" aria-hidden="true" v-show="showModalMission"
+         class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+      <div class="fixed top-0 left-0 right-0 z-40 h-full max-h-full bg-gray-100 opacity-50"></div>
+      <div class="relative w-full max-h-full z-50">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 mx-auto max-w-md mt-32">
+          <button @click="showModalMission=false" type="button"
+                  class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                  >
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="px-6 py-6 lg:px-8">
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Missions</h3>
+            <label for="level" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selectionner la mission</label>
+
+               <select v-model="missionId" id=""
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-blue focus:border-custom-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+              
+              <option v-for="mission in missions"  :value="mission.id" :key="mission.id">{{ mission.title }} | {{ mission.customer.name }}</option>
+          </select>
+            <button @click="saveMission(); showModalMission = false" type="button" class="mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div>
   
 </section>
     
@@ -223,14 +282,52 @@ const goals = ref(null)
 const search = ref('');
 const showModal = ref(false)
 const showModalLevel = ref(false)
+const showModalMission = ref(false)
 const skillId = ref(null);
 const level = ref('Débutant');
+const missions = ref([]);
+const missionId = ref(null);
+
+
+const currentMission = ref([])
 
 onMounted(async () => {
   await getUser();
+  getCurrentMission();
   getUserSkills();
   getGoals();
+  getMissions();
 });
+
+
+const saveMission = async () => {
+
+  const data = await $fetch('/api/mission/assignMission?id=' + id, {
+    method: 'post',
+    body:{
+      missionId : missionId.value,
+      userId : id,
+  
+    }
+  });
+
+
+  getCurrentMission();
+
+
+}
+
+async function getCurrentMission() {
+  const data = await $fetch('/api/mission/getMissionCurrent?id=' + id, {
+    method: 'get',
+  });
+
+  
+
+  if (data !== 'Error') {
+      currentMission.value = data;
+  }
+}
 
 
 const getGoals = async() => {
@@ -259,6 +356,21 @@ async function getUserSkills() {
     });
 
     currentSkills.value = data;
+}
+
+ async function getMissions(){
+
+    let data = await $fetch('/api/mission/getAll', {
+        method: 'get',
+    });
+
+    data = data.filter( (e) => e.status == 1);
+    data = data.filter( (e) => new Date(e.date_start) > new Date());
+
+    
+  if (data !== 'Error') {
+      missions.value = data; 
+  }
 }
 
 watch(search, async (newSearch) => {
