@@ -20,6 +20,7 @@ export default defineEventHandler(async (event) => {
             .from('user')
             .update({
                 points: event.context.auth.user.points+50,
+                coins: event.context.auth.user.coins+100,
             })
             .eq('auth_id', event.context.auth.user.auth_id);
 

@@ -60,6 +60,15 @@
                         </div>
                     </div>
                 </div>
+
+                 <div class="flex justify-end">
+                   
+                    <NuxtLink href="/goal"
+                        class="text-white bg-custom-green font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
+                   Voir mes objectifs
+                    </NuxtLink>
+                </div>
+
                 
             </div>
 

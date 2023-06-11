@@ -1,4 +1,4 @@
-import {serverSupabaseServiceRole} from '#supabase/server';
+import { serverSupabaseServiceRole } from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
@@ -7,13 +7,13 @@ export default defineEventHandler(async (event) => {
     const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);
 
-    console.log(body.id);
-
-    const {data: newDataGoal, newErrorGoal} = await supabase
+    const {data, error} = await supabase
         .from('goal')
-        .delete().eq('id', body.id);
+        .update({status : body.status}).eq('id', body.id);
 
-    if(newErrorGoal) {
+   
+
+    if(error) {
         return 'Error';
     }
 
