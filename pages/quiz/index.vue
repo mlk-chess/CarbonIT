@@ -109,7 +109,7 @@ function previousPage() {
                         <p class="text-gray-600">{{ quiz.description }}</p>
                         <div class="flex justify-end mt-4">
                             <nuxt-link :to="`/quiz/${quiz.id}`"
-                                class="bg-custom-red text-white px-4 py-2 rounded-md">S'évaluer</nuxt-link>
+                                class="bg-custom-green text-white px-4 py-2 rounded-md">S'évaluer</nuxt-link>
                         </div>
                     </div>
                 </div>
