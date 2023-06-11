@@ -1,7 +1,7 @@
 import { serverSupabaseServiceRole } from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
-    if (event.context.auth.user.status === 1) {
+    if (event.context.auth.user.status === 1 || event.context.auth.user.status === 0) {
 
         const supabase = serverSupabaseServiceRole(event);
         const query = await getQuery(event);
@@ -10,6 +10,9 @@ export default defineEventHandler(async (event) => {
             .from('quizzes')
             .select()
             .eq('id', query.id)
+
+
+            console.log(data)
                     
 
         //Check si data est bien rempli

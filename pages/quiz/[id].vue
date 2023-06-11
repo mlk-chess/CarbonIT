@@ -29,7 +29,6 @@ async function getQuizzes() {
         method: 'get',
     });
 
-
     if (dataforquiz !== 'Error') {
         datafordisplayquiz.value = dataforquiz;
         isLoading.value = false;
@@ -40,8 +39,6 @@ async function getQuizzes() {
 
     if (data !== 'Error') {
         dataquiz.value = data.value;
-        console.log(data.value);
-        console.log(dataquiz.value.length);
         isLoading.value = false;
     } else {
         isQuizExist.value = false;
@@ -98,8 +95,8 @@ const checkAnswer = async () => {
                                 <h3>Question n°{{ currentQuestionIndex + 1 }} /{{ dataquiz.length }}</h3>
                             </div>
                             <h3>{{ dataquiz[currentQuestionIndex].question }}</h3>
-                            <ul v-for="(answer, index) in dataquiz[currentQuestionIndex].answers">
-                                <li :key="index">
+                            <ul v-for="(answer, index) in dataquiz[currentQuestionIndex].answers" :key="index">
+                                <li>
                                     <input type="checkbox" :value="answer.answer" v-model="selectedAnswer"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                     {{ answer.answer }}
