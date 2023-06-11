@@ -1,15 +1,16 @@
-import { serverSupabaseClient } from '#supabase/server';
+import {serverSupabaseServiceRole} from '#supabase/server';
 
 export default defineEventHandler(async (event) => {
 
-    const supabase = serverSupabaseClient(event);
+    if (event.context.auth.user.status === 1 ||  event.context.auth.user.status === 0) {
+    const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event);
 
 
 
     const { data: { user } } = await supabase.auth.getUser(event.context._token)
     
-
+  
 
     const {data: newDataUser, error: newErrorUser} = await supabase
         .from('user')
@@ -25,9 +26,14 @@ export default defineEventHandler(async (event) => {
         })
         .eq('auth_id', user.id);
 
+        
+
     if(newErrorUser) {
         return 'Error';
     }
 
     return 'Success';
+
+}
+return 'Error';
 });

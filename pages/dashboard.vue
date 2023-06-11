@@ -1,16 +1,43 @@
 <template>
-<div class="flex gap-2 mb-8">
+  <div class="flex gap-2 mb-8">
     <div class="bg-custom-white w-4/12 shadow p-5 rounded">
       <FullCalendar :options="calendarOptions">
         <template v-slot:eventContent='arg'>
-          <p class="overflow-hidden hover:cursor-pointer" @click="showModal = true; dateModal = arg.event">
+          <p class="overflow-hidden hover:cursor-pointer"
+             :class="{'bg-custom-green border-custom-green': arg.event.extendedProps.user_event.length > 0}"
+             @click="showModal = true; dateModal = arg.event">
             {{ arg.event.title }}</p>
         </template>
       </FullCalendar>
     </div>
 
-    <div class="bg-custom-white w-4/12 shadow p-5 rounded">
+    <div class="bg-custom-white w-4/12 shadow p-5 rounded overflow-y-auto h-[450px]">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actualités</h5>
+
+      <div
+          class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+          acquisitions 2021</h5>
+        <p class="font-normal text-sm text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+          acquisitions of 2021 so far, in reverse chronological order.</p>
+      </div>
+
+      <div
+          class="block mt-3 w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+          acquisitions 2021</h5>
+        <p class="font-normal text-sm text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+          acquisitions of 2021 so far, in reverse chronological order.</p>
+      </div>
+
+      <div
+          class="block mt-3 w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+          acquisitions 2021</h5>
+        <p class="font-normal text-sm text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+          acquisitions of 2021 so far, in reverse chronological order.</p>
+      </div>
+
     </div>
 
     <div class="bg-custom-white w-4/12 shadow p-5 rounded">
@@ -52,6 +79,14 @@
             <h4 class="mb-4 text-lg font-base text-gray-900 dark:text-white">{{ dateModal.title }}</h4>
             <p class="mb-4 text-md font-base text-gray-900 dark:text-white">
               {{ dateModal.extendedProps.description }}</p>
+
+            <button v-if="dateModal.extendedProps.user_event.length === 0" @click="join(dateModal.id)" type="button"
+                    class="mt-10 text-white bg-custom-green hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              S'inscrire
+            </button>
+            <p v-else class="text-sm text-gray-600 italic">
+              Vous êtes inscrit à cet évènement
+            </p>
           </div>
         </div>
       </div>
@@ -64,7 +99,8 @@
       <div class="">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jeu de la semaine</h5>
 
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Découvrez le jeu d'aujourd'hui et tentez de gagner des coins !</p>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Découvrez le jeu d'aujourd'hui et tentez de gagner
+          des coins !</p>
         <a href="#"
            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-custom-green rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Lire la suite
@@ -82,11 +118,26 @@
 
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">CarbonAPPs</h5>
 
+      <div class="flex">
+        <div
+            class="block mt-3 w-fit p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Intranet</h5>
+        </div>
 
+        <div
+            class="block ml-3 mt-3 w-fit p-6 px-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Repas</h5>
+        </div>
+
+        <div
+            class="block ml-3 mt-3 w-fit p-6  px-10 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">CE</h5>
+        </div>
+      </div>
     </div>
   </div>
 
-  
+
 </template>
 
 <script setup>
@@ -102,8 +153,14 @@ definePageMeta({
   layout: "user",
 });
 
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
+});
 
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 const runtimeConfig = useRuntimeConfig()
 const showModal = ref(false);
 const dateModal = ref(null);
@@ -117,10 +174,11 @@ const blagues = new BlaguesAPI(runtimeConfig.public.blagueToken);
 
 async function getEvents() {
 
-  const {data, error} = await supabase.from('event').select();
-  if (error) {
-    console.error(error);
-  } else {
+  const data = await $fetch('/api/event/getAllUser', {
+    method: 'get',
+  });
+
+  if (data !== 'Error') {
     events.value = data;
   }
 }
@@ -148,6 +206,20 @@ onMounted(async () => {
       blagues.categories.BEAUF,
     ]
   });
-})
+});
+
+async function join(id) {
+  await $fetch('/api/event/join', {
+    method: 'post',
+    body: {
+      eventId: id,
+      userId: user.value.id,
+    }
+  });
+
+  showModal.value = false;
+
+  getEvents();
+}
 
 </script>

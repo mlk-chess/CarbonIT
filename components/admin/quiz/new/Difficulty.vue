@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-2">
+    <div class="ml-32 mb-2">
         <label for="difficulty" class="block mb-1">Niveau du quiz</label>
         <div class="flex items-center">
             <svg @click="setDifficulty(1)" aria-hidden="true" class="w-5 h-5 cursor-pointer"

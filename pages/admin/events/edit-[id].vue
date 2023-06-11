@@ -1,7 +1,7 @@
 <script setup>
 definePageMeta({
   middleware: ["auth-admin"],
-  layout: "admin"
+  layout: "user"
 });
 
 useHead({
@@ -22,16 +22,18 @@ const supabase = useSupabaseClient();
 
 onMounted( async () => {
 
-    const { data, error } = await supabase.from('event').select().eq('id',id);
 
-    if (error) {
-        console.error(error);
-    } else {
+  const data = await $fetch('/api/event/getOne?id=' + id, {
+    method: 'get',
+  });
+
+  if (data !== 'Error') {
         title.value = data[0].title;
         description.value = data[0].description;
         dateEvent.value = data[0].date
         timeEvent.value = data[0].time
-    }   
+  }
+
 })
 
 async function editEvent() {

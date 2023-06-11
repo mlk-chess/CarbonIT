@@ -105,7 +105,7 @@
 <script setup>
 definePageMeta({
   middleware: ["auth-admin"],
-  layout: "admin"
+  layout: "user"
 });
   import {initFlowbite} from "flowbite";
   const missions = ref(null)
@@ -115,13 +115,20 @@ definePageMeta({
   onMounted( async () => {
 
      initFlowbite();
-      const { data, error } = await supabase.from('mission').select('*');
-      if (error) {
-      console.error(error);
-      } else {
-      missions.value = data;
-      }
+     await getMissions();
   })
+
+
+  async function getMissions(){
+
+    const data = await $fetch('/api/mission/getAll', {
+        method: 'get',
+    });
+
+  if (data !== 'Error') {
+      missions.value = data; 
+  }
+}
 
   
 

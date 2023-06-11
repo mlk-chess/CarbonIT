@@ -27,7 +27,7 @@
       <div
           class="w-full max-w-sm shadow bg-custom-grey rounded-lg p-4 sm:p-6 md:p-8">
         <form class="space-y-6" v-on:submit.prevent="resetPassword">
-          <h5 class="text-xl font-medium text-custom-white text-center">Réinitialisation du mot de passe</h5>
+          <img src="@/assets/logo.svg" alt="">
           <div>
             <label for="password" class="block mb-2 text-sm font-medium text-custom-white">Mot de passe</label>
             <input type="password" name="password" id="password" placeholder="••••••••"
