@@ -85,6 +85,21 @@
 
     <div class="bg-custom-white w-1/3 shadow p-5 rounded">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actualités</h5>
+      <div
+          class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+          acquisitions 2021</h5>
+        <p class="font-normal text-sm text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+          acquisitions of 2021 so far, in reverse chronological order.</p>
+      </div>
+
+      <div
+          class="block mt-3 w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+          acquisitions 2021</h5>
+        <p class="font-normal text-sm text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+          acquisitions of 2021 so far, in reverse chronological order.</p>
+      </div>
     </div>
 
     <div tabindex="-1" aria-hidden="true" v-show="showModal"
@@ -122,12 +137,101 @@
       </div>
     </div>
   </div>
-  <div class="flex gap-2">
-    <div class="bg-custom-white w-2/3 shadow p-5 rounded mb-5">
-      <div class="">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">To Do list: </h5>
-
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Remplir</p>
+  <div class="flex gap-2 ">
+    <div class="w-full p-5 rounded mb-5">
+        <h5 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Carbonello</h5>
+      <div class="flex pb-8 items-start overflow-x-scroll">
+                <div class="rounded bg-custom-greyLight flex-no-shrink w-64 p-2 mr-3">
+                    <div class="flex justify-between py-1">
+                        <h3 class="text-sm">À faire</h3>
+                        <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    </div>
+                    <div class="text-sm mt-2">
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Do a mobile first layout
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Check the meta tags
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Check the responsive layout on all devices
+                            <div class="text-grey-darker mt-2 ml-2 flex justify-between items-start">
+                                <span class="text-xs flex items-center">
+                                    <svg class="h-4 fill-current mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M11 4c-3.855 0-7 3.145-7 7v28c0 3.855 3.145 7 7 7h28c3.855 0 7-3.145 7-7V11c0-3.855-3.145-7-7-7zm0 2h28c2.773 0 5 2.227 5 5v28c0 2.773-2.227 5-5 5H11c-2.773 0-5-2.227-5-5V11c0-2.773 2.227-5 5-5zm25.234 9.832l-13.32 15.723-8.133-7.586-1.363 1.465 9.664 9.015 14.684-17.324z"/></svg>
+                                    3/5
+                                </span>
+                                <img src="https://i.imgur.com/OZaT7jl.png" class="rounded-full" />
+                            </div>
+                        </div>
+                        <p class="mt-3 text-grey-dark">Add a card...</p>
+                    </div>
+                </div>
+                <div class="rounded bg-custom-greyLight flex-no-shrink w-64 p-2 mr-3">
+                    <div class="flex justify-between py-1">
+                        <h3 class="text-sm">En cours</h3>
+                        <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    </div>
+                    <div class="text-sm mt-2">
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Delete all references from the wiki
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Remove analytics code
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Whatever
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            <p>Think more tasks for this example</p>
+                            <div class="bg-red rounded p-1 mt-2 inline-flex text-white text-xs">
+                                <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.5.7-1.5 1.5v.688C7.344 4.87 5 7.62 5 11v4.5l-2 2.313V19h18v-1.188L19 15.5V11c0-3.379-2.344-6.129-5.5-6.813V3.5c0-.8-.7-1.5-1.5-1.5zm-2 18c0 1.102.898 2 2 2 1.102 0 2-.898 2-2z"/></svg>
+                                2
+                            </div>
+                        </div>
+                        <p class="mt-3 text-grey-dark">Add a card...</p>
+                    </div>
+                </div>
+                <div class="rounded bg-custom-greyLight flex-no-shrink w-64 p-2 mr-3">
+                    <div class="flex justify-between py-1">
+                        <h3 class="text-sm">Terminé</h3>
+                        <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
+                    </div>
+                    <div class="text-sm mt-2">
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Delete all references from the wiki
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Remove analytics code
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Whatever
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Delete all references from the wiki
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            <p>Think more tasks for this example</p>
+                            <div class="bg-red rounded p-1 mt-2 inline-flex text-white text-xs">
+                                <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.5.7-1.5 1.5v.688C7.344 4.87 5 7.62 5 11v4.5l-2 2.313V19h18v-1.188L19 15.5V11c0-3.379-2.344-6.129-5.5-6.813V3.5c0-.8-.7-1.5-1.5-1.5zm-2 18c0 1.102.898 2 2 2 1.102 0 2-.898 2-2z"/></svg>
+                                2
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+                            Whatever
+                        </div>
+                        <p class="mt-3 text-grey-dark">Add a card...</p>
+                    </div>
+                </div>
       </div>
     </div>
   </div>

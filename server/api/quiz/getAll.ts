@@ -7,8 +7,8 @@ export default defineEventHandler(async (event) => {
         const query = await getQuery(event);
 
         const {data, error} = await supabase
-            .from('mission')
-            .select('*, customer:customer_id(*)')
+            .from('quizzes')
+            .select()
 
         if (error) {
             return 'Error';

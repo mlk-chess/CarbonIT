@@ -3,10 +3,10 @@
 <div class="container mx-auto py-8 bf">
   <ul class="flex mb-5">
     <li class="mr-10">
-        <a class="text-bold text-2xl hover:text-custom-red" href="#">Overview</a>
+        <div class="text-bold text-2xl hover:text-custom-red">Overview</div>
     </li>
     <li class="mr-10">
-        <a class="text-bold text-2xl hover:text-custom-red" href="#">Créer une mission</a>
+        <NuxtLink class="text-bold text-2xl hover:text-custom-red" href="/admin/mission/new">Créer une mission</NuxtLink>
     </li>
   </ul> <hr/>
   <div class="flex flex-row mt-8">
@@ -89,9 +89,10 @@
 
     <ul class="flex w-full mt-10 justify-between items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 mb-5" v-for="(mission, index) in missions" :key="index">
       <li class="flex flex-col justify-between p-4 md:p-8" >
-        <h5 class="mb-5 text-xl font-bold tracking-tight text-gray-900">{{ mission.title }} | {{mission.company}}</h5>
-        <p class="mb-3 font-normal text-gray-700">{{ mission.date_start }} | {{mission.localisation}}</p>
-        <p class="mb-3 font-normal text-gray-700">{{ mission.description }}</p>
+        <h5 class="mb-5 text-xl font-bold tracking-tight text-gray-900">{{ mission.title }} | {{mission.customer.name}}</h5>
+        <p class="mb-3 font-normal text-gray-700">{{ mission.date_start }} | {{mission.date_end}}</p>
+        <p class="mb-3 font-normal text-gray-700">{{mission.localisation}}</p>
+        <i class="mb-3 font-normal text-gray-700">{{ mission.description }}</i>
       </li>
       <div class=" items-center mt-5 pb-5 sm:pr-5">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hover:cursor-pointer">
@@ -121,9 +122,13 @@ definePageMeta({
 
   async function getMissions(){
 
-    const data = await $fetch('/api/mission/getAll', {
+    let data = await $fetch('/api/mission/getAll', {
         method: 'get',
     });
+
+
+    data = data.filter( (e) => e.status == 1);
+    data = data.filter( (e) => new Date(e.date_start) > new Date());
 
   if (data !== 'Error') {
       missions.value = data; 
@@ -131,16 +136,5 @@ definePageMeta({
 }
 
   
-
-//   onMounted( async () => {
-
-//       const { data, error } = await supabase.from('skill').select('*');
-//       if (error) {
-//       console.error(error);
-//       } else {
-//         console.log("data")
-//       skills.value = data;
-//       }
-//   })
 
 </script>

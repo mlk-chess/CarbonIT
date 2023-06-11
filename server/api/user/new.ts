@@ -68,7 +68,7 @@ export default defineEventHandler(async (event) => {
         }
 
         const {data, error} = await supabase.auth.resetPasswordForEmail(body.email, {
-            redirectTo: 'http://localhost:3000/reset-password',
+            redirectTo: 'https://hackathon-carbon.netlify.app/reset-password',
         });
 
         if (error) {
