@@ -161,6 +161,10 @@ useHead({
 
 async function buyGoodies(){
 
+
+  if(coins.value > 0){
+
+
   if (goodies.value == 1){
     coins.value -= 500
   }
@@ -180,6 +184,9 @@ async function buyGoodies(){
   if (goodies.value == 5){
     coins.value -= 1000
   }
+
+  }
+
 
   const data = await $fetch('/api/user/updateCoins', {
       method: 'put',
