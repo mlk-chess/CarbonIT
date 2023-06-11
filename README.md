@@ -15,8 +15,8 @@ Carbon et vous est une superbe application magique qui permet de centraliser tou
 - Gestions des objectifs | Jehane
 ## 🚀 L'équipe
 
-- Waseem Nassurally - TheoSigaud
-- Théo Sigaud - waseem1104
+- Waseem Nassurally - waseem1104
+- Théo Sigaud - TheoSigaud
 - Jehane Benadjemia - jehanebnj
 - Mohamed Kajeiou - mlk-chess
 
