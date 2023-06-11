@@ -3,20 +3,13 @@ import {serverSupabaseServiceRole} from '#supabase/server';
 export default defineEventHandler(async (event) => {
     if (event.context.auth.user.status === 0 || event.context.auth.user.status === 1) {
 
-      
         const supabase = serverSupabaseServiceRole(event);
         const query = await getQuery(event);
 
-        let id = null;
-
-        if(query.id){
-            id = query.id
-        }else{
-           id = event.context.auth.user.id
-        }
-    
-
-        const {data, error} = await supabase.from('goal').select().eq('user_id',id).limit(4);
+        const {data, error} = await supabase
+            .from('event')
+            .select('*, user_event(*)')
+            .eq('user_event.userId', event.context.auth.user.auth_id);
 
         if (error) {
             return 'Error';

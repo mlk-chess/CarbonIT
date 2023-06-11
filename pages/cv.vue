@@ -1,20 +1,26 @@
 <template>
     <section class="">
-        
-       <i v-if="userInfos" class="mb-2 text-2xl font-bold text-gray-900">{{userInfos[0].firstname }} {{userInfos[0].lastname }}</i>
-
-        <form v-on:submit.prevent="" class="mt-4">
-            <div class="md:w-1/2">
-                <input v-model="bio" type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Biographie..." required=""/>
-            </div>
-        </form>
+        <div class="bg-custom-white shadow rounded p-5">
+            <div class="flex">
+                <div class=" mb-5 rounded-lg">
+                <div class="h-20 w-20 rounded-full border overflow-hidden">
+                    <img
+                    src="https://avatars3.githubusercontent.com/u/2763884?s=128"
+                    alt="Avatar"
+                    class="h-full w-full"
+                    />
+                </div>
+        </div>
+        <i v-if="userInfos" class="mb-2 ml-5 text-2xl  text-gray-900">{{userInfos[0].firstname }} {{userInfos[0].lastname }}</i>
+        </div>
+       <hr>
 
         
         <div class="">
             <div class="flex mt-5 ">
                 <div class="inline-flex items-center px-2 py-1 mr-2 text-md font-medium ">Expert :</div>
                 <div v-for="(skill, index) in skills" :key="index">
-                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
+                        <div v-if="skill.level == 'Expert'" class="inline-flex items-center px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
                 </div> 
             </div>
         </div>
@@ -23,7 +29,7 @@
             <div class="flex flex-row ">
                 <span class=" px-2 py-1 mr-2 text-md font-medium ">Intermédiaire :</span>
                 <div v-for="(skill, index) in skills" :key="index">
-                        <div class=" px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
+                        <div v-if="skill.level == 'Intermédiaire'" class=" px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
                 </div> 
             </div>
         </div>
@@ -34,17 +40,19 @@
             <div class="flex flex-row ">
                 <div class="inline-flex items-center px-2 py-1 mr-2 text-md font-medium ">Débutant :</div>
                 <div v-for="(skill, index) in skills" :key="index">
-                        <div class="inline-flex items-center px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
+                        <div v-if="skill.level == 'Débutant'" class="inline-flex items-center px-2 py-1 mr-2 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">{{ skill.skill.title }} </div>
                 </div> 
             </div>
         </div>
+
+        </div>
          
         <div class="md:flex md:gap-10 mt-12">
-            <div class="md:w-1/2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Ca carbonne, ça charbonne !</h5>
+            <div class="md:w-1/2 bg-custom-white shadow rounded p-5">
+                <h5 class="mb-2 text-2xl font-medium tracking-tight text-gray-900">Ca carbonne, ça charbonne !</h5>
                 
                 <div class="grid md:grid-cols-2">
-                    <div v-for="(goal, index) in goals" :key="index" class="p-2 bg-custom-white shadow rounded mx-1 mt-2">
+                    <div v-for="(goal, index) in goals" :key="index" class="p-2 bg-custom-white shadow border border-custom-green rounded mx-1 mt-2">
                         <h5 class="mb-2 text-xl font-medium">{{goal.title}}</h5>
                         <div class="">
                             <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">En cours</span>
@@ -55,8 +63,8 @@
                 
             </div>
 
-            <div class="md:w-1/2 ">
-                <h5 class="mb-2 text-2xl font-bold text-gray-900">Aptitudes</h5>
+            <div class="md:w-1/2 bg-custom-white shadow rounded p-5">
+                <h5 class="mb-2 text-2xl font-medium text-gray-900">Aptitudes</h5>
 
                 <div class="flex flex-row ">
                     <div v-for="(skill, index) in skills" :key="index">
@@ -98,29 +106,26 @@ const getUser = async() => {
 
 const getGoals = async() => {
 
-   
-    const {data, error} = await supabase.from('goal').select().eq('user_id', userInfos.value[0].id).limit(4);
+     const data = await $fetch('/api/goal/getGoalsByUser', {
+            method: 'get',
+    });
     goals.value = data;
 
 }
 
 async function getUserSkills() {
-  const {data, error} = await supabase
-      .from('user_skill')
-      .select('skill_id, level, skill:skill_id(title, status)')
-      .eq('user_id', userInfos.value[0].id)
-    
+   const data = await $fetch('/api/skill/user/getAll', {
+        method: 'post',
+    });
 
     skills.value = data;
-
-
 
 
 }
 
 onMounted( async () => {
     await getUser();
-    getGoals();
+    await getGoals();
     getUserSkills();
 })
 
