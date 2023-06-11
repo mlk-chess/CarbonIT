@@ -44,7 +44,7 @@
                     :addAnswer="addAnswer" :removeAnswer="removeAnswer" />
             </div>
             <button type="submit"
-                class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-custom-green hover:bg-green-900 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
                 Enregistrer les questions
             </button>
         </form>
