@@ -17,10 +17,8 @@ export default defineEventHandler(async (event) => {
             .select("*");
 
         if (newErrorQuiz) {
-            console.log(newErrorQuiz);
             return 'Error';
         }
-        console.log(newDataQuiz);
 
         return newDataQuiz
 
