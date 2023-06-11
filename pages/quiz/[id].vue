@@ -92,21 +92,36 @@ const checkAnswer = async () => {
                 <div v-if="dataquiz[currentQuestionIndex] && !quizFinished">
                     <div>
                         <!-- Display questions and answers with mulitple choices -->
-                        <div>
+                        <div class="flex flex-col">
+
+                            <div>
+                                <h3>Question n°{{ currentQuestionIndex + 1 }} /{{ dataquiz.length }}</h3>
+                            </div>
                             <h3>{{ dataquiz[currentQuestionIndex].question }}</h3>
                             <ul v-for="(answer, index) in dataquiz[currentQuestionIndex].answers">
                                 <li :key="index">
-                                    <input type="checkbox" :value="answer.answer" v-model="selectedAnswer" />
+                                    <input type="checkbox" :value="answer.answer" v-model="selectedAnswer"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                     {{ answer.answer }}
                                 </li>
                             </ul>
-                            <button @click="checkAnswer">Submit</button>
+                            <button @click="checkAnswer"
+                                class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-custom-green hover:bg-green-900 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                Question suivante
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div v-else>
                     <h3>Quiz terminé !</h3>
                     <p>Vous avez obtenu {{ correctAnswersClient }} sur {{ dataquiz.length }} correctes.</p>
+                    <div>
+                        <video class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" autoplay loop muted
+                            style="object-fit: fill;">
+                            <source src="~/assets/videos/finished-quiz.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de cette vidéo.
+                        </video>
+                    </div>
                 </div>
             </div>
             <div v-else>
@@ -150,4 +165,5 @@ const checkAnswer = async () => {
                 </video>
             </div>
         </div>
-</div></template>
+    </div>
+</template>
