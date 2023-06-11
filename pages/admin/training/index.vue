@@ -7,7 +7,7 @@
             </NuxtLink>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <table class="w-full text-sm text-left bg-white text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-4 py-3">Titre</th>
@@ -39,14 +39,7 @@
                             </td>
                             <th scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex">
-              <!-- <NuxtLink :href="`/`" class="hover:cursor-pointer hover:text-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                     stroke="currentColor" class="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </NuxtLink> -->
+             
              
               <button v-if="training.status !== -1" @click="showModal = true; TrainingId=training.id" class="ml-5 hover:cursor-pointer hover:text-red-400">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"

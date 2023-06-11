@@ -40,7 +40,7 @@ onMounted(async () => {
       if (userData[0].status === 0){
           await navigateTo('/dashboard');
       }else{
-          await navigateTo('/admin/user');
+          await navigateTo('/admin/dashboard');
       }
     }
     }

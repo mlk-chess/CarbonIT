@@ -14,6 +14,7 @@ const title = ref("");
 const description = ref("");
 const dateEvent = ref(null);
 const timeEvent = ref(null);
+const router = useRouter()
 
 
 async function saveEvent() {
@@ -26,6 +27,8 @@ async function saveEvent() {
       timeEvent : timeEvent.value
     }
   });
+
+  await router.push('/admin/events');
 }
 </script>
 
