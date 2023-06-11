@@ -16,6 +16,13 @@ export default defineEventHandler(async (event) => {
             return 'Error';
         }
 
+        const {data: userData, userError} = await supabase
+        .from('user')
+        .update({
+            points: event.context.auth.user.points+100,
+        })
+        .eq('auth_id', event.context.auth.user.auth_id);
+
         return 'Success';
     }
     return 'Error';

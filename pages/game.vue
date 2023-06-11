@@ -6,23 +6,23 @@
                     <img class="mx-auto" src="@/assets/icons/creature-step1.svg">
                 </span>
             </li>
-            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700': points >= 500, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 500}">
+            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block dark:after:border-gray-700': points >= 500, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 500}">
                 <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 shrink-0' : points >= 500, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0' : points < 500}">
                       <img class="mx-auto" src="@/assets/icons/creature-step2.svg">
                 </div>
             </li>
-            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block': points >= 1000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 1000}">
+            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green  after:border-4 after:inline-block': points >= 1000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 1000}">
                 <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0':points >= 1000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<1000}">
                      <img class="mx-auto" src="@/assets/icons/creature-step3.svg">
                 </div>
             </li>
 
-             <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block':points >= 5000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 5000}">
+             <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block':points >= 5000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 5000}">
                 <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0': points >= 5000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<5000}">
                      <img class="mx-auto" src="@/assets/icons/creature-step4.svg">
                 </div>
             </li>
-            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-gray-100 after:border-4 after:inline-block':points >= 10000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 10000}">
+            <li :class="{'flex w-full items-center after:w-full after:h-1 after:border-b after:border-custom-green after:border-4 after:inline-block':points >= 10000, 'flex w-full items-center after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700' : points < 10000}">
                 <div :class="{'flex items-center justify-center w-10 h-10 bg-custom-green rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0': points >= 10000, 'flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0': points<10000}">
                     <img class="mx-auto" src="@/assets/icons/creature-step5.svg">
                 </div>
@@ -194,6 +194,14 @@ async function buyGoodies(){
         coins:coins.value
       }
   });
+
+
+   const dataUser = await $fetch('/api/middleware/get?id=' + user.value.id, {
+      method: 'get',
+  });
+
+  
+  points.value = dataUser[0].points;
 }
 
 
