@@ -1,4 +1,5 @@
 <script setup>
+
 definePageMeta({
   middleware: ["auth-admin"],
   layout: "user"
@@ -31,6 +32,24 @@ useHead({
   }
 });
 
+const title = ref("");
+const description = ref("");
+const date_startMission = ref(null);
+const time_startMission = ref(null);
+
+
+async function saveTraining() {
+    
+  await $fetch('/api/mission/new', {
+    method: 'post',
+    body: {
+      title: title.value,
+      description: description.value,
+      date_startMission : date_startMission.value,
+      time_startMission : time_startMission.value
+    }
+  });
+}
 </script>
 
 <template>
@@ -65,8 +84,8 @@ useHead({
         
         </div>
         <button type="submit"
-                class="mt-7 text-white bg-custom-red hover:bg-red-900 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Créer
+                class="text-white bg-custom-green mt-5 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
+          Créer une mission
         </button>
       </form>
     </div>
