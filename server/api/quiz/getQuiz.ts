@@ -10,13 +10,10 @@ export default defineEventHandler(async (event) => {
             .from('quizzes')
             .select()
             .eq('id', query.id)
-        
-            console.log("HELLLOOOOOOO", query.id);
-            
+                    
 
         //Check si data est bien rempli
         if (data[0] === undefined) {
-            console.log('Erreur: Impossible de récupérer les données du quiz');
             return 'Error';
         } else {
             // Requête pour récupérer les questions
@@ -34,12 +31,11 @@ export default defineEventHandler(async (event) => {
                     .in('question_id', dataQuestions.map((question: { id: number; }) => question.id))
 
             } else {
-                console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
                 return "Error";
             }
 
             if (error) {
-                console.log(error);
+                return 'Error';
             } else {
                 return data;
             }
