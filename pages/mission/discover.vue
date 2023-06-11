@@ -143,8 +143,8 @@
 
     <ul class="flex w-full mt-10 justify-between items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 mb-5" v-for="(mission, index) in missions" :key="index">
       <li class="flex flex-col justify-between p-4 md:p-8" >
-        <h5 class="mb-5 text-xl font-bold tracking-tight text-gray-900">{{ mission.title }} | {{mission.company}}</h5>
-        <p class="mb-3 font-normal text-gray-700">{{ mission.date_start }} | {{mission.localisation}}</p>
+        <h5 class="mb-5 text-xl font-bold tracking-tight text-gray-900">{{ mission.title }} | {{mission.customer.name}}</h5>
+        <p class="mb-3 font-normal text-gray-700">{{ mission.date_start }} - {{ mission.date_end }}</p>
         <p class="mb-3 font-normal text-gray-700">{{ mission.description }}</p>
       </li>
       <div class=" items-center mt-5 pb-5 sm:pr-5" v-if="mission.like == 0">
@@ -174,29 +174,31 @@ definePageMeta({
 });
   import {initFlowbite} from "flowbite";
   const missions = ref(null)
-  const skills = ref(null)
   const supabase = useSupabaseClient();
 
   onMounted( async () => {
 
      initFlowbite();
-      const { data, error } = await supabase.from('mission').select('*');
-      if (error) {
-      console.error(error);
-      } else {
-      missions.value = data;
-      }
+     await getMissions()
+
   })
 
-//   onMounted( async () => {
 
-//       const { data, error } = await supabase.from('skill').select('*');
-//       if (error) {
-//       console.error(error);
-//       } else {
-//         console.log("data")
-//       skills.value = data;
-//       }
-//   })
+   async function getMissions(){
+
+    let data = await $fetch('/api/mission/getAll', {
+        method: 'get',
+    });
+
+    data = data.filter( (e) => e.status == 1);
+    data = data.filter( (e) => new Date(e.date_start) > new Date());
+
+    
+  if (data !== 'Error') {
+      missions.value = data; 
+  }
+}
+
+
 
 </script>
