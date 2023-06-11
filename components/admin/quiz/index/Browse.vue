@@ -10,7 +10,7 @@
                 fill="currentFill" />
         </svg>
         <span class="sr-only">Loading...</span>
-    </div> 
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" v-else>
         <div v-for="quiz in paginatedQuizzes" :key="quiz.id" class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="p-4">
@@ -18,10 +18,9 @@
                 <p class="text-gray-600 mt-2">{{ quiz.theme }}</p>
                 <div class="mt-4 flex justify-between items-center">
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-1"
-                            viewBox="0 0 20 20" fill="currentColor">
-                            <path
-                                d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-1" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                             <path fill-rule="evenodd"
                                 d="M10 0a10 10 0 100 20 10 10 0 000-20zM2 10a8 8 0 1116 0 8 8 0 01-16 0zm9 3a1 1 0 11-2 0 1 1 0 012 0zm2.6-5.6a1 1 0 11-1.2 1.6 3 3 0 10-3.6 0 1 1 0 11-1.2-1.6 5 5 0 116 0z"
                                 clip-rule="evenodd" />
@@ -29,49 +28,53 @@
                         <span class="text-gray-700">{{ quiz.description }}</span>
                     </div>
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 mr-1"
-                            viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 mr-1" viewBox="0 0 20 20"
+                            fill="currentColor">
                             <path
                                 d="M10 12.585L3.342 16.45l1.258-7.327L.175 6.566l7.392-1.07L10 0l2.433 5.496 7.392 1.07-4.425 3.557 1.258 7.327L10 12.585z" />
                         </svg>
                         <span class="text-gray-700">{{ quiz.difficulty }}</span>
                     </div>
                 </div>
+
+                <div class="flex justify-end mt-4">
+                    <nuxt-link :to="`/admin/quiz/add-question/${quiz.id}`"
+                        class="bg-custom-blue hover:bg-blue-900 text-white px-4 py-2 rounded-md">Ajouter des questions</nuxt-link>
+                </div>
             </div>
         </div>
     </div>
 
-
     <div class="w-full flex justify-center mt-10">
-            <nav class="pagination">
-                <ul class="inline-flex -space-x-px">
-                    <li v-if="currentPage > 1" @click="previousPage">
+        <nav class="pagination">
+            <ul class="inline-flex -space-x-px">
+                <li v-if="currentPage > 1" @click="previousPage">
+                    <button
+                        class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Précédent
+                    </button>
+                </li>
+                <template v-for="page in totalPages" :key="page">
+                    <li @click="currentPage = page">
                         <button
-                            class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Précédent
+                            class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            {{ page }}
                         </button>
                     </li>
-                    <template v-for="page in totalPages" :key="page">
-                        <li @click="currentPage = page">
-                            <button
-                                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                {{ page }}
-                            </button>
-                        </li>
-                    </template>
-                    <li v-if="currentPage < totalPages" @click="nextPage">
-                        <button
-                            class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Suivant
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                </template>
+                <li v-if="currentPage < totalPages" @click="nextPage">
+                    <button
+                        class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Suivant
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-        <div class="text-center text-gray-500 text-sm mt-4">
-            Page {{ currentPage }} sur {{ totalPages }}
-        </div>
+    <div class="text-center text-gray-500 text-sm mt-4">
+        Page {{ currentPage }} sur {{ totalPages }}
+    </div>
 </template>
 
 <script setup>
