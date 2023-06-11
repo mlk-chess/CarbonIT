@@ -27,21 +27,16 @@ export default defineEventHandler(async (event) => {
                     }])
                     .select("*");
 
-                console.log(answerData);
-
                 if (answerError) {
-                    console.log(answerError);
                     return 'Error';
                 }
             }
 
             if (newError) {
-                console.log(newError);
                 return 'Error';
             }
             return newData;
         });
-        console.log(questions);
         return questions
     }
     return 'Error';
