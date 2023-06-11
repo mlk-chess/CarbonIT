@@ -10,7 +10,7 @@
     </li>
   </ul> <hr/>
   <div class="flex flex-row w-full justify-between mt-8">
-    <a href="#" class="w-full flex flex-col items-center bg-white border border-gray-200 mx-5 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <a href="#" class="w-full  bg-white border border-gray-200 mx-5 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div class="flex flex-col justify-between p-4 leading-normal">
             <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Ma mission actuelle</h5>
 
@@ -35,7 +35,7 @@
                 </div>
         </div>
     </a>
-    <a href="#" class="w-full flex flex-col items-center bg-white border border-gray-200 mx-5 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <a href="#" class="w-full bg-white border border-gray-200 mx-5 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div class="flex flex-col justify-between p-4 leading-normal">
             <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Avis client</h5>
             <div class="flex items-center">
@@ -165,7 +165,7 @@ useHead({
 
 
 async function getCurrentMission() {
-  const data = await $fetch('/api/mission/getMissionCurrent?id=' + id, {
+  const data = await $fetch('/api/mission/getMissionCurrent', {
     method: 'get',
   });
 

@@ -5,12 +5,21 @@ export default defineEventHandler(async (event) => {
 
         const supabase = serverSupabaseServiceRole(event);
         const query = await getQuery(event);
+
+
+        let id = null;
+
+        if(query.id){
+            id = query.id
+        }else{
+           id = event.context.auth.user.id
+        }
       
       
         const {data, error} = await supabase
         .from('user_mission')
         .select('id, mission:mission_id(title,description,date_start,date_end,customer:customer_id(name))')
-        .eq('user_id', query.id)
+        .eq('user_id', id)
 
 
         if (error) {
