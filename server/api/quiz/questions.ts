@@ -39,15 +39,10 @@ export default defineEventHandler(async (event) => {
                 console.log(newError);
                 return 'Error';
             }
-
-
             return newData;
         });
         console.log(questions);
-
         return questions
-
     }
     return 'Error';
-
 });

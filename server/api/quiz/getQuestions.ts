@@ -22,20 +22,15 @@ export default defineEventHandler(async (event) => {
             // Requête pour récupérer les questions
             const { data: dataQuestions, error: errorQuestions } = await supabase
                 .from('questions')
-                .select()
+                .select('*, answers (*)')
                 .eq('quiz_id', query.id)
-
-                console.log(dataQuestions);
                 
 
             // On met les questions et les réponses qui vont avec la question dans la variable questionsData
             if (dataQuestions) {
-                // Requête pour récupérer les réponses en fonction des questions
-                const { data: dataAnswers, error: errorAnswers } = await supabase
-                    .from('answers')
-                    .select()
-                    .in('question_id', dataQuestions.map((question: { id: number; }) => question.id))
-
+                console.log(dataQuestions);
+                
+                return dataQuestions;
             } else {
                 console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
             }

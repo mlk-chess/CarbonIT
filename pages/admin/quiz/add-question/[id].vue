@@ -1,5 +1,5 @@
 <template>
-    <div role="status" class="flex justify-center items-center flex-col h-screen" v-if="loading">
+    <div role="status" class="flex justify-center items-center flex-col h-screen" v-if="isLoading">
         <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -56,10 +56,10 @@
                         class="bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <div class="p-4">
                             <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{
-                                question.questionText }}</h5>
+                                question.question_text }}</h5>
                             <ul class="list-disc list-inside">
                                 <template v-for="(answer, answerIndex) in question.answers">
-                                    <li :class="{ 'text-green-500 font-bold': answer.isCorrect }">{{ answer.answerText }}
+                                    <li :class="{ 'text-green-500 font-bold': answer.is_correct }">{{ answer.answer_text }}
                                     </li>
                                 </template>
                             </ul>
@@ -74,9 +74,10 @@
 
 <script setup>
 
+import { initFlowbite } from 'flowbite';
 import Questions from '~/components/admin/quiz/new/Questions.vue';
 
-const loading = ref(true);
+const isLoading = ref(true);
 const isQuizExist = ref(true);
 const dataquiz = ref([]);
 const questionsData = ref([
@@ -92,23 +93,18 @@ const questionsData = ref([
 ])
 
 useHead({
-    bodyAttrs: {
-        class: 'bg-[#F1F8FF]'
-    }
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
+  }
 });
 
 definePageMeta({
-    middleware: ["auth-admin"],
-    layout: "admin"
+  middleware: ["auth-admin"],
+  layout: "user"
 });
 
 
 const route = useRoute()
-
-if (!route.params.id) {
-    loading.value = false;
-    isQuizExist.value = false;
-}
 
 const questions = ref([
     {
@@ -155,8 +151,25 @@ async function removeQuestion(questionIndex) {
         alert("Impossible de supprimer la question. Il doit y avoir au moins une question dans le tableau.");
     }
 }
-async function saveQuiz() {
 
+async function getQuizzes() {
+    const response = await fetch(`/api/quiz/getQuiz?id=${route.params.id}`);
+    const responseQuestions = await fetch(`/api/quiz/getQuestions?id=${route.params.id}`);
+
+    if (response.ok && responseQuestions.ok) {
+        const data = await response.json();
+        const dataquestions = await responseQuestions.json();
+        dataquiz.value = data;
+        questionsData.value = dataquestions
+        isLoading.value = false;
+
+        console.log(questionsData.value);
+    } else {
+        isQuizExist.value = false;
+    }
+}
+
+async function saveQuiz() {
     const response = await fetch(`/api/quiz/questions`, {
         method: 'POST',
         headers: {
@@ -176,28 +189,9 @@ async function saveQuiz() {
 }
 
 onMounted(async () => {
-
-    const id = route.params.id;
-
-    // Get quiz data from getQuiz with post sending route.params.id as quiz_id
-    const response = await fetch(`/api/quiz/getQuiz?id=` + id, {
-        method: 'GET',
-    });
-
-    questionsData.value.pop();
-    dataQuestions.forEach(question => {
-        const answers = dataAnswers.filter(answer => answer.question_id === question.id);
-
-        questionsData.value.push({
-            questionText: question.question_text,
-            answers: answers.map(answer => {
-                return {
-                    answerText: answer.answer_text,
-                    isCorrect: answer.is_correct
-                }
-            })
-        })
-    });
+    initFlowbite();
+    await getQuizzes();
+    // await saveQuiz();
 
 });
 
