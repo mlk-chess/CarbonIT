@@ -7,9 +7,32 @@ definePageMeta({
 
 
 const customers = ref([]);
+const customerId = ref(null);
+const dateStart = ref();
+const dateEnd = ref();
+const title = ref("");
+const description = ref("");
+const place = ref("");
+
+
+const saveMission = async () => {
+
+  
+
+const data = await $fetch('/api/mission/new', {
+    method: 'post',
+    body:{
+      title: title.value,
+      description: description.value,
+      place: place.value,
+      dateStart: dateStart.value,
+      dateEnd: dateEnd.value,
+      customerId : customerId.value
+    }
+  });
+}
 
 onMounted( async () => {
-
 
   await getCustomers();
 
@@ -22,7 +45,7 @@ async function getCustomers() {
 
   if (data !== 'Error') {
     customers.value = data;
-    console.log(data)
+   
   }
 }
 
@@ -32,10 +55,6 @@ useHead({
   }
 });
 
-const title = ref("");
-const description = ref("");
-const date_startMission = ref(null);
-const time_startMission = ref(null);
 
 
 async function saveTraining() {
@@ -68,17 +87,41 @@ async function saveTraining() {
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
             <textarea v-model="description" type="text" name="description" id="description"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-red focus:border-custom-red block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Description de l'objectif" required=""></textarea>
+                    placeholder="Besoin du client / Compétences / Softs skills..." required=""></textarea>
+            </div>
+
+
+             <div class="w-full mb-2 mt-2">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lieu de la mission</label>
+            <input v-model="place" type="text" name="" id=""
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-red focus:border-custom-red block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Lieu" required="">
             </div>
           <div class="mt-2">
             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Clients</label>
-            <select  id=""
+            <select v-model="customerId" id=""
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-blue focus:border-custom-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
            
               <option v-for="customer in customers" :value="customer.id" :key="customer.id">{{ customer.name }}</option>
              
             </select>
           </div>
+
+
+           <div class="w-full mt-2">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de début</label>
+            <input v-model="dateStart" type="date" name="" id=""
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    required="">
+          </div>
+
+          <div class="w-full mt-2">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de fin</label>
+            <input v-model="dateEnd" type="date" name="" id=""
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    required="">
+          </div>
+        
           
         
         
