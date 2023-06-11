@@ -5,6 +5,7 @@ definePageMeta({
   layout: "user"
 });
 
+const router = useRouter()
 
 const customers = ref([]);
 const customerId = ref(null);
@@ -30,6 +31,9 @@ const data = await $fetch('/api/mission/new', {
       customerId : customerId.value
     }
   });
+
+
+  await router.push('/admin/mission/list');
 }
 
 onMounted( async () => {

@@ -140,7 +140,7 @@
   <div class="flex gap-2 ">
     <div class="w-full p-5 rounded mb-5">
         <h5 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Carbonello</h5>
-      <div class="flex pb-8 items-start overflow-x-scroll">
+      <div class="flex pb-8 items-start ">
                 <div class="rounded bg-custom-greyLight flex-no-shrink w-64 p-2 mr-3">
                     <div class="flex justify-between py-1">
                         <h3 class="text-sm">À faire</h3>
@@ -269,7 +269,6 @@ async function getEvents(){
         method: 'get',
     });
 
-    console.log(data);
 
   if (data !== 'Error') {
       events.value = data; 

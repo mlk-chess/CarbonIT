@@ -46,7 +46,7 @@
 
 import Difficulty from "./Difficulty.vue";
 import Questions from "./Questions.vue";
-
+const router = useRouter()
 const difficulty = ref(1)
 const quizName = ref('')
 const description = ref('')
@@ -125,6 +125,8 @@ async function saveQuiz() {
             questions: questions.value
         }
     });
+
+    await router.push('/admin/quiz');
 
 }
 

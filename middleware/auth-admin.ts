@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (!user.value && to.path !== '/') {
         return navigateTo('/');
     } else if (user.value && to.path === '/') {
-        return navigateTo('/private');
+        return navigateTo('/admin/dashboard');
     }
 
     if (user.value) {

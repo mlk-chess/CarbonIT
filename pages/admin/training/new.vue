@@ -15,6 +15,7 @@ const title = ref("");
 const description = ref("");
 const dateTraining = ref(null);
 const timeTraining = ref(null);
+const router = useRouter()
 
 
 async function saveTraining() {
@@ -28,6 +29,8 @@ async function saveTraining() {
       timeTraining : timeTraining.value
     }
   });
+
+   await router.push('/admin/training');
 }
 </script>
 
@@ -49,15 +52,6 @@ async function saveTraining() {
             <textarea v-model="description" type="text" name="description" id="description"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                    placeholder="description" required=""></textarea>
-          </div>
-          <div>
-            <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>
-            <select v-model="status" id="status"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-custom-blue focus:border-custom-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-              <option selected value="0">À venir</option>
-              <option value="1">En cours</option>
-              <option value="2">Terminé</option>
-            </select>
           </div>
 
           <div class="w-full">
