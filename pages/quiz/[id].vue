@@ -3,12 +3,12 @@ import { initFlowbite } from 'flowbite';
 
 const quizStarted = ref(false)
 const quizFinished = ref(false)
-// const questions = [ref([])]
 const currentQuestionIndex = ref(0)
-const selectedOption = ref(null)
 const correctAnswers = ref(0)
+const correctAnswersClient = ref(0)
 const isLoading = ref(true);
-
+const dataquiz = ref([]);
+const selectedAnswer = ref([]);
 
 useHead({
     bodyAttrs: {
@@ -18,77 +18,25 @@ useHead({
 
 onMounted(async () => {
     initFlowbite();
+    await getQuizzes();
+})
+
+async function getQuizzes() {
     const isQuizExist = ref(true);
-    const dataquiz = ref([]);
-    const questionsData = ref([
-        {
-            questionText: '',
-            answers: [
-                {
-                    answerText: '',
-                    isCorrect: false
-                }
-            ]
-        }
-    ])
-    const supabase = useSupabaseClient();
     const route = useRoute();
+    const data = await $fetch('/api/quiz/getEverything?id=' + route.params.id, {
+        method: 'get',
+    });
 
-    const { data, error } = await supabase
-        .from('quizzes')
-        .select()
-        .eq('id', route.params.id)
-
-    //Check si data est bien rempli
-    if (data[0] === undefined) {
-        console.log('Erreur: Impossible de récupérer les données du quiz');
+    if (data !== 'Error') {
+        dataquiz.value = data.value;
+        console.log(data.value);
+        console.log(dataquiz.value.length);
         isLoading.value = false;
-        isQuizExist.value = false;
     } else {
-        // Requête pour récupérer les questions
-        const { data: dataQuestions, error: errorQuestions } = await supabase
-            .from('questions')
-            .select()
-            .eq('quiz_id', route.params.id)
-
-        // On met les questions et les réponses qui vont avec la question dans la variable questionsData
-        if (dataQuestions) {
-            // Requête pour récupérer les réponses en fonction des questions
-            const { data: dataAnswers, error: errorAnswers } = await supabase
-                .from('answers')
-                .select()
-                .in('question_id', dataQuestions.map(question => question.id))
-
-            questionsData.value.pop();
-            dataQuestions.forEach(question => {
-                const answers = dataAnswers.filter(answer => answer.question_id === question.id);
-
-                questionsData.value.push({
-                    questionText: question.question_text,
-                    answers: answers.map(answer => {
-                        return {
-                            answerText: answer.answer_text,
-                            isCorrect: answer.is_correct
-                        }
-                    })
-                })
-            });
-            isLoading.value = false;
-        } else {
-            console.log('Erreur: Impossible de récupérer les questions et/ou les réponses');
-        }
-
-        if (error) {
-            console.log(error);
-        } else {
-            isLoading.value = false;
-            dataquiz.value = data;
-        }
-
-        console.log(questionsData.value[0].questionText);
+        isQuizExist.value = false;
     }
-
-});
+}
 
 definePageMeta({
     middleware: ["auth"],
@@ -99,20 +47,22 @@ const startQuiz = () => {
     quizStarted.value = true
 }
 
-const checkAnswer = () => {
-    if (selectedOption.value === true) {
-        correctAnswers.value++
+const checkAnswer = async () => {
+    // Check if answers selected by the clients are corrects
+    const correctAnswers = dataquiz.value[currentQuestionIndex.value].answers.filter((answer) => answer.isCorrect).map((answer) => answer.answer);
+    console.log(selectedAnswer.value);
+    const selectedAnswers = selectedAnswer.value.filter((answer) => answer !== false);
+    console.log(correctAnswers, selectedAnswers);
+    if (correctAnswers.length === selectedAnswers.length && correctAnswers.every((answer) => selectedAnswers.includes(answer))) {
+        correctAnswersClient.value++;
+        console.log(correctAnswersClient.value);
     }
-    if (currentQuestionIndex.value === questionsData.value.length - 1) {
-        quizFinished.value = true
-    } else {
-        currentQuestionIndex.value++
-        selectedOption.value = null
-    }
+    currentQuestionIndex.value++;
+    selectedAnswer.value = [];
+
 }
 
 </script>
-  
 <template>
     <div role="status" class="flex justify-center items-center flex-col h-screen" v-if="isLoading">
         <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -129,21 +79,26 @@ const checkAnswer = () => {
     <div v-else>
         <h2>Quiz</h2>
         <div v-if="quizStarted">
-            <div v-if="!quizFinished">
+            <div v-if="dataquiz[currentQuestionIndex] && !quizFinished">
                 <div>
-                    <h3>{{ questionsData.value[currentQuestionIndex.value].questionText }}</h3>
-                    <div v-for="(answer, index) in questionsData.value[currentQuestionIndex.value].answers" :key="index">
-                        <label>
-                            <input type="radio" :value="answer.isCorrect" v-model="selectedOption">
-                            {{ answer.answerText }}
-                        </label>
+                    <!-- Display questions and answers with mulitple choices -->
+                    <div>
+                        <h3>{{ dataquiz[currentQuestionIndex].question }}</h3>
+                        <ul v-for="(answer, index) in dataquiz[currentQuestionIndex].answers">
+                            <label> {{ ++index }} - </label>
+                            <li :key="index">
+                                <input type="checkbox" :value="answer.answer" v-model="selectedAnswer" />
+                                {{ answer.answer }}
+
+                            </li>
+                        </ul>
+                        <button @click="checkAnswer">Submit</button>
                     </div>
-                    <button @click="checkAnswer">Suivant</button>
                 </div>
             </div>
             <div v-else>
-                <h3>Quiz terminé</h3>
-                <p>Vous avez obtenu {{ correctAnswers }}/{{ questionsData.value.length }} bonnes réponses</p>
+                <h3>Quiz terminé !</h3>
+                <p>Vous avez obtenu {{ correctAnswersClient }} sur {{ dataquiz.length }} correctes.</p>
             </div>
         </div>
         <div v-else>
