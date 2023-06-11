@@ -1,42 +1,42 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Carbon et vous
 
-## Setup
+Carbon et vous est une superbe application magique qui permet de centraliser toutes les fonctionnalités support.
+# Fonctionnalités
 
-Make sure to install the dependencies:
+- Gestion des utilisateurs 
+- Gestion des événements 
+- Gestion des formations 
+- Editeur de quizzs 
+- Gestion des clients 
+- Gestion des missions 
+- Gestion du CV
+- Gamification
+- Gestions des objectifs
+## 🚀 L'équipe
 
-```bash
-# yarn
-yarn install
+- Waseem Nassurally - TheoSigaud
+- Théo Sigaud - waseem1104
+- Jehane Benadjemia - jehanebnj
+- Mohamed Kajeiou - mlk-chess
 
-# npm
-npm install
+## Démarrage du projet
 
-# pnpm
-pnpm install
-```
+### Une version en production est disponible, le lien est dans le fichier sur MyGES avec les identifiants de connexion. (Nous utilisons une base de données Supabase en ligne)
 
-## Development Server
+Pour démarrer le projet vous devez :
 
-Start the development server on `http://localhost:3000`
+1) Copier .env.example à la racine du projet en le renommant .env. (Les tokens sont dans le fichier sur MyGes). Remplacer les bonnes valeurs.
 
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
+2) Installer les dépendances
 
 ```bash
-npm run preview
+  npm install
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+3) Lancer le projet
+
+```bash
+  npm run dev
+```
+
