@@ -9,7 +9,7 @@
       <div class=" items-center mt-5 pb-5 sm:pr-5">
         <p v-if="goal.status == 0" class="mb-3 italic text-gray-500">En cours</p>
         <p v-if="goal.status == 1" class="mb-3 italic text-gray-500">Validé</p>
-        <p v-if="goal.status == 2" class="mb-3 italic text-gray-500">Non validé</p>
+        <p v-if="goal.status == -1" class="mb-3 italic text-gray-500">Non validé</p>
       </div>
     </ul> 
   </div>
@@ -17,7 +17,7 @@
 
 <script setup>
 definePageMeta({
-  middleware: ["auth-admin"],
+  middleware: ["auth"],
   layout: "user",
 });
 
@@ -29,14 +29,23 @@ useHead({
   const goals = ref(null)
   const supabase = useSupabaseClient();
 
-  onMounted( async () => {
 
-      const { data, error } = await supabase.from('goal').select('*');
-      if (error) {
-      console.error(error);
-      } else {
-      goals.value = data;
-      }
+
+  async function getGoals() {
+
+  const data = await $fetch('/api/goal/getAllGoalsByUser', {
+    method: 'get',
+    
+  });
+  
+  goals.value = data;
+
+  console.log(goals.value);
+  
+}
+
+  onMounted( async () => {
+    getGoals();
   })
 
 </script>

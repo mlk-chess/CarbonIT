@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         }
     
 
-        const {data, error} = await supabase.from('goal').select().eq('user_id',id).eq('status',0).limit(4);
+        const {data, error} = await supabase.from('goal').select().eq('user_id',id);
 
         if (error) {
             return 'Error';

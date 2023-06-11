@@ -64,7 +64,7 @@
                 
                 <div class="grid md:grid-cols-2">
                     <div v-for="(goal, index) in goals" :key="index" class="p-2 bg-custom-white shadow border border-custom-green rounded mx-1 mt-2">
-                      <div v-if="goal.status == 1">
+                      <div v-if="goal.status == 0">
                         <h5 class="mb-2 text-xl font-medium">{{goal.title}}</h5>
                         <div class="">
                             <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">En cours</span>
@@ -73,9 +73,14 @@
                       </div>
                     </div>
                 </div>
+                 <div class="flex justify-end">
+                   
+                    <NuxtLink :href="'/admin/goal/list/'+ id"
+                        class="text-white bg-custom-green font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-custom-black hover:text-white">
+                   Ajouter
+                    </NuxtLink>
+                </div>
 
-                
-                
             </div>
 
             <div class="md:w-1/2 bg-custom-white shadow rounded p-5">

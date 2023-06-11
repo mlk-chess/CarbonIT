@@ -27,13 +27,27 @@ import {initFlowbite} from "flowbite";
   getGoals();
 }
 
-async function getGoals() {
-  const { data, error } = await supabase.from('goal').select('*').eq('user_id', id);
-  if (error) {
-    console.error(error);
-  } else {
-    goals.value = data;
+useHead({
+  bodyAttrs: {
+    class: 'bg-[#F1F8FF]'
   }
+});
+
+
+definePageMeta({
+  middleware: ["auth-admin"],
+  layout: "user"
+});
+
+async function getGoals() {
+
+  const data = await $fetch('/api/goal/getAllGoalsByUser?id='+id, {
+    method: 'get',
+    
+  });
+  
+  goals.value = data;
+  
 }
 
 const deleteObjectif = async (goalId) => {
@@ -41,6 +55,20 @@ const deleteObjectif = async (goalId) => {
     method: 'delete',
     body: {
       id: goalId
+    }
+  });
+  getGoals();
+};
+
+
+const update = async (goalId,status) => {
+
+  
+  await $fetch('/api/goal/editStatus', {
+    method: 'put',
+    body: {
+      id: goalId,
+      status:status
     }
   });
   getGoals();
@@ -56,7 +84,7 @@ const deleteObjectif = async (goalId) => {
   <section>
     <div class="container mx-auto mt-10">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="w-full bg-white text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">
@@ -87,7 +115,7 @@ const deleteObjectif = async (goalId) => {
               <span
                   class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Validé</span>
             </th>
-            <th v-if="goal.status === 2" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th v-if="goal.status === -1" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <span
                   class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Non validé</span>
             </th>
@@ -102,12 +130,17 @@ const deleteObjectif = async (goalId) => {
             <th scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex">
               
-              <NuxtLink :href="`/admin/goal/edit-${goal.id}/${id}`" class="ml-5 hover:cursor-pointer hover:text-blue-400">
-                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" 
-                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
+              <button v-if="goal.status !== 1" class="ml-5 hover:cursor-pointer hover:text-red-400" @click="update(goal.id,1)">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-              </NuxtLink>
+              </button>
+
+              <button v-if="goal.status !== -1" class="ml-5 hover:cursor-pointer hover:text-red-400" @click="update(goal.id,-1)">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              </button>
               
 
               <button class="ml-5 hover:cursor-pointer hover:text-red-400" @click="deleteObjectif(goal.id)">
